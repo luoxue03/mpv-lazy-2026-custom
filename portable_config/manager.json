@@ -1,0 +1,20 @@
+[
+  {
+    "git": "https://github.com/hooke007/MPV_lazy.git",
+    "branch": "main",
+    "whitelist": "^fonts/",
+    "dest": "~~/fonts"
+  },
+  {
+    "git": "https://github.com/hooke007/MPV_lazy.git",
+    "branch": "main",
+    "whitelist": "^luts/",
+    "dest": "~~/luts"
+  },
+  {
+    "git": "https://github.com/hooke007/MPV_lazy.git",
+    "branch": "main",
+    "whitelist": "^shaders/",
+    "dest": "~~/shaders"
+  }
+]
