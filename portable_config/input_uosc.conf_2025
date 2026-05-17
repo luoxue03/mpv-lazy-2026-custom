@@ -1,0 +1,148 @@
+### 文档_ https://github.com/hooke007/mpv_PlayKit/blob/main/portable_config/input.conf
+### 文档_ https://github.com/hooke007/mpv_PlayKit/blob/main/portable_config/input_uosc.conf
+
+
+#                  script-binding uosc/open-file                         #! 加载 > ※ 文件浏览器
+ Ctrl+Shift+v      update-clipboard text; loadfile ${clipboard/text}     #! 加载 > 剪贴板URL
+#                  script-binding uosc/load-subtitles                    #! 加载 > ※ 导入 字幕轨
+
+#                  script-binding uosc/playlist                          #! 导航 > ※ 播放列表
+#                  script-binding uosc/editions                          #! 导航 > ※ 版本列表
+#                  script-binding uosc/chapters                          #! 导航 > ※ 章节列表
+#                  script-binding uosc/video                             #! 导航 > ※ 视频轨列表
+#                  script-binding uosc/audio                             #! 导航 > ※ 音频轨列表
+#                  script-binding uosc/subtitles                         #! 导航 > ※ 字幕轨列表
+#                  playlist-shuffle                                      #! 导航 > 播放列表乱序重排
+
+ ,                 frame-back-step                                       #! 播放 > 上一帧
+ .                 frame-step                                            #! 播放 > 下一帧
+ l                 ab-loop                                               #! 播放 > 设置/清除 AB循环点
+ [                 no-osd cycle-values speed 2 1.5 1.2 1 ; script-message-to uosc flash-elements speed   #! 播放 > 切换 速度 -
+ ]                 no-osd cycle-values speed 1 1.2 1.5 2 ; script-message-to uosc flash-elements speed   #! 播放 > 切换 速度 +
+ {                 no-osd add speed -0.1 ; script-message-to uosc flash-elements speed   #! 播放 > 切换 速度 -0.1
+ }                 no-osd add speed  0.1 ; script-message-to uosc flash-elements speed   #! 播放 > 切换 速度 +0.1
+ -                 no-osd add volume -1 ; script-message-to uosc flash-elements volume   #! 播放 > 音量 -
+ =                 no-osd add volume  1 ; script-message-to uosc flash-elements volume   #! 播放 > 音量 +
+#                  ignore                                                #! 播放 > ---
+ c                 add audio-delay -0.1                                  #! 播放 > 音频预载 100ms
+ v                 add audio-delay  0.1                                  #! 播放 > 音频延迟 100ms
+ z                 add sub-delay -0.1                                    #! 播放 > 字幕预载 100ms
+ x                 add sub-delay  0.1                                    #! 播放 > 字幕延迟 100ms
+#                  ignore                                                #! 播放 > ---
+ Shift+BS          set audio-delay 0 ; set sub-delay 0                   #! 播放 > 重置 音频与字幕同步
+
+#                  ignore                                                #! ---
+ ~                 vf clr ""                                             #! VF 滤镜 > 清空
+#                                                                        #! VF 滤镜 > ---
+ !                 vf set vapoursynth="~~/vs/MEMC_MVT_LQ.vpy"            #! VF 滤镜 > 预设 补帧 MVTools_快速
+ @                 vf set vapoursynth="~~/vs/MEMC_RIFE_DML.vpy"          #! VF 滤镜 > 预设 补帧 RIFE_DX12
+ SHARP             vf set vapoursynth="~~/vs/MEMC_DRBA_DML.vpy"          #! VF 滤镜 > 预设 补帧 DRBA_DX12
+ $                 vf set vapoursynth="~~/vs/MEMC_RIFE_NV.vpy"           #! VF 滤镜 > 预设 补帧 RIFE_RTX (DLC-vsNV)
+ %                 vf set vapoursynth="~~/vs/MEMC_DRBA_NV.vpy"           #! VF 滤镜 > 预设 补帧 DRBA_RTX (DLC-vsNV)
+#                  ignore                                                #! VF 滤镜 > ---
+ ^                 vf set vapoursynth="~~/vs/MIX_UAI_DML.vpy"            #! VF 滤镜 > 预设 自定义AI UAI_DX12
+ &                 vf set vapoursynth="~~/vs/MIX_UAI_NV_TRT.vpy"         #! VF 滤镜 > 预设 自定义AI UAI_RTX (DLC-vsNV)
+
+ Ctrl+`            change-list glsl-shaders clr ""                       #! 着色器 > 清空
+#                  ignore                                                #! 着色器 > ---
+ Ctrl+1            change-list glsl-shaders toggle "~~/shaders/Ani/Ani4Kv2_ArtCNN_C4F32_i2_dx.glsl"   #! 着色器 > 开关 LUMA: Ani4Kv2
+ Ctrl+2            change-list glsl-shaders toggle "~~/shaders/Ani/AniSD_ArtCNN_C4F32_i4_dx.glsl"     #! 着色器 > 开关 LUMA: AniSD
+ Ctrl+3            change-list glsl-shaders toggle "~~/shaders/FSRCNNX/FSRCNNX_x2_16_0_4_1.glsl"      #! 着色器 > 开关 LUMA: FSRCNNX
+ Ctrl+4            change-list glsl-shaders toggle "~~/shaders/EDI/nnedi3_nns64_win8x4.glsl"          #! 着色器 > 开关 LUMA: NNEDI3
+#                  ignore                                                #! 着色器 > ---
+ Ctrl+5            change-list glsl-shaders toggle "~~/shaders/Anime4K/Anime4K_Restore_CNN_L.glsl"      #! 着色器 > 开关 MAIN: A4K_重建
+ Ctrl+6            change-list glsl-shaders toggle "~~/shaders/Anime4K/Anime4K_Upscale_GAN_x2_M.glsl"   #! 着色器 > 开关 MAIN: A4K_放大
+ Ctrl+7            change-list glsl-shaders toggle "~~/shaders/ESRGAN/k7_modernAnime_FHD_x2.glsl"       #! 着色器 > 开关 MAIN: k7 Anime
+ Ctrl+8            change-list glsl-shaders toggle "~~/shaders/ESRGAN/k7_modernAnime_DT_FHD_x2.glsl"    #! 着色器 > 开关 MAIN: k7 Anime_DT
+#                  ignore                                                #! 着色器 > ---
+ Ctrl+9            change-list glsl-shaders toggle "~~/shaders/QCOM/QCOM_SGEDS_ms_RT.glsl"            #! 着色器 > 开关 POSTKERNEL: QCOM_主缩放锐化 RT (*)
+#                  ignore                                                #! 着色器 > ---
+ Ctrl+0            change-list glsl-shaders toggle "~~/shaders/Adaptive_sharpen/Adaptive_sharpen_lite_RT.glsl"   #! 着色器 > 开关 SCALED: 自适应锐化lite RT
+
+#                  ignore                                                #! ---
+ Ctrl+s            screenshot scaled+subtitles                           #! 截屏 > 窗口（无OSD）
+ Ctrl+S            screenshot window                                     #! 截屏 > 窗口
+#                  screenshot video                                      #! 截屏 > 原始
+
+#                  cycle-values hwdec "auto" "auto-copy" "no"            #! 视频 > 切换 解码模式
+#                  cycle deband                                          #! 视频 > 切换 去色带状态
+#                  cycle deinterlace                                     #! 视频 > 切换 去隔行状态
+#                  cycle icc-profile-auto                                #! 视频 > 切换 自动校色
+#                  cycle correct-pts                                     #! 视频 > 切换 时间码解析模式
+ 1                 add contrast -1                                       #! 视频 > 均衡器 > 对比度 -
+ 2                 add contrast  1                                       #! 视频 > 均衡器 > 对比度 +
+ 3                 add brightness -1                                     #! 视频 > 均衡器 > 亮度/明度 -
+ 4                 add brightness  1                                     #! 视频 > 均衡器 > 亮度/明度 +
+ 5                 add gamma -1                                          #! 视频 > 均衡器 > 伽马 -
+ 6                 add gamma  1                                          #! 视频 > 均衡器 > 伽马 +
+ 7                 add saturation -1                                     #! 视频 > 均衡器 > 饱和度/纯度 -
+ 8                 add saturation  1                                     #! 视频 > 均衡器 > 饱和度/纯度 +
+ 9                 add hue -1                                            #! 视频 > 均衡器 > 色相 -
+ 0                 add hue  1                                            #! 视频 > 均衡器 > 色相 +
+#                  ignore                                                #! 视频 > 均衡器 > ---
+ Ctrl+BS           set contrast 0 ; set brightness 0 ; set gamma 0 ; set saturation 0 ; set hue 0 #! 视频 > 均衡器 > 重置 全部
+
+ Ctrl+i            script-binding uosc/keybinds                          #! 工具 > ※ 按键绑定列表
+ I                 script-binding display-stats-toggle                   #! 工具 > 常驻显示统计信息
+ `                 script-binding commands/open                          #! 工具 > 显示OSD命令行（控制台）
+ Ctrl+r            script-message-to save_global_props clean_data        #! 工具 > 清除已记录的属性值
+#                  cycle border                                          #! 工具 > 切换 窗口边框
+#                  cycle ontop                                           #! 工具 > 切换 窗口置顶
+#                  script-binding input_plus/input_test_toggle           #! 工具 > 按键名检测
+ g                 ignore
+ g-m               script-binding select/menu                            #! 工具 > 打开select总菜单
+ g-p               script-binding select/show-properties                 #! 工具 > 打开select分菜单-属性列表
+#                  script-binding uosc/audio-device                      #! 工具 > ※ 音频输出设备列表
+#                  script-binding uosc/stream-quality                    #! 工具 > ※ 流式传输品质
+#                  script-binding uosc/show-in-directory                 #! 工具 > ※ 打开 当前文件所在路径
+#                  script-binding uosc/open-config-directory             #! 工具 > ※ 打开 设置目录
+
+#                  ignore                                                #! ---
+#                  script-message-to input_plus lazy-helper 0            #! 关于 > ※ 项目主页
+#                  script-message-to input_plus lazy-helper 1            #! 关于 > ※ mpv手册
+#                  script-message-to input_plus lazy-helper 2            #! 关于 > ※ 中文手册
+#                  script-message-to input_plus lazy-helper 3            #! 关于 > ※ FAQ
+#                  script-message-to input_plus lazy-helper 4            #! 关于 > ※ 滤镜指北
+#                  script-message-to input_plus lazy-helper 5            #! 关于 > ※ 着色器指南
+#                  ignore                                                #! ---
+#                  stop                                                  #! 停止
+ Ctrl+q            quit                                                  #! 退出mpv
+
+
+### ====================== 不映射菜单 ======================
+
+ POWER             quit                                                  # 退出
+ PLAY              set pause no                                          # 暂停
+ PAUSE             set pause yes                                         # 播放
+ PLAYPAUSE         cycle pause                                           # 暂停/播放
+ STOP              stop                                                  # 停止
+ REWIND            seek -30 ; script-message-to uosc flash-elements timeline   # 向前跳转30秒，刷新uosc进度条
+ FORWARD           seek  30 ; script-message-to uosc flash-elements timeline   # 向后跳转30秒，刷新uosc进度条
+ PREV              script-binding uosc/prev                              # uosc跳转上一个文件
+ NEXT              script-binding uosc/next                              # uosc跳转下一个文件
+
+ MBTN_BACK         script-binding uosc/prev
+ MBTN_FORWARD      script-binding uosc/next
+ MBTN_LEFT         ignore
+ MBTN_LEFT_DBL     cycle fullscreen                                      # 全屏/窗口
+ MBTN_RIGHT        script-binding uosc/menu                              # 打开uosc菜单
+ Ctrl+MBTN_RIGHT   context-menu                                          # 打开原生菜单
+ MBTN_RIGHT_DBL    ignore
+
+#WHEEL_DOWN        no-osd add volume -1 ; script-message-to uosc flash-elements volume   # 音量降低，刷新uosc音量条
+#WHEEL_UP          no-osd add volume  1 ; script-message-to uosc flash-elements volume   # 音量升高，刷新uosc音量条
+
+ ESC               set fullscreen no                                      # 窗口
+ ENTER             set fullscreen yes                                     # 全屏
+ Alt+ENTER         cycle fullscreen
+ SPACE             cycle pause
+ UP                set pause yes ; seek -1 exact ; script-message-to uosc flash-elements timeline   # 暂停，向前精确跳转1秒，刷新uosc进度条
+ DOWN              set pause yes ; seek  1 exact ; script-message-to uosc flash-elements timeline   # 暂停，向后精确跳转1秒，刷新uosc进度条
+ LEFT              seek -5 ; script-message-to uosc flash-elements timeline
+ RIGHT             seek  5 ; script-message-to uosc flash-elements timeline
+ Ctrl+UP           script-binding uosc/prev
+ Ctrl+DOWN         script-binding uosc/next
+ Alt+MBTN_LEFT     script-binding positioning/drag-to-pan                 # 移动画面
+ BS                no-osd set video-zoom 0 ; no-osd set panscan 0 ; no-osd set video-pan-x 0 ; no-osd set video-pan-y 0 ; no-osd set video-align-x 0 ; no-osd set video-align-y 0 ; show-text "重置 --video-zoom --panscan --video-pan --video-align"
+ Alt+WHEEL_DOWN    script-binding positioning/cursor-centric-zoom -0.1    # 缩小画面
+ Alt+WHEEL_UP      script-binding positioning/cursor-centric-zoom  0.1    # 放大画面
