@@ -11,11 +11,6 @@ faster-whisper-win/
 # 缓存
 _cache/
 
-# Python
-Lib/
-site-packages/
-Scripts/
-__pycache__/
 
 # VapourSynth 插件
 vs-plugins/
