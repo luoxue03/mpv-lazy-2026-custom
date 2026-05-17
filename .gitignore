@@ -1,0 +1,30 @@
+﻿# 二进制 / 预编译
+*.exe
+*.dll
+*.pyd
+*.asi
+*.pyc
+
+# AI 模型 (不提交)
+faster-whisper-win/
+
+# 缓存
+_cache/
+
+# Python
+Lib/
+site-packages/
+Scripts/
+__pycache__/
+
+# VapourSynth 插件
+vs-plugins/
+vs-coreplugins/
+
+# 安装器
+installer/
+
+# 其他
+*.log
+*.db
+node_modules/
