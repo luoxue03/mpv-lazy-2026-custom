@@ -20,6 +20,9 @@ local o = {
     model = "base",
     -- Device to use, available devices are: cpu, cuda
     device = "cpu",
+    -- Compute type to use, 
+    -- available types are: default,auto,int8,int8_float16,int8_float32,int8_bfloat16,int16,float16,float32,bfloat16
+    compute_type = "default",
     -- Specify the language of transcription
     -- Leave it blank and it will be automatically detected
     language = "",
@@ -89,6 +92,16 @@ local function file_exists(path)
     if path then
         local meta = utils.file_info(path)
         return meta and meta.is_file
+    end
+    return false
+end
+
+local function is_writable(path)
+    local file = io.open(path, "w")
+    if file then
+        file:close()
+        os.remove(path)
+        return true
     end
     return false
 end
@@ -698,6 +711,11 @@ local function fastwhisper_cmd(file_path, sub_path)
         table.insert(args, o.language)
     end
 
+    if o.compute_type ~= "" and o.compute_type ~= "default" then
+        table.insert(args, "--compute_type")
+        table.insert(args, o.compute_type)
+    end
+
     return args
 end
 
@@ -717,6 +735,10 @@ local function fastwhisper()
     end
 
     if file_exists(subtitles_file) then return end
+
+    if not is_writable(subtitles_file) then
+        subtitles_file = utils.join_path(temp_path, fname .. ".srt")
+    end
 
     local screenx, screeny, aspect = mp.get_osd_size()
     mp.set_osd_ass(screenx, screeny, "{\\an9}● ")
@@ -911,6 +933,10 @@ local function fastwhisper_segment()
         return
     end
 
+    if not is_writable(subtitles_file) then
+        subtitles_file = utils.join_path(temp_path, fname .. ".srt")
+    end
+
     mp.osd_message("AI subtitle generation in progress", 9)
     msg.info("AI subtitle generation in progress")
 
@@ -1047,7 +1073,7 @@ local function whisper()
     local cache = mp.get_property_native("cache")
     local cache_state = mp.get_property_native("demuxer-cache-state")
     local cache_ranges = cache_state and cache_state["seekable-ranges"] or {}
-    if path and is_protocol(path) or cache == "auto" and #cache_ranges > 0 then
+    if path and is_protocol(path) or (cache == "auto" and #cache_ranges > 0) then
         time_ranges = {}
         local subtitle_count = 0
         local current_pos = mp.get_property_native("time-pos")
