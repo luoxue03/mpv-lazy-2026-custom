@@ -23,3 +23,8 @@ installer/
 *.log
 *.db
 node_modules/
+.qoder/repowiki/zh/meta/repowiki-metadata.json
+portable_config/recent.json
+portable_config/saved-props.json
+portable_config/trakt_config.json
+config.json
