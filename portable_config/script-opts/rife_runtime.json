@@ -1,16 +1,1 @@
-{
-  "model": 46,
-  "model_label": "4.6",
-  "turbo": 2,
-  "flow_scale": 1.0,
-  "h_pre": 2160,
-  "fps_num": 2,
-  "fps_den": 1,
-  "sc_mode": 1,
-  "gpu": 0,
-  "gpu_t": 2,
-  "ws_size": 0,
-  "lk_fmt": false,
-  "updated_by": "codex-bootstrap",
-  "updated_at": "2026-06-13 00:00:00"
-}
+{"gpu":0,"gpu_t":2,"ws_size":0,"lk_fmt":false,"flow_scale":1,"updated_at":"2026-06-13 16:50:52","updated_by":"rife_runtime_menu","model":426,"model_label":"4.26","turbo":2,"h_pre":2160,"fps_num":2,"fps_den":1,"sc_mode":1}
