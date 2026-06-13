@@ -138,29 +138,15 @@ local function select_config(model_id, turbo_value, flow_value)
 end
 
 local function flow_item(model, turbo, flow, current)
-    local supported = model.flow_scale or flow.value == 1.0
-    local title = 'flow_scale=' .. flow.label
-    local hint = flow.hint
-    if not supported then
-        hint = '不可选：vs-mlrt 限制 v4.7 及之后模型（包括 4.15/4.22/4.25/4.26）只能使用 1.0'
-    end
-    local item = {
-        title = title,
-        hint = hint,
-        muted = not supported,
-        italic = not supported,
-        selectable = supported,
-        active = supported and current.model == model.id and current.turbo == turbo.value and current.flow_scale == flow.value,
+    return {
+        title = 'flow_scale=' .. flow.label,
+        hint = flow.hint,
+        active = current.model == model.id and current.turbo == turbo.value and current.flow_scale == flow.value,
+        value = { 'script-message-to', script_name, 'select', tostring(model.id), tostring(turbo.value), tostring(flow.value) },
     }
-    if supported then
-        item.value = { 'script-message-to', script_name, 'select', tostring(model.id), tostring(turbo.value), tostring(flow.value) }
-    else
-        item.value = 'ignore'
-    end
-    return item
 end
 
-local function turbo_item(model, turbo, current)
+local function turbo_hint(model, turbo)
     local hint = turbo.hint
     if turbo.value == 0 and not model.ensemble then
         hint = hint .. '；该模型不支持 ensemble，实际会接近 turbo=1'
@@ -168,13 +154,27 @@ local function turbo_item(model, turbo, current)
     if turbo.value == 2 and not model.v2 then
         hint = hint .. '；该模型无 rife_v2 文件，底层可能回退到 implementation=1'
     end
+    return hint
+end
+
+local function turbo_item(model, turbo, current)
+    local hint = turbo_hint(model, turbo)
+    if not model.flow_scale then
+        return {
+            title = 'Turbo ' .. turbo.label,
+            hint = hint .. '；flow_scale 固定为 1.0',
+            active = current.model == model.id and current.turbo == turbo.value and current.flow_scale == 1.0,
+            value = { 'script-message-to', script_name, 'select', tostring(model.id), tostring(turbo.value), '1.0' },
+        }
+    end
+
     local items = {}
     for _, flow in ipairs(flow_options) do
         items[#items + 1] = flow_item(model, turbo, flow, current)
     end
     return {
         title = 'Turbo ' .. turbo.label,
-        hint = hint,
+        hint = hint .. '；继续选择 flow_scale',
         items = items,
     }
 end
