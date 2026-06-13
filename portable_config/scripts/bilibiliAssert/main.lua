@@ -22,6 +22,8 @@ local o = {
 	filter_file = "",
 	-- python可执行文件路径，默认为环境变量的python，若无法运行请指定 python[.exe] 的路径
 	python_path = "python",
+	-- enable danmaku automatically after file-loaded
+	auto_load = false,
 }
 
 options.read_options(o, _, function() end)
@@ -176,7 +178,12 @@ end
 
 -- toggle function
 function asstoggle(event)
-	if not file_exists(danmu_file) then return end
+	if not file_exists(danmu_file) then
+		if not event then
+			assprocess()
+		end
+		return
+	end
 	if danmu_open then
 		log('停火')
 		danmu_open = false
@@ -205,7 +212,9 @@ function asstoggle(event)
 end
 
 mp.add_key_binding('b', 'toggle', asstoggle)
-mp.register_event("file-loaded", assprocess)
+if o.auto_load then
+	mp.register_event("file-loaded", assprocess)
+end
 mp.register_event("end-file", function()
 	asstoggle(true)
 	if file_exists(danmu_file) then

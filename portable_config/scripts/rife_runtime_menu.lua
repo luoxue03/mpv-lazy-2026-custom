@@ -7,28 +7,28 @@ local default_config_path = mp.command_native({ 'expand-path', '~~/script-opts/r
 local runtime_vpy = '~~/vs/MEMC_RIFE_NV_runtime.vpy'
 
 local models = {
-    { id = 46, label = '4.6', hint = '稳定通用；当前列表中唯一支持 flow_scale=0.5/0.25 的模型', flow_scale = true, ensemble = true, v2 = true },
-    { id = 4151, label = '4.15 lite', hint = '轻量旧模型；性能优先；vs-mlrt 不支持 flow_scale<1.0', flow_scale = false, ensemble = true, v2 = true },
-    { id = 422, label = '4.22', hint = '旧质量取向；负载较高；vs-mlrt 不支持 flow_scale<1.0', flow_scale = false, ensemble = false, v2 = true },
-    { id = 4221, label = '4.22 lite', hint = '旧轻量模型；速度优先；vs-mlrt 不支持 flow_scale<1.0', flow_scale = false, ensemble = false, v2 = true },
-    { id = 4251, label = '4.25 lite', hint = '你常用的轻量模型；4K复杂运动需实测；vs-mlrt 不支持 flow_scale<1.0', flow_scale = false, ensemble = false, v2 = true },
-    { id = 426, label = '4.26', hint = '较新质量取向；负载高；vs-mlrt 不支持 flow_scale<1.0', flow_scale = false, ensemble = false, v2 = true },
-    { id = 4262, label = '4.26 heavy', hint = '重型模型；负载极高；vs-mlrt 不支持 flow_scale<1.0', flow_scale = false, ensemble = false, v2 = true },
-    { id = 47, label = '4.7', hint = '侧重横移/细线稳定性测试；官方仅支持 flow_scale=1.0；无 rife_v2 文件', flow_scale = false, ensemble = false, v2 = false },
-    { id = 48, label = '4.8', hint = '动画线条/色块场景测试；官方仅支持 flow_scale=1.0；无 rife_v2 文件', flow_scale = false, ensemble = false, v2 = false },
-    { id = 49, label = '4.9', hint = '动画/实拍混合场景测试；官方仅支持 flow_scale=1.0；无 rife_v2 文件', flow_scale = false, ensemble = false, v2 = false },
+    { id = 46, label = '4.6', hint = '稳定通用', flow_scale = true, ensemble = true, v2 = true },
+    { id = 4151, label = '4.15 lite', hint = '轻量旧模型；性能优先', flow_scale = false, ensemble = true, v2 = true },
+    { id = 422, label = '4.22', hint = '旧质量取向；负载较高', flow_scale = false, ensemble = false, v2 = true },
+    { id = 4221, label = '4.22 lite', hint = '旧轻量模型；速度优先', flow_scale = false, ensemble = false, v2 = true },
+    { id = 4251, label = '4.25 lite', hint = '轻量模型', flow_scale = false, ensemble = false, v2 = true },
+    { id = 426, label = '4.26', hint = '较新质量取向；负载高', flow_scale = false, ensemble = false, v2 = true },
+    { id = 4262, label = '4.26 heavy', hint = '重型模型；负载极高', flow_scale = false, ensemble = false, v2 = true },
+    { id = 47, label = '4.7', hint = '侧重横移/细线稳定性', flow_scale = false, ensemble = false, v2 = false },
+    { id = 48, label = '4.8', hint = '动画线条/色块场景', flow_scale = false, ensemble = false, v2 = false },
+    { id = 49, label = '4.9', hint = '动画/实拍混合场景', flow_scale = false, ensemble = false, v2 = false },
 }
 
 local turbo_options = {
     { value = 0, label = '0', hint = '质量优先路径；支持 ensemble 的模型负载最高' },
     { value = 1, label = '1', hint = 'TensorRT 外部处理路径；质量/兼容均衡，负载较高' },
-    { value = 2, label = '2', hint = '2025 类快速路径；优先流畅，适合 4K 播放测试' },
+    { value = 2, label = '2', hint = '快速路径；优先流畅，适合 4K 播放' },
 }
 
 local flow_options = {
     { value = 1.0, label = '1.0', hint = '完整光流分辨率；质量优先，负载最高' },
     { value = 0.5, label = '0.5', hint = '半分辨率光流；4K 流畅优先，运动细节可能下降' },
-    { value = 0.25, label = '0.25', hint = '四分之一光流；极限流畅测试，细节风险最高' },
+    { value = 0.25, label = '0.25', hint = '四分之一光流；极限流畅，细节风险最高' },
 }
 
 local fallback_config = {
@@ -153,10 +153,10 @@ end
 local function turbo_hint(model, turbo)
     local hint = turbo.hint
     if turbo.value == 0 and not model.ensemble then
-        hint = hint .. '；该模型不支持 ensemble，实际会接近 turbo=1'
+        hint = hint .. ''
     end
     if turbo.value == 2 and not model.v2 then
-        hint = hint .. '；该模型无 rife_v2 文件，底层可能回退到 implementation=1'
+        hint = hint .. ''
     end
     return hint
 end
@@ -178,7 +178,7 @@ local function turbo_item(model, turbo, current)
     end
     return {
         title = 'Turbo ' .. turbo.label,
-        hint = hint .. '；继续选择 flow_scale',
+        hint = hint .. '',
         items = items,
     }
 end
@@ -237,3 +237,4 @@ mp.register_script_message('save-default', save_default)
 mp.register_script_message('select', select_config)
 mp.add_key_binding(nil, 'open-menu', open_menu)
 mp.add_key_binding(nil, 'apply-default', apply_default)
+mp.add_forced_key_binding('Ctrl+Alt+f', 'apply-default-shortcut', apply_default)
