@@ -111,6 +111,10 @@ local function describe(config)
     return string.format('RIFE %s｜turbo=%d｜flow_scale=%.2g', config.model_label, config.turbo, config.flow_scale)
 end
 
+local function describe_short(config)
+    return string.format('%s / T%d / F%.2g', config.model_label, config.turbo, config.flow_scale)
+end
+
 local function apply_config(config)
     config = normalize_config(config)
     if not write_config(current_config_path, config) then return end
@@ -208,17 +212,17 @@ local function open_menu()
         items = {
             {
                 title = '设置当前配置为默认',
-                hint = describe(current),
+                hint = describe_short(current),
                 value = { 'script-message-to', script_name, 'save-default' },
             },
             {
                 title = '应用默认配置',
-                hint = describe(default) .. '（快捷键 Ctrl+Alt+f）',
+                hint = describe_short(default) .. '｜Ctrl+Alt+f',
                 value = { 'script-message-to', script_name, 'apply-default' },
             },
             {
                 title = '选择模型',
-                hint = '选择模型后继续选择 Turbo 与 flow_scale',
+                hint = '选模型 / Turbo / flow_scale',
                 items = model_items,
             },
         },
