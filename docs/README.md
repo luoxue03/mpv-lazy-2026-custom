@@ -10,7 +10,7 @@
 | [TensorRT 深度调研参考](research/deep-research-report.md) | 外部/深度调研汇总，作为假设和后续验证参考 | 需要继续拆 TensorRT 性能根因时 |
 | [调研报告索引](research/README.md) | 本仓库内手工研究报告的目录和阅读顺序 | 想按主题追溯决策过程时 |
 | [Repowiki 知识库索引](repowiki/README.md) | `.qoder/repowiki` 自动/半自动知识库的导航 | 想按模块理解 mpv-lazy 配置体系时 |
-| [2025 文档快照](archive/mpv-lazy-25-install/INDEX.md) | 从 `D:\mpv-lazy-25_install` 复制的 Trellis/Claude/旧版文档 | 追溯 2025 自定义、迁移规则和历史调研时 |
+| [2025 迁移文档精选](archive/2025-migration/INDEX.md) | 按内容筛选后的 2025→2026 迁移记录 | 追溯 2025 自定义、迁移规则、模型和插件决策时 |
 | [README.MD](../README.MD) | 上游 mpv_PlayKit / mpv-lazy 原始说明入口 | 查官方使用说明和上游链接时 |
 
 ## 当前主线结论
@@ -37,13 +37,13 @@
 - `portable_config/scripts/uosc_danmaku/README.md`
 - `portable_config/scripts/trakt-scrobble/README.md`
 
-### 2025 文档快照
+### 2025 迁移文档精选
 
-2025 安装目录中的 Markdown 已复制到 `docs/archive/mpv-lazy-25-install/`，索引见：
+2025 安装目录中的 Markdown 已按内容筛选后归档到 `docs/archive/2025-migration/`，索引见：
 
-- [2025 文档快照索引](archive/mpv-lazy-25-install/INDEX.md)
+- [2025 迁移文档精选索引](archive/2025-migration/INDEX.md)
 
-这批文件保留 `.trellis/`、`.claude/`、`mpv_PlayKit_clone/` 等原相对路径，用于追溯迁移规则、历史调研、旧版说明和 Trellis 工作流上下文。
+这批文件删除了 Trellis/Claude 通用模板、空 journal、license、issue 模板等低价值内容，只保留迁移规则、历史调研、旧版说明和外部资料快照。
 
 ## 维护规则
 
