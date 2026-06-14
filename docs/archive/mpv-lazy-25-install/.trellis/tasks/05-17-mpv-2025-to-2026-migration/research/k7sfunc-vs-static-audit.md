@@ -1,0 +1,88 @@
+# k7sfunc VS Static Audit
+
+Target: F:/mpv_2026/mpv-lazy
+
+## Summary
+
+- k7sfunc exported symbols parsed: 234
+- VS presets with k7f/k7sfunc refs: 88
+- Unique referenced k7 symbols: 23
+- Missing referenced symbols: 2
+- RIFE model values detected: RIFE_DML:46, RIFE_NV:46, RIFE_NV:422, RIFE_NV:426, RIFE_NV:4151, RIFE_NV:4221, RIFE_NV:4251, RIFE_NV:4262, RIFE_STD:23, RIFE_STD:70, RIFE_STD:72, RIFE_STD:73
+- Presets calling ESRGAN*: 7
+- Presets calling WAIFU*: 0
+
+## Missing Referenced Symbols
+
+- ESRGAN_NV: MEMC_MVT_STD_SR_ESRGAN_NV.vpy, MEMC_RIFE_NV_SR_ESRGAN_NV.vpy, MEMC_RIFE_NV_SR_ESRGAN_NV_2K.vpy, MEMC_RIFE_NV_SR_ESRGAN_NV_janaiv3_hd_2K.vpy, MEMC_RIFE_NV_SR_ESRGAN_NV_janaiv3_hd_4K.vpy, SR_ESRGAN_NV_janaiv3-hd_1080.vpy, SR_ESRGAN_NV_janaiv3-hd_720.vpy
+- MVT_STD: MEMC_MVT_STD.vpy, MEMC_MVT_STD_SR_ARTCNN_2K.vpy, MEMC_MVT_STD_SR_ARTCNN_4K.vpy, MEMC_MVT_STD_SR_ESRGAN_NV.vpy, MEMC_MVT_STD_UAI_NV_TRT_2K.vpy, MEMC_MVT_STD_UAI_NV_TRT_4K.vpy
+
+## RIFE Models By Preset
+
+- MEMC_RIFE_DML.vpy: RIFE_DML model=46
+- MEMC_RIFE_DML_2025.vpy: RIFE_DML model=46
+- MEMC_RIFE_NV.vpy: RIFE_NV model=46
+- MEMC_RIFE_NV_2025.vpy: RIFE_NV model=46, RIFE_NV model=46
+- MEMC_RIFE_NV_4.15_lite.vpy: RIFE_NV model=4151
+- MEMC_RIFE_NV_4.15_lite_SR_ARTCNN_2K.vpy: RIFE_NV model=4151
+- MEMC_RIFE_NV_4.15_lite_SR_ARTCNN_4K.vpy: RIFE_NV model=4151
+- MEMC_RIFE_NV_4.15_lite_UAI_NV_TRT_2K.vpy: RIFE_NV model=4151
+- MEMC_RIFE_NV_4.15_lite_UAI_NV_TRT_4K.vpy: RIFE_NV model=4151
+- MEMC_RIFE_NV_4.22.vpy: RIFE_NV model=422
+- MEMC_RIFE_NV_4.22_SR_ARTCNN_2K.vpy: RIFE_NV model=422
+- MEMC_RIFE_NV_4.22_SR_ARTCNN_4K.vpy: RIFE_NV model=422
+- MEMC_RIFE_NV_4.22_UAI_NV_TRT_2K.vpy: RIFE_NV model=422
+- MEMC_RIFE_NV_4.22_UAI_NV_TRT_4K.vpy: RIFE_NV model=422
+- MEMC_RIFE_NV_4.22_lite.vpy: RIFE_NV model=4221
+- MEMC_RIFE_NV_4.22_lite_SR_ARTCNN_2K.vpy: RIFE_NV model=4221
+- MEMC_RIFE_NV_4.22_lite_SR_ARTCNN_4K.vpy: RIFE_NV model=4221
+- MEMC_RIFE_NV_4.22_lite_UAI_NV_TRT_2K.vpy: RIFE_NV model=4221
+- MEMC_RIFE_NV_4.22_lite_UAI_NV_TRT_4K.vpy: RIFE_NV model=4221
+- MEMC_RIFE_NV_4.25_lite.vpy: RIFE_NV model=4251
+- MEMC_RIFE_NV_4.25_lite_SR_ARTCNN_2K.vpy: RIFE_NV model=4251
+- MEMC_RIFE_NV_4.25_lite_SR_ARTCNN_4K.vpy: RIFE_NV model=4251
+- MEMC_RIFE_NV_4.25_lite_UAI_NV_TRT_2K.vpy: RIFE_NV model=4251
+- MEMC_RIFE_NV_4.25_lite_UAI_NV_TRT_4K.vpy: RIFE_NV model=4251
+- MEMC_RIFE_NV_4.26.vpy: RIFE_NV model=46
+- MEMC_RIFE_NV_4.26_SR_ARTCNN_2K.vpy: RIFE_NV model=426
+- MEMC_RIFE_NV_4.26_SR_ARTCNN_4K.vpy: RIFE_NV model=426
+- MEMC_RIFE_NV_4.26_UAI_NV_TRT_2K.vpy: RIFE_NV model=426
+- MEMC_RIFE_NV_4.26_UAI_NV_TRT_4K.vpy: RIFE_NV model=426
+- MEMC_RIFE_NV_4.26_heavy.vpy: RIFE_NV model=4262
+- MEMC_RIFE_NV_4.26_heavy_SR_ARTCNN_2K.vpy: RIFE_NV model=4262
+- MEMC_RIFE_NV_4.26_heavy_SR_ARTCNN_4K.vpy: RIFE_NV model=4262
+- MEMC_RIFE_NV_4.26_heavy_UAI_NV_TRT_2K.vpy: RIFE_NV model=4262
+- MEMC_RIFE_NV_4.26_heavy_UAI_NV_TRT_4K.vpy: RIFE_NV model=4262
+- MEMC_RIFE_NV_4.6.vpy: RIFE_NV model=46
+- MEMC_RIFE_NV_4.6_SR_ARTCNN_2K.vpy: RIFE_NV model=46
+- MEMC_RIFE_NV_4.6_SR_ARTCNN_4K.vpy: RIFE_NV model=46
+- MEMC_RIFE_NV_4.6_UAI_NV_TRT_2K.vpy: RIFE_NV model=46
+- MEMC_RIFE_NV_4.6_UAI_NV_TRT_4K.vpy: RIFE_NV model=46
+- MEMC_RIFE_NV_SR_ESRGAN_NV.vpy: RIFE_NV model=46
+- MEMC_RIFE_NV_SR_ESRGAN_NV_2K.vpy: RIFE_NV model=46
+- MEMC_RIFE_NV_SR_ESRGAN_NV_janaiv3_hd_2K.vpy: RIFE_NV model=4151
+- MEMC_RIFE_NV_SR_ESRGAN_NV_janaiv3_hd_4K.vpy: RIFE_NV model=4151
+- MEMC_RIFE_STD.vpy: RIFE_STD model=23
+- MEMC_RIFE_STD_2025.vpy: RIFE_STD model=23
+- MEMC_RIFE_STD_4.25_lite.vpy: RIFE_STD model=70
+- MEMC_RIFE_STD_4.26.vpy: RIFE_STD model=72
+- MEMC_RIFE_STD_4.26_heavy.vpy: RIFE_STD model=73
+- MEMC_RIFE_STD_4.6.vpy: RIFE_STD model=23
+
+## ESRGAN Presets
+
+- MEMC_MVT_STD_SR_ESRGAN_NV.vpy
+- MEMC_RIFE_NV_SR_ESRGAN_NV.vpy
+- MEMC_RIFE_NV_SR_ESRGAN_NV_2K.vpy
+- MEMC_RIFE_NV_SR_ESRGAN_NV_janaiv3_hd_2K.vpy
+- MEMC_RIFE_NV_SR_ESRGAN_NV_janaiv3_hd_4K.vpy
+- SR_ESRGAN_NV_janaiv3-hd_1080.vpy
+- SR_ESRGAN_NV_janaiv3-hd_720.vpy
+
+## WAIFU Presets
+
+- None
+
+## Referenced Symbols
+
+ACNET_STD, ARTCNN_NV, BM3D_NV, CCD_STD, DEINT_EX, DRBA_DML, DRBA_NV, ESRGAN_NV, FMT_CTRL, FPS_CTRL, IVTC_STD, MVT_LQ, MVT_STD, RIFE_DML, RIFE_NV, RIFE_STD, SVP_LQ, SVP_PRO, UAI_DML, UAI_MIGX, UAI_NV_TRT, UVR_MAD, vs_t_dft

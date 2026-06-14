@@ -1,0 +1,332 @@
+# User 2025 Customization Classification
+
+Source: `official-2025-vs-user-2025-diff.json`.
+Purpose: separate real user customization from upstream version drift, runtime files, and downloaded artifacts.
+
+## Classification Rules
+- A / Must migrate: user-added scripts, VS presets, and shaders that still have clear functional value.
+- B / Review item by item: modified official configs, k7sfunc, uosc/input_plus, and root helper files.
+- C / Keep as reference only: old implementations replaced or removed by 2026.
+- D / Ignore by default: runtime files, binary dependencies, caches, and unclear downloaded artifacts.
+
+## A. Must migrate or already migrated but still needs validation (146)
+- `portable_config/scripts/inputevent.lua` (13330B) - Input event helper for custom bindings.
+- `portable_config/scripts/manager.lua` (4992B) - User script manager/status integration.
+- `portable_config/scripts/mpv-torrserver.lua` (8555B) - TorrServer integration plugin. No clear script upstream found; keep local version.
+- `portable_config/scripts/quality-menu.lua` (40668B) - Streaming quality selection menu.
+- `portable_config/scripts/recentmenu.lua` (12271B) - Recent history menu plugin. No clear upstream found; keep local version.
+- `portable_config/scripts/sponsorblock_minimal.lua` (4947B) - SponsorBlock plugin. Upstream has a tiny cleanup update; update is recommended.
+- `portable_config/scripts/sub-fastwhisper.lua` (38822B) - AI subtitle transcription plugin. Check upstream before updating; keep local options, never commit API key.
+- `portable_config/scripts/bilibiliAssert/Danmu2Ass.exe` (6209223B) - Bilibili danmaku ASS helper binary.
+- `portable_config/scripts/bilibiliAssert/Danmu2Ass.py` (23274B) - Bilibili danmaku ASS helper source.
+- `portable_config/scripts/bilibiliAssert/main.lua` (6024B) - Bilibili danmaku/assert plugin.
+- `portable_config/shaders/ACNet.glsl` (241242B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/ACNet_HDN_L1.glsl` (241799B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/ACNet_HDN_L2.glsl` (241797B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/ACNet_HDN_L3.glsl` (239016B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/AiUpscale_Fast_2x_LineArt.glsl` (137403B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/AiUpscale_Fast_2x_Photo.glsl` (137447B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/AiUpscale_Fast_3x_LineArt.glsl` (150532B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/AiUpscale_Fast_3x_Photo.glsl` (150467B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/AiUpscale_Fast_4x_LineArt.glsl` (165911B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/AiUpscale_Fast_4x_Photo.glsl` (165903B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/AiUpscale_Fast_Sharp_2x_LineArt.glsl` (137472B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/AiUpscale_Fast_Sharp_2x_Photo.glsl` (137490B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/AiUpscale_Fast_Sharp_3x_LineArt.glsl` (150701B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/AiUpscale_Fast_Sharp_3x_Photo.glsl` (150734B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/AiUpscale_Fast_Sharp_4x_LineArt.glsl` (165998B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/AiUpscale_Fast_Sharp_4x_Photo.glsl` (165954B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/AMD_CAS.glsl` (9238B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/AMD_CAS_lite2_rgb.glsl` (6605B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/AMD_CAS_lite_luma.glsl` (3406B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/AMD_CAS_lite_rgb.glsl` (3407B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/AMD_CAS_rgb.glsl` (9693B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/AMD_CAS_scaled.glsl` (13955B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/AMD_CAS_scaled_rgb.glsl` (17799B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/Anime4K_legacy_09.glsl` (7744B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/Anime4K_legacy_10.glsl` (14538B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/Anime4K_legacy_10_Fast.glsl` (8850B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/Anime4K_legacy_10_UltraFast.glsl` (6462B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/ArtCNN_C4F16_CMP.glsl` (212306B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/ArtCNN_C4F16_DS_CMP.glsl` (212173B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/ArtCNN_C4F32_Chroma.glsl` (804700B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/ArtCNN_C4F32_CMP.glsl` (758973B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/ArtCNN_C4F32_DS_CMP.glsl` (758517B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/ArtCNN_C4F8.glsl` (59257B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/ArtCNN_C4F8_CMP.glsl` (68709B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/ArtCNN_C4F8_DS.glsl` (59234B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/ArtCNN_C4F8_DS_CMP.glsl` (68669B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/CfL_Prediction.glsl` (9517B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/CuNNy_2x12.glsl` (51668B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/CuNNy_2x12_vk.glsl` (30350B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/CuNNy_3x12.glsl` (70987B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/CuNNy_3x12_vk.glsl` (39100B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/CuNNy_4x12.glsl` (90385B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/CuNNy_4x12_vk.glsl` (47844B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/CuNNy_4x16.glsl` (146227B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/CuNNy_4x16_vk.glsl` (69985B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/CuNNy_4x24.glsl` (305287B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/CuNNy_4x24_vk.glsl` (132385B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/CuNNy_4x32.glsl` (520130B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/CuNNy_4x32_vk.glsl` (211278B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/CuNNy_8x32.glsl` (1011935B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/CuNNy_8x32_vk.glsl` (394893B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/CuNNy_fast.glsl` (43587B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/CuNNy_faster.glsl` (28955B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/CuNNy_veryfast.glsl` (22768B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/dehaasn.glsl` (468B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/fake_hdr.glsl` (2176B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/fast_gaussian_blur_RT.glsl` (10999B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/faux_hdr.glsl` (2913B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/FGCine_freebdl_RT.glsl` (2003655B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/flip_h.glsl` (144B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/flip_v.glsl` (144B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/gray_chroma.glsl` (91B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/gray_rgb_2020.glsl` (227B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/gray_rgb_601.glsl` (223B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/gray_rgb_709.glsl` (226B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/gray_rgb_dp3.glsl` (226B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/Krell_pinkgirl_RT.glsl` (80367B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/LumaSharpen.glsl` (8084B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/mirror_RT.glsl` (1858B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/noise_static_chroma.glsl` (678B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/noise_static_luma.glsl` (635B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/pan_RT.glsl` (1027B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/plane_splitV2_RT.glsl` (1772B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/plane_split_RT.glsl` (1788B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/rotate_180.glsl` (321B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/rotate_RT.glsl` (1137B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/saturate.glsl` (1022B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/YIQ_converter.glsl` (871B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/shaders/zoom_RT.glsl` (505B) - User-added shader. Place in 2026 category directory; same-name conflicts get _2025 suffix.
+- `portable_config/vs/MEMC_MVT_STD_SR_ARTCNN_2K.vpy` (2327B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_MVT_STD_SR_ARTCNN_4K.vpy` (2328B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_MVT_STD_SR_ESRGAN_NV.vpy` (1686B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_MVT_STD_UAI_NV_TRT_2K.vpy` (2550B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_MVT_STD_UAI_NV_TRT_4K.vpy` (2551B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.15_lite.vpy` (1162B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.15_lite_SR_ARTCNN_2K.vpy` (2567B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.15_lite_SR_ARTCNN_4K.vpy` (2568B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.15_lite_UAI_NV_TRT_2K.vpy` (2786B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.15_lite_UAI_NV_TRT_4K.vpy` (2787B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.22.vpy` (1161B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.22_lite.vpy` (1162B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.22_lite_SR_ARTCNN_2K.vpy` (2567B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.22_lite_SR_ARTCNN_4K.vpy` (2564B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.22_lite_UAI_NV_TRT_2K.vpy` (2786B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.22_lite_UAI_NV_TRT_4K.vpy` (2787B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.22_SR_ARTCNN_2K.vpy` (2562B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.22_SR_ARTCNN_4K.vpy` (2563B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.22_UAI_NV_TRT_2K.vpy` (2785B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.22_UAI_NV_TRT_4K.vpy` (2786B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.25_lite.vpy` (1162B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.25_lite_SR_ARTCNN_2K.vpy` (2563B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.25_lite_SR_ARTCNN_4K.vpy` (2564B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.25_lite_UAI_NV_TRT_2K.vpy` (2786B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.25_lite_UAI_NV_TRT_4K.vpy` (2787B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.26.vpy` (1160B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.26_heavy.vpy` (1162B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.26_heavy_SR_ARTCNN_2K.vpy` (2563B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.26_heavy_SR_ARTCNN_4K.vpy` (2564B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.26_heavy_UAI_NV_TRT_2K.vpy` (2786B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.26_heavy_UAI_NV_TRT_4K.vpy` (2787B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.26_SR_ARTCNN_2K.vpy` (2562B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.26_SR_ARTCNN_4K.vpy` (2561B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.26_UAI_NV_TRT_2K.vpy` (2785B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.26_UAI_NV_TRT_4K.vpy` (2786B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.6.vpy` (1160B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.6_SR_ARTCNN_2K.vpy` (2567B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.6_SR_ARTCNN_4K.vpy` (2544B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.6_UAI_NV_TRT_2K.vpy` (2784B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_4.6_UAI_NV_TRT_4K.vpy` (2785B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_SR_ESRGAN_NV.vpy` (2549B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_SR_ESRGAN_NV_2K.vpy` (2548B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_SR_ESRGAN_NV_janaiv3_hd_2K.vpy` (2553B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_NV_SR_ESRGAN_NV_janaiv3_hd_4K.vpy` (2554B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_STD_4.25_lite.vpy` (1142B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_STD_4.26.vpy` (1142B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_STD_4.26_heavy.vpy` (1142B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MEMC_RIFE_STD_4.6.vpy` (1142B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MIX_UAI_NV_TRT_2K.vpy` (1592B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/MIX_UAI_NV_TRT_4K.vpy` (1593B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/SR_ACNET_STD.vpy` (967B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/SR_ACNET_STD_2K.vpy` (966B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/SR_ACNET_STD_4K.vpy` (967B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/SR_ARTCNN_NV_2K.vpy` (1284B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/SR_ARTCNN_NV_4K.vpy` (1285B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/SR_ESRGAN_NV_janaiv3-hd_1080.vpy` (1330B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+- `portable_config/vs/SR_ESRGAN_NV_janaiv3-hd_720.vpy` (1329B) - User-added VapourSynth preset. Migrate with k7sfunc compatibility check.
+
+## B. Requires item-by-item review (68)
+- `config.json` (46B) - Root-level auxiliary/user file. Migrate only with explicit purpose and no overwrite.
+- `cookies.txt` (371991B) - Root-level auxiliary/user file. Migrate only with explicit purpose and no overwrite.
+- `k7sfunc - new.py` (134006B) - Root-level auxiliary/user file. Migrate only with explicit purpose and no overwrite.
+- `k7sfunc copy.py` (145593B) - Root-level auxiliary/user file. Migrate only with explicit purpose and no overwrite.
+- `settings.json` (747B) - Root-level auxiliary/user file. Migrate only with explicit purpose and no overwrite.
+- `TorrServer-windows-amd64.exe` (47095296B) - Root-level auxiliary/user file. Migrate only with explicit purpose and no overwrite.
+- `truehdrtweaks.asi` (684544B) - Root-level auxiliary/user file. Migrate only with explicit purpose and no overwrite.
+- `truehdrtweaks.ini` (7095B) - Root-level auxiliary/user file. Migrate only with explicit purpose and no overwrite.
+- `url-scheme-handler.exe` (4291072B) - Root-level auxiliary/user file. Migrate only with explicit purpose and no overwrite.
+- `viewed.json` (278B) - Root-level auxiliary/user file. Migrate only with explicit purpose and no overwrite.
+- `winmm.dll` (373760B) - Root-level auxiliary/user file. Migrate only with explicit purpose and no overwrite.
+- `portable_config/script-opts/mpv_torrserver.conf` (647B) - User-added script options. Activate only if the corresponding script is active in 2026.
+- `portable_config/script-opts/quality-menu.conf` (3934B) - User-added script options. Activate only if the corresponding script is active in 2026.
+- `portable_config/script-opts/recentmenu.conf` (755B) - User-added script options. Activate only if the corresponding script is active in 2026.
+- `portable_config/script-opts/sponsorblock_minimal.conf` (292B) - User-added script options. Activate only if the corresponding script is active in 2026.
+- `portable_config/script-opts/sub_fastwhisper.conf` (1814B) - User-added script options. Activate only if the corresponding script is active in 2026.
+- `installer/mpv-test.conf` (149B) - Modified official file. Inspect before migration.
+- `installer/mpv-测试模式.bat` (925B) - Modified official file. Inspect before migration.
+- `installer/mpv-纯净模式.bat` (1222B) - Modified official file. Inspect before migration.
+- `installer/mpv-跑分模式.bat` (1049B) - Modified official file. Inspect before migration.
+- `installer/mpv-输入模式.bat` (1345B) - Modified official file. Inspect before migration.
+- `k7sfunc.py` (147842B) - User modified official k7sfunc single file. Map custom functions/models into 2026 k7sfunc package; do not activate root single-file copy.
+- `portable_config/input_uosc.conf` (37687B) - User modified core config. Migrate by parameter-level review, not wholesale copy.
+- `portable_config/mpv.conf` (33584B) - User modified core config. Migrate by parameter-level review, not wholesale copy.
+- `portable_config/profiles.conf` (4379B) - User modified core config. Migrate by parameter-level review, not wholesale copy.
+- `portable_config/script-opts.conf` (43293B) - User modified core config. Migrate by parameter-level review, not wholesale copy.
+- `portable_config/script-opts/console.conf` (1573B) - Modified official file. Inspect before migration.
+- `portable_config/script-opts/thumbfast.conf` (1580B) - Modified official file. Inspect before migration.
+- `portable_config/scripts/input_plus.lua` (38028B) - User modified input_plus, but 2026 has major rewrite. Prefer 2026 and compare only user-specific behavior.
+- `portable_config/scripts/uosc/elements/Controls.lua` (17540B) - User modified uosc internals. 2026 uosc is newer; prefer 2026 and extract only deliberate custom patches.
+- `portable_config/scripts/uosc/elements/Element.lua` (9591B) - User modified uosc internals. 2026 uosc is newer; prefer 2026 and extract only deliberate custom patches.
+- `portable_config/scripts/uosc/elements/ManagedButton.lua` (1182B) - User modified uosc internals. 2026 uosc is newer; prefer 2026 and extract only deliberate custom patches.
+- `portable_config/scripts/uosc/elements/Menu.lua` (65624B) - User modified uosc internals. 2026 uosc is newer; prefer 2026 and extract only deliberate custom patches.
+- `portable_config/scripts/uosc/elements/Timeline.lua` (18190B) - User modified uosc internals. 2026 uosc is newer; prefer 2026 and extract only deliberate custom patches.
+- `portable_config/scripts/uosc/elements/TopBar.lua` (15498B) - User modified uosc internals. 2026 uosc is newer; prefer 2026 and extract only deliberate custom patches.
+- `portable_config/scripts/uosc/lib/buttons.lua` (1888B) - User modified uosc internals. 2026 uosc is newer; prefer 2026 and extract only deliberate custom patches.
+- `portable_config/scripts/uosc/lib/char_conv.lua` (1556B) - User modified uosc internals. 2026 uosc is newer; prefer 2026 and extract only deliberate custom patches.
+- `portable_config/scripts/uosc/lib/menus.lua` (36984B) - User modified uosc internals. 2026 uosc is newer; prefer 2026 and extract only deliberate custom patches.
+- `portable_config/scripts/uosc/lib/std.lua` (9961B) - User modified uosc internals. 2026 uosc is newer; prefer 2026 and extract only deliberate custom patches.
+- `portable_config/scripts/uosc/lib/text.lua` (22231B) - User modified uosc internals. 2026 uosc is newer; prefer 2026 and extract only deliberate custom patches.
+- `portable_config/scripts/uosc/lib/utils.lua` (31746B) - User modified uosc internals. 2026 uosc is newer; prefer 2026 and extract only deliberate custom patches.
+- `portable_config/scripts/uosc/main.lua` (46547B) - User modified uosc internals. 2026 uosc is newer; prefer 2026 and extract only deliberate custom patches.
+- `portable_config/shaders/PixelClipper_RT.glsl` (6943B) - Modified official file. Inspect before migration.
+- `portable_config/shaders/fast_gaussian_RT.glsl` (10932B) - Modified official file. Inspect before migration.
+- `portable_config/shaders/plane_block_RT.glsl` (755B) - Modified official file. Inspect before migration.
+- `portable_config/shaders/unsharp_RT.glsl` (1020B) - Modified official file. Inspect before migration.
+- `portable_config/shaders/unsharp_masking_RT.glsl` (752B) - Modified official file. Inspect before migration.
+- `portable_config/vs/MEMC_RIFE_NV.vpy` (1451B) - User modified official VapourSynth preset. Keep 2026 file active and store user variant with _2025 suffix if needed.
+- `portable_config/vs/MIX_UAI_DML.vpy` (1132B) - User modified official VapourSynth preset. Keep 2026 file active and store user variant with _2025 suffix if needed.
+- `portable_config/vs/MIX_UAI_MIGX.vpy` (1202B) - User modified official VapourSynth preset. Keep 2026 file active and store user variant with _2025 suffix if needed.
+- `portable_config/vs/MIX_UAI_NV_TRT.vpy` (1589B) - User modified official VapourSynth preset. Keep 2026 file active and store user variant with _2025 suffix if needed.
+- `.gitattributes` (0B) - Official 2025 file is missing in user local. Verify before restoring.
+- `.github/ISSUE_TEMPLATE/config.yml` (0B) - Official 2025 file is missing in user local. Verify before restoring.
+- `.github/ISSUE_TEMPLATE/错误报告.md` (0B) - Official 2025 file is missing in user local. Verify before restoring.
+- `portable_config/input.conf` (0B) - Official 2025 file is missing in user local. Verify before restoring.
+- `portable_config/input_contextmenu_plus.conf` (0B) - Official 2025 file is missing in user local. Verify before restoring.
+- `portable_config/input_easy.conf` (0B) - Official 2025 file is missing in user local. Verify before restoring.
+- `portable_config/input_list.conf` (0B) - Official 2025 file is missing in user local. Verify before restoring.
+- `portable_config/input_scripts.conf` (0B) - Official 2025 file is missing in user local. Verify before restoring.
+- `portable_config/luts/FGCineBasic.cube` (0B) - Official 2025 file is missing in user local. Verify before restoring.
+- `portable_config/luts/FGCineBright.cube` (0B) - Official 2025 file is missing in user local. Verify before restoring.
+- `portable_config/luts/FGCineCold.cube` (0B) - Official 2025 file is missing in user local. Verify before restoring.
+- `portable_config/luts/FGCineDrama.cube` (0B) - Official 2025 file is missing in user local. Verify before restoring.
+- `portable_config/luts/FGCineTealOrange1.cube` (0B) - Official 2025 file is missing in user local. Verify before restoring.
+- `portable_config/luts/FGCineTealOrange2.cube` (0B) - Official 2025 file is missing in user local. Verify before restoring.
+- `portable_config/luts/FGCineVibrant.cube` (0B) - Official 2025 file is missing in user local. Verify before restoring.
+- `portable_config/luts/FGCineWarm.cube` (0B) - Official 2025 file is missing in user local. Verify before restoring.
+- `portable_config/luts/pinkgirl.cube` (0B) - Official 2025 file is missing in user local. Verify before restoring.
+
+## C. Keep as reference only; do not activate by default (2)
+- `portable_config/fonts/LXGWWenKaiMono-Regular.ttf` (19353996B) - User local asset/example. Keep as reference unless actively used.
+- `portable_config/scripts/thumbfast.lua` (26280B) - User modified old thumbfast. 2026 replaced it with thumb_engine; keep reference only.
+
+## D. Ignore by default; not core customization (98)
+- `7z.dll` (1907712B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `7z.exe` (564736B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `AGENTS.md` (1073B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `AVFS.exe` (165888B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `concrt140.dll` (324720B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `config.db` (32768B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `get-pip.py` (2148718B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `libcrypto-3.dll` (5231472B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `libffi-8.dll` (39696B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `libssl-3.dll` (794992B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `MANIFEST.in` (83B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `mpv.com` (3584B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `mpv.exe` (73896960B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `mpv_lazy_25.lnk` (1012B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `mpv_manual.pdf` (983760B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `msvcp140.dll` (557648B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `msvcp140_1.dll` (35952B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `msvcp140_2.dll` (280176B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `msvcp140_atomic_wait.dll` (50288B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `msvcp140_codecvt_ids.dll` (31880B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `pfm-192-vapoursynth-win.exe` (1403248B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable.vs` (0B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `pyexpat.pyd` (205280B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `python.cat` (568626B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `python.exe` (104928B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `python3.dll` (72536B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `python312.dll` (6921072B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `python312.zip` (3831048B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `python312._pth` (91B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `python313.dll` (6124376B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `python313.zip` (3781000B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `python313._pth` (91B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `pythonw.exe` (104272B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `select.pyd` (33112B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `sqlite3.dll` (1584096B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `truehdrtweaks.log` (2591B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `umpv.exe` (7423974B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `unicodedata.pyd` (712024B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `vccorlib140.dll` (352336B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `vcruntime140.dll` (120400B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `vcruntime140_1.dll` (49776B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `vcruntime140_threads.dll` (38480B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `vsgenstubs.py` (111B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `VSPipe.exe` (239616B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `vsrepo.py` (40494B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `VSScript.dll` (49664B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `VSScriptPython38.dll` (49664B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `VSVFW.dll` (108032B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `winsound.pyd` (32088B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `yt-dlp.exe` (18182514B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `_asyncio.pyd` (73048B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `_bz2.pyd` (86864B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `_ctypes.pyd` (133464B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `_decimal.pyd` (283104B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `_elementtree.pyd` (137048B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `_hashlib.pyd` (69464B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `_lzma.pyd` (159576B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `_msi.pyd` (46584B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `_multiprocessing.pyd` (38232B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `_overlapped.pyd` (56800B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `_queue.pyd` (35160B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `_socket.pyd` (86360B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `_sqlite3.pyd` (129880B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `_ssl.pyd` (182104B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `_uuid.pyd` (27992B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `_wmi.pyd` (39768B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `_zoneinfo.pyd` (50520B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/manager.json` (415B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/recent.json` (16524B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/saved-props.json` (45B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/scripts/uosc/bin/ziggy-windows.exe` (6017536B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/scripts/uosc/lib/fzy.lua` (8164B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/input示例/input.conf` (957B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/input示例/input_contextmenu_plus.conf` (2607B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/input示例/input_easy.conf` (9671B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/input示例/input_list.conf` (5200B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/input示例/input_scripts.conf` (4969B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/滤镜vpy示例/MEMC_MVT_LQ.vpy` (721B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/滤镜vpy示例/MEMC_MVT_STD.vpy` (970B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/滤镜vpy示例/MEMC_MVT_STD_SR_ESRGAN_NV.vpy` (1686B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/滤镜vpy示例/MEMC_RIFE_NV.vpy` (1566B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/滤镜vpy示例/MEMC_RIFE_NV_4.15_lite.vpy` (1567B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/滤镜vpy示例/MEMC_RIFE_NV_4.25_lite.vpy` (1567B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/滤镜vpy示例/MEMC_RIFE_NV_4.6.vpy` (1566B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/滤镜vpy示例/MEMC_RIFE_NV_SR_ESRGAN_NV.vpy` (2548B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/滤镜vpy示例/MEMC_RIFE_NV_SR_ESRGAN_NV_2K.vpy` (2012B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/滤镜vpy示例/MEMC_RIFE_NV_SR_ESRGAN_NV_janaiv3_hd_2K.vpy` (2015B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/滤镜vpy示例/MEMC_RIFE_STD.vpy` (1138B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/滤镜vpy示例/SR_ESRGAN_NV.vpy` (1326B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/滤镜vpy示例/SR_ESRGAN_NV_janaiv3-hd_1080.vpy` (1330B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/滤镜vpy示例/SR_ESRGAN_NV_janaiv3-hd_720.vpy` (1329B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/部分旧版配置文件/input_contextmenu_plus.conf` (2589B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/部分旧版配置文件/input_list.conf` (5200B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/部分旧版配置文件/input_uosc.conf` (23704B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/部分旧版配置文件/mpv.conf` (4162B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/部分旧版配置文件/profiles.conf` (3762B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/部分旧版配置文件/saved-props.json` (31B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.
+- `portable_config/示例/部分旧版配置文件/script-opts.conf` (2658B) - Runtime, binary dependency, cache, or uncategorized artifact. Do not treat as config customization by default.

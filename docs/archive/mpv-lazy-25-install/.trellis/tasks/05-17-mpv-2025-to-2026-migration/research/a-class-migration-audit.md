@@ -1,0 +1,164 @@
+# A-Class Migration Audit
+
+Source: research/user-2025-customization-classification.md
+Target: F:/mpv_2026/mpv-lazy
+
+## Summary
+
+- A-class items: 146
+- Found by original path: 67
+- Found by shader filename after 2026 categorization: 79
+- Missing or not yet mapped: 0
+
+## Missing Or Not Yet Mapped
+
+- None
+
+## Detail
+
+- [found-direct] portable_config/scripts/inputevent.lua -> portable_config\scripts\inputevent.lua
+- [found-direct] portable_config/scripts/manager.lua -> portable_config\scripts\manager.lua
+- [found-direct] portable_config/scripts/mpv-torrserver.lua -> portable_config\scripts\mpv-torrserver.lua
+- [found-direct] portable_config/scripts/quality-menu.lua -> portable_config\scripts\quality-menu.lua
+- [found-direct] portable_config/scripts/recentmenu.lua -> portable_config\scripts\recentmenu.lua
+- [found-direct] portable_config/scripts/sponsorblock_minimal.lua -> portable_config\scripts\sponsorblock_minimal.lua
+- [found-direct] portable_config/scripts/sub-fastwhisper.lua -> portable_config\scripts\sub-fastwhisper.lua
+- [found-direct] portable_config/scripts/bilibiliAssert/Danmu2Ass.exe -> portable_config\scripts\bilibiliAssert\Danmu2Ass.exe
+- [found-direct] portable_config/scripts/bilibiliAssert/Danmu2Ass.py -> portable_config\scripts\bilibiliAssert\Danmu2Ass.py
+- [found-direct] portable_config/scripts/bilibiliAssert/main.lua -> portable_config\scripts\bilibiliAssert\main.lua
+- [found-by-shader-name] portable_config/shaders/ACNet.glsl -> portable_config\shaders\ACNet\ACNet.glsl
+- [found-by-shader-name] portable_config/shaders/ACNet_HDN_L1.glsl -> portable_config\shaders\ACNet\ACNet_HDN_L1.glsl
+- [found-by-shader-name] portable_config/shaders/ACNet_HDN_L2.glsl -> portable_config\shaders\ACNet\ACNet_HDN_L2.glsl
+- [found-by-shader-name] portable_config/shaders/ACNet_HDN_L3.glsl -> portable_config\shaders\ACNet\ACNet_HDN_L3.glsl
+- [found-by-shader-name] portable_config/shaders/AiUpscale_Fast_2x_LineArt.glsl -> portable_config\shaders\AiUpscale\AiUpscale_Fast_2x_LineArt.glsl
+- [found-by-shader-name] portable_config/shaders/AiUpscale_Fast_2x_Photo.glsl -> portable_config\shaders\AiUpscale\AiUpscale_Fast_2x_Photo.glsl
+- [found-by-shader-name] portable_config/shaders/AiUpscale_Fast_3x_LineArt.glsl -> portable_config\shaders\AiUpscale\AiUpscale_Fast_3x_LineArt.glsl
+- [found-by-shader-name] portable_config/shaders/AiUpscale_Fast_3x_Photo.glsl -> portable_config\shaders\AiUpscale\AiUpscale_Fast_3x_Photo.glsl
+- [found-by-shader-name] portable_config/shaders/AiUpscale_Fast_4x_LineArt.glsl -> portable_config\shaders\AiUpscale\AiUpscale_Fast_4x_LineArt.glsl
+- [found-by-shader-name] portable_config/shaders/AiUpscale_Fast_4x_Photo.glsl -> portable_config\shaders\AiUpscale\AiUpscale_Fast_4x_Photo.glsl
+- [found-by-shader-name] portable_config/shaders/AiUpscale_Fast_Sharp_2x_LineArt.glsl -> portable_config\shaders\AiUpscale\AiUpscale_Fast_Sharp_2x_LineArt.glsl
+- [found-by-shader-name] portable_config/shaders/AiUpscale_Fast_Sharp_2x_Photo.glsl -> portable_config\shaders\AiUpscale\AiUpscale_Fast_Sharp_2x_Photo.glsl
+- [found-by-shader-name] portable_config/shaders/AiUpscale_Fast_Sharp_3x_LineArt.glsl -> portable_config\shaders\AiUpscale\AiUpscale_Fast_Sharp_3x_LineArt.glsl
+- [found-by-shader-name] portable_config/shaders/AiUpscale_Fast_Sharp_3x_Photo.glsl -> portable_config\shaders\AiUpscale\AiUpscale_Fast_Sharp_3x_Photo.glsl
+- [found-by-shader-name] portable_config/shaders/AiUpscale_Fast_Sharp_4x_LineArt.glsl -> portable_config\shaders\AiUpscale\AiUpscale_Fast_Sharp_4x_LineArt.glsl
+- [found-by-shader-name] portable_config/shaders/AiUpscale_Fast_Sharp_4x_Photo.glsl -> portable_config\shaders\AiUpscale\AiUpscale_Fast_Sharp_4x_Photo.glsl
+- [found-by-shader-name] portable_config/shaders/AMD_CAS.glsl -> portable_config\shaders\AMD\AMD_CAS.glsl
+- [found-by-shader-name] portable_config/shaders/AMD_CAS_lite2_rgb.glsl -> portable_config\shaders\AMD\AMD_CAS_lite2_rgb.glsl
+- [found-by-shader-name] portable_config/shaders/AMD_CAS_lite_luma.glsl -> portable_config\shaders\AMD\AMD_CAS_lite_luma.glsl
+- [found-by-shader-name] portable_config/shaders/AMD_CAS_lite_rgb.glsl -> portable_config\shaders\AMD\AMD_CAS_lite_rgb.glsl
+- [found-by-shader-name] portable_config/shaders/AMD_CAS_rgb.glsl -> portable_config\shaders\AMD\AMD_CAS_rgb.glsl
+- [found-by-shader-name] portable_config/shaders/AMD_CAS_scaled.glsl -> portable_config\shaders\AMD\AMD_CAS_scaled.glsl
+- [found-by-shader-name] portable_config/shaders/AMD_CAS_scaled_rgb.glsl -> portable_config\shaders\AMD\AMD_CAS_scaled_rgb.glsl
+- [found-by-shader-name] portable_config/shaders/Anime4K_legacy_09.glsl -> portable_config\shaders\Anime4K\Anime4K_legacy_09.glsl
+- [found-by-shader-name] portable_config/shaders/Anime4K_legacy_10.glsl -> portable_config\shaders\Anime4K\Anime4K_legacy_10.glsl
+- [found-by-shader-name] portable_config/shaders/Anime4K_legacy_10_Fast.glsl -> portable_config\shaders\Anime4K\Anime4K_legacy_10_Fast.glsl
+- [found-by-shader-name] portable_config/shaders/Anime4K_legacy_10_UltraFast.glsl -> portable_config\shaders\Anime4K\Anime4K_legacy_10_UltraFast.glsl
+- [found-by-shader-name] portable_config/shaders/ArtCNN_C4F16_CMP.glsl -> portable_config\shaders\ArtCNN\ArtCNN_C4F16_CMP.glsl
+- [found-by-shader-name] portable_config/shaders/ArtCNN_C4F16_DS_CMP.glsl -> portable_config\shaders\ArtCNN\ArtCNN_C4F16_DS_CMP.glsl
+- [found-by-shader-name] portable_config/shaders/ArtCNN_C4F32_Chroma.glsl -> portable_config\shaders\ArtCNN\ArtCNN_C4F32_Chroma.glsl
+- [found-by-shader-name] portable_config/shaders/ArtCNN_C4F32_CMP.glsl -> portable_config\shaders\ArtCNN\ArtCNN_C4F32_CMP.glsl
+- [found-by-shader-name] portable_config/shaders/ArtCNN_C4F32_DS_CMP.glsl -> portable_config\shaders\ArtCNN\ArtCNN_C4F32_DS_CMP.glsl
+- [found-by-shader-name] portable_config/shaders/ArtCNN_C4F8.glsl -> portable_config\shaders\ArtCNN\ArtCNN_C4F8.glsl
+- [found-by-shader-name] portable_config/shaders/ArtCNN_C4F8_CMP.glsl -> portable_config\shaders\ArtCNN\ArtCNN_C4F8_CMP.glsl
+- [found-by-shader-name] portable_config/shaders/ArtCNN_C4F8_DS.glsl -> portable_config\shaders\ArtCNN\ArtCNN_C4F8_DS.glsl
+- [found-by-shader-name] portable_config/shaders/ArtCNN_C4F8_DS_CMP.glsl -> portable_config\shaders\ArtCNN\ArtCNN_C4F8_DS_CMP.glsl
+- [found-by-shader-name] portable_config/shaders/CfL_Prediction.glsl -> portable_config\shaders\CfL\CfL_Prediction.glsl
+- [found-by-shader-name] portable_config/shaders/CuNNy_2x12.glsl -> portable_config\shaders\CuNNy\CuNNy_2x12.glsl
+- [found-by-shader-name] portable_config/shaders/CuNNy_2x12_vk.glsl -> portable_config\shaders\CuNNy\CuNNy_2x12_vk.glsl
+- [found-by-shader-name] portable_config/shaders/CuNNy_3x12.glsl -> portable_config\shaders\CuNNy\CuNNy_3x12.glsl
+- [found-by-shader-name] portable_config/shaders/CuNNy_3x12_vk.glsl -> portable_config\shaders\CuNNy\CuNNy_3x12_vk.glsl
+- [found-by-shader-name] portable_config/shaders/CuNNy_4x12.glsl -> portable_config\shaders\CuNNy\CuNNy_4x12.glsl
+- [found-by-shader-name] portable_config/shaders/CuNNy_4x12_vk.glsl -> portable_config\shaders\CuNNy\CuNNy_4x12_vk.glsl
+- [found-by-shader-name] portable_config/shaders/CuNNy_4x16.glsl -> portable_config\shaders\CuNNy\CuNNy_4x16.glsl
+- [found-by-shader-name] portable_config/shaders/CuNNy_4x16_vk.glsl -> portable_config\shaders\CuNNy\CuNNy_4x16_vk.glsl
+- [found-by-shader-name] portable_config/shaders/CuNNy_4x24.glsl -> portable_config\shaders\CuNNy\CuNNy_4x24.glsl
+- [found-by-shader-name] portable_config/shaders/CuNNy_4x24_vk.glsl -> portable_config\shaders\CuNNy\CuNNy_4x24_vk.glsl
+- [found-by-shader-name] portable_config/shaders/CuNNy_4x32.glsl -> portable_config\shaders\CuNNy\CuNNy_4x32.glsl
+- [found-by-shader-name] portable_config/shaders/CuNNy_4x32_vk.glsl -> portable_config\shaders\CuNNy\CuNNy_4x32_vk.glsl
+- [found-by-shader-name] portable_config/shaders/CuNNy_8x32.glsl -> portable_config\shaders\CuNNy\CuNNy_8x32.glsl
+- [found-by-shader-name] portable_config/shaders/CuNNy_8x32_vk.glsl -> portable_config\shaders\CuNNy\CuNNy_8x32_vk.glsl
+- [found-by-shader-name] portable_config/shaders/CuNNy_fast.glsl -> portable_config\shaders\CuNNy\CuNNy_fast.glsl
+- [found-by-shader-name] portable_config/shaders/CuNNy_faster.glsl -> portable_config\shaders\CuNNy\CuNNy_faster.glsl
+- [found-by-shader-name] portable_config/shaders/CuNNy_veryfast.glsl -> portable_config\shaders\CuNNy\CuNNy_veryfast.glsl
+- [found-by-shader-name] portable_config/shaders/dehaasn.glsl -> portable_config\shaders\dehaasn\dehaasn.glsl
+- [found-by-shader-name] portable_config/shaders/fake_hdr.glsl -> portable_config\shaders\color\fake_hdr.glsl
+- [found-by-shader-name] portable_config/shaders/fast_gaussian_blur_RT.glsl -> portable_config\shaders\ETC\fast_gaussian_blur_RT.glsl; portable_config\shaders\USM\fast_gaussian_blur_RT.glsl
+- [found-by-shader-name] portable_config/shaders/faux_hdr.glsl -> portable_config\shaders\color\faux_hdr.glsl
+- [found-by-shader-name] portable_config/shaders/FGCine_freebdl_RT.glsl -> portable_config\shaders\LUT\FGCine_freebdl_RT.glsl
+- [found-by-shader-name] portable_config/shaders/flip_h.glsl -> portable_config\shaders\mirror\flip_h.glsl
+- [found-by-shader-name] portable_config/shaders/flip_v.glsl -> portable_config\shaders\mirror\flip_v.glsl
+- [found-by-shader-name] portable_config/shaders/gray_chroma.glsl -> portable_config\shaders\color\gray_chroma.glsl
+- [found-by-shader-name] portable_config/shaders/gray_rgb_2020.glsl -> portable_config\shaders\color\gray_rgb_2020.glsl
+- [found-by-shader-name] portable_config/shaders/gray_rgb_601.glsl -> portable_config\shaders\color\gray_rgb_601.glsl
+- [found-by-shader-name] portable_config/shaders/gray_rgb_709.glsl -> portable_config\shaders\color\gray_rgb_709.glsl
+- [found-by-shader-name] portable_config/shaders/gray_rgb_dp3.glsl -> portable_config\shaders\color\gray_rgb_dp3.glsl
+- [found-by-shader-name] portable_config/shaders/Krell_pinkgirl_RT.glsl -> portable_config\shaders\LUT\Krell_pinkgirl_RT.glsl
+- [found-by-shader-name] portable_config/shaders/LumaSharpen.glsl -> portable_config\shaders\AMD\LumaSharpen.glsl
+- [found-by-shader-name] portable_config/shaders/mirror_RT.glsl -> portable_config\shaders\mirror\mirror_RT.glsl
+- [found-by-shader-name] portable_config/shaders/noise_static_chroma.glsl -> portable_config\shaders\plane\noise_static_chroma.glsl
+- [found-by-shader-name] portable_config/shaders/noise_static_luma.glsl -> portable_config\shaders\plane\noise_static_luma.glsl
+- [found-by-shader-name] portable_config/shaders/pan_RT.glsl -> portable_config\shaders\Canvas\pan_RT.glsl; portable_config\shaders\mirror\pan_RT.glsl
+- [found-by-shader-name] portable_config/shaders/plane_splitV2_RT.glsl -> portable_config\shaders\plane\plane_splitV2_RT.glsl
+- [found-by-shader-name] portable_config/shaders/plane_split_RT.glsl -> portable_config\shaders\plane\plane_split_RT.glsl
+- [found-by-shader-name] portable_config/shaders/rotate_180.glsl -> portable_config\shaders\mirror\rotate_180.glsl
+- [found-by-shader-name] portable_config/shaders/rotate_RT.glsl -> portable_config\shaders\Canvas\rotate_RT.glsl; portable_config\shaders\mirror\rotate_RT.glsl
+- [found-by-shader-name] portable_config/shaders/saturate.glsl -> portable_config\shaders\color\saturate.glsl
+- [found-by-shader-name] portable_config/shaders/YIQ_converter.glsl -> portable_config\shaders\color\YIQ_converter.glsl
+- [found-by-shader-name] portable_config/shaders/zoom_RT.glsl -> portable_config\shaders\Canvas\zoom_RT.glsl; portable_config\shaders\mirror\zoom_RT.glsl
+- [found-direct] portable_config/vs/MEMC_MVT_STD_SR_ARTCNN_2K.vpy -> portable_config\vs\MEMC_MVT_STD_SR_ARTCNN_2K.vpy
+- [found-direct] portable_config/vs/MEMC_MVT_STD_SR_ARTCNN_4K.vpy -> portable_config\vs\MEMC_MVT_STD_SR_ARTCNN_4K.vpy
+- [found-direct] portable_config/vs/MEMC_MVT_STD_SR_ESRGAN_NV.vpy -> portable_config\vs\MEMC_MVT_STD_SR_ESRGAN_NV.vpy
+- [found-direct] portable_config/vs/MEMC_MVT_STD_UAI_NV_TRT_2K.vpy -> portable_config\vs\MEMC_MVT_STD_UAI_NV_TRT_2K.vpy
+- [found-direct] portable_config/vs/MEMC_MVT_STD_UAI_NV_TRT_4K.vpy -> portable_config\vs\MEMC_MVT_STD_UAI_NV_TRT_4K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.15_lite.vpy -> portable_config\vs\MEMC_RIFE_NV_4.15_lite.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.15_lite_SR_ARTCNN_2K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.15_lite_SR_ARTCNN_2K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.15_lite_SR_ARTCNN_4K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.15_lite_SR_ARTCNN_4K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.15_lite_UAI_NV_TRT_2K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.15_lite_UAI_NV_TRT_2K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.15_lite_UAI_NV_TRT_4K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.15_lite_UAI_NV_TRT_4K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.22.vpy -> portable_config\vs\MEMC_RIFE_NV_4.22.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.22_lite.vpy -> portable_config\vs\MEMC_RIFE_NV_4.22_lite.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.22_lite_SR_ARTCNN_2K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.22_lite_SR_ARTCNN_2K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.22_lite_SR_ARTCNN_4K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.22_lite_SR_ARTCNN_4K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.22_lite_UAI_NV_TRT_2K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.22_lite_UAI_NV_TRT_2K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.22_lite_UAI_NV_TRT_4K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.22_lite_UAI_NV_TRT_4K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.22_SR_ARTCNN_2K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.22_SR_ARTCNN_2K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.22_SR_ARTCNN_4K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.22_SR_ARTCNN_4K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.22_UAI_NV_TRT_2K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.22_UAI_NV_TRT_2K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.22_UAI_NV_TRT_4K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.22_UAI_NV_TRT_4K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.25_lite.vpy -> portable_config\vs\MEMC_RIFE_NV_4.25_lite.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.25_lite_SR_ARTCNN_2K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.25_lite_SR_ARTCNN_2K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.25_lite_SR_ARTCNN_4K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.25_lite_SR_ARTCNN_4K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.25_lite_UAI_NV_TRT_2K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.25_lite_UAI_NV_TRT_2K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.25_lite_UAI_NV_TRT_4K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.25_lite_UAI_NV_TRT_4K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.26.vpy -> portable_config\vs\MEMC_RIFE_NV_4.26.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.26_heavy.vpy -> portable_config\vs\MEMC_RIFE_NV_4.26_heavy.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.26_heavy_SR_ARTCNN_2K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.26_heavy_SR_ARTCNN_2K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.26_heavy_SR_ARTCNN_4K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.26_heavy_SR_ARTCNN_4K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.26_heavy_UAI_NV_TRT_2K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.26_heavy_UAI_NV_TRT_2K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.26_heavy_UAI_NV_TRT_4K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.26_heavy_UAI_NV_TRT_4K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.26_SR_ARTCNN_2K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.26_SR_ARTCNN_2K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.26_SR_ARTCNN_4K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.26_SR_ARTCNN_4K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.26_UAI_NV_TRT_2K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.26_UAI_NV_TRT_2K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.26_UAI_NV_TRT_4K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.26_UAI_NV_TRT_4K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.6.vpy -> portable_config\vs\MEMC_RIFE_NV_4.6.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.6_SR_ARTCNN_2K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.6_SR_ARTCNN_2K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.6_SR_ARTCNN_4K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.6_SR_ARTCNN_4K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.6_UAI_NV_TRT_2K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.6_UAI_NV_TRT_2K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_4.6_UAI_NV_TRT_4K.vpy -> portable_config\vs\MEMC_RIFE_NV_4.6_UAI_NV_TRT_4K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_SR_ESRGAN_NV.vpy -> portable_config\vs\MEMC_RIFE_NV_SR_ESRGAN_NV.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_SR_ESRGAN_NV_2K.vpy -> portable_config\vs\MEMC_RIFE_NV_SR_ESRGAN_NV_2K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_SR_ESRGAN_NV_janaiv3_hd_2K.vpy -> portable_config\vs\MEMC_RIFE_NV_SR_ESRGAN_NV_janaiv3_hd_2K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_NV_SR_ESRGAN_NV_janaiv3_hd_4K.vpy -> portable_config\vs\MEMC_RIFE_NV_SR_ESRGAN_NV_janaiv3_hd_4K.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_STD_4.25_lite.vpy -> portable_config\vs\MEMC_RIFE_STD_4.25_lite.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_STD_4.26.vpy -> portable_config\vs\MEMC_RIFE_STD_4.26.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_STD_4.26_heavy.vpy -> portable_config\vs\MEMC_RIFE_STD_4.26_heavy.vpy
+- [found-direct] portable_config/vs/MEMC_RIFE_STD_4.6.vpy -> portable_config\vs\MEMC_RIFE_STD_4.6.vpy
+- [found-direct] portable_config/vs/MIX_UAI_NV_TRT_2K.vpy -> portable_config\vs\MIX_UAI_NV_TRT_2K.vpy
+- [found-direct] portable_config/vs/MIX_UAI_NV_TRT_4K.vpy -> portable_config\vs\MIX_UAI_NV_TRT_4K.vpy
+- [found-direct] portable_config/vs/SR_ACNET_STD.vpy -> portable_config\vs\SR_ACNET_STD.vpy
+- [found-direct] portable_config/vs/SR_ACNET_STD_2K.vpy -> portable_config\vs\SR_ACNET_STD_2K.vpy
+- [found-direct] portable_config/vs/SR_ACNET_STD_4K.vpy -> portable_config\vs\SR_ACNET_STD_4K.vpy
+- [found-direct] portable_config/vs/SR_ARTCNN_NV_2K.vpy -> portable_config\vs\SR_ARTCNN_NV_2K.vpy
+- [found-direct] portable_config/vs/SR_ARTCNN_NV_4K.vpy -> portable_config\vs\SR_ARTCNN_NV_4K.vpy
+- [found-direct] portable_config/vs/SR_ESRGAN_NV_janaiv3-hd_1080.vpy -> portable_config\vs\SR_ESRGAN_NV_janaiv3-hd_1080.vpy
+- [found-direct] portable_config/vs/SR_ESRGAN_NV_janaiv3-hd_720.vpy -> portable_config\vs\SR_ESRGAN_NV_janaiv3-hd_720.vpy
