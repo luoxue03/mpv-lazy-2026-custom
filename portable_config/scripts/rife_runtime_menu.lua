@@ -36,9 +36,9 @@ local flow_options = {
 
 local h_pre_options = {
     { value = 2160, label = '2160', ratio = '100%', hint = '原始4K高度;画质⬆⬆⬆负载⬆⬆⬆' },
-    { value = 1920, label = '1920', ratio = '约79%', hint = '高度降低(⬇21%)%;画质⬆⬆⬆负载⬆⬆' },
-    { value = 1608, label = '1608', ratio = '约55%', hint = '宽银幕4K高度(⬇45%);画质⬆⬆负载⬆' },
-    { value = 1440, label = '1440', ratio = '约44%', hint = '2K处理高度(⬇56%);画质⬆负载⬆' },
+    { value = 1920, label = '1920', ratio = '约79%', hint = '4K高度降低;画质⬆⬆⬆负载⬆⬆' },
+    { value = 1608, label = '1608', ratio = '约55%', hint = '宽银幕4K高度;画质⬆⬆负载⬆' },
+    { value = 1440, label = '1440', ratio = '约44%', hint = '2K处理高度;画质⬆负载⬆' },
 }
 
 local fallback_config = {
@@ -253,7 +253,7 @@ local function turbo_item(model, turbo, current)
         end
         return {
             title = 'Turbo ' .. turbo.label,
-            hint = hint .. ';flow_scale 固定为 1.0;' .. h_pre_explain(current.h_pre),
+            hint = hint .. ';flow_scale为1.0;',
             active = current.model == model.id and current.turbo == turbo.value and current.flow_scale == 1.0,
             items = h_pre_items,
         }
@@ -277,7 +277,7 @@ local function model_item(model, current)
     end
     return {
         title = model.label,
-        hint = model.hint .. ';当前' .. h_pre_summary(current.h_pre),
+        hint = model.hint ,
         active = current.model == model.id,
         items = items,
     }
