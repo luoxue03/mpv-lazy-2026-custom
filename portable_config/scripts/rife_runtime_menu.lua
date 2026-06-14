@@ -1,10 +1,13 @@
 local mp = require 'mp'
 local utils = require 'mp.utils'
+local options = require 'mp.options'
 
 local script_name = mp.get_script_name()
 local current_config_path = mp.command_native({ 'expand-path', '~~/script-opts/rife_runtime.json' })
 local default_config_path = mp.command_native({ 'expand-path', '~~/script-opts/rife_runtime_default.json' })
 local runtime_vpy = '~~/vs/MEMC_RIFE_NV_runtime.vpy'
+local opts = { danmaku_fps = '60/1.001' }
+options.read_options(opts, 'uosc_danmaku', function() end)
 
 local models = {
     { id = 46, label = '4.6', hint = '稳定通用', flow_scale = true, ensemble = true, v2 = true },
@@ -115,13 +118,37 @@ local function describe_short(config)
     return string.format('%s / T%d / F%.2g', config.model_label, config.turbo, config.flow_scale)
 end
 
+local function filter_state(label, name)
+    local filters = mp.get_property_native('vf') or {}
+    for _, filter in ipairs(filters) do
+        local params = filter.params or {}
+        if filter.label == label or filter.name == name or params[name] ~= nil then
+            return true
+        end
+    end
+    return false
+end
+
 local function apply_config(config)
     config = normalize_config(config)
     if not write_config(current_config_path, config) then return end
-    mp.commandv('vf', 'set', 'vapoursynth=' .. runtime_vpy)
+
+    local had_danmaku_fps = filter_state('danmaku', 'fps')
+    mp.commandv('vf', 'remove', '@rife_runtime')
+    if had_danmaku_fps then
+        mp.commandv('vf', 'remove', '@danmaku')
+    end
+
+    mp.add_timeout(0.05, function()
+        mp.commandv('vf', 'append', '@rife_runtime:vapoursynth=' .. runtime_vpy)
+        if had_danmaku_fps then
+            mp.add_timeout(0.05, function()
+                mp.commandv('vf', 'append', '@danmaku:fps=fps=' .. opts.danmaku_fps)
+            end)
+        end
+    end)
     mp.osd_message('已应用：' .. describe(config), 4)
 end
-
 local function apply_default()
     apply_config(read_config(default_config_path))
 end
