@@ -1,0 +1,15 @@
+{
+  "local_files": 780,
+  "release_20260510_files": 407,
+  "upstream_main_files": 429,
+  "status_counts": {
+    "same_all": 318,
+    "local_only": 334,
+    "upstream_main_removed": 17,
+    "local_matches_main_new": 39,
+    "local_modified_or_custom": 72
+  },
+  "reference_count": 102,
+  "missing_reference_count": 0,
+  "profile_combo_count": 7
+}

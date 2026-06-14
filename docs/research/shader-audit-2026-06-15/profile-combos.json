@@ -1,0 +1,121 @@
+[
+  {
+    "profile": "Anime4K_1080P_清晰线条低锐度",
+    "line": 102,
+    "count": 6,
+    "refs": [
+      "Anime4K/Anime4K_Clamp_Highlights.glsl",
+      "Anime4K/Anime4K_Restore_CNN_UL.glsl",
+      "Anime4K/Anime4K_Upscale_CNN_x2_UL.glsl",
+      "Anime4K/Anime4K_AutoDownscalePre_x2.glsl",
+      "Anime4K/Anime4K_Thin_HQ.glsl",
+      "Anime4K/Anime4K_Deblur_DoG.glsl"
+    ],
+    "duplicates": [],
+    "warnings": [],
+    "raw": "glsl-shaders = \"~~/shaders/Anime4K/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K/Anime4K_Restore_CNN_UL.glsl;~~/shaders/Anime4K/Anime4K_Upscale_CNN_x2_UL.glsl;~~/shaders/Anime4K/Anime4K_AutoDownscalePre_x2.glsl;~~/shaders/Anime4K/Anime4K_Thin_HQ.glsl;~~/shaders/Anime4K/Anime4K_Deblur_DoG.glsl\""
+  },
+  {
+    "profile": "Anime4K_1080P_细线条观感好",
+    "line": 107,
+    "count": 5,
+    "refs": [
+      "Anime4K/Anime4K_Clamp_Highlights.glsl",
+      "Anime4K/Anime4K_Restore_CNN_UL.glsl",
+      "Anime4K/Anime4K_Upscale_Denoise_CNN_x2_UL.glsl",
+      "Anime4K/Anime4K_AutoDownscalePre_x2.glsl",
+      "Anime4K/Anime4K_Thin_HQ.glsl"
+    ],
+    "duplicates": [],
+    "warnings": [],
+    "raw": "glsl-shaders = \"~~/shaders/Anime4K/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K/Anime4K_Restore_CNN_UL.glsl;~~/shaders/Anime4K/Anime4K_Upscale_Denoise_CNN_x2_UL.glsl;~~/shaders/Anime4K/Anime4K_AutoDownscalePre_x2.glsl;~~/shaders/Anime4K/Anime4K_Thin_HQ.glsl\""
+  },
+  {
+    "profile": "Anime4K_1080P_深线条高锐度",
+    "line": 112,
+    "count": 5,
+    "refs": [
+      "Anime4K/Anime4K_Clamp_Highlights.glsl",
+      "Anime4K/Anime4K_Restore_CNN_UL.glsl",
+      "Anime4K/Anime4K_Upscale_CNN_x2_UL.glsl",
+      "Anime4K/Anime4K_AutoDownscalePre_x2.glsl",
+      "Anime4K/Anime4K_Darken_HQ.glsl"
+    ],
+    "duplicates": [],
+    "warnings": [],
+    "raw": "glsl-shaders = \"~~/shaders/Anime4K/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K/Anime4K_Restore_CNN_UL.glsl;~~/shaders/Anime4K/Anime4K_Upscale_CNN_x2_UL.glsl;~~/shaders/Anime4K/Anime4K_AutoDownscalePre_x2.glsl;~~/shaders/Anime4K/Anime4K_Darken_HQ.glsl\""
+  },
+  {
+    "profile": "Anime4K_720P_清晰线条低锐度",
+    "line": 117,
+    "count": 6,
+    "refs": [
+      "Anime4K/Anime4K_Clamp_Highlights.glsl",
+      "Anime4K/Anime4K_Restore_CNN_UL.glsl",
+      "Anime4K/Anime4K_Upscale_CNN_x2_UL.glsl",
+      "Anime4K/Anime4K_AutoDownscalePre_x4.glsl",
+      "Anime4K/Anime4K_Thin_HQ.glsl",
+      "Anime4K/Anime4K_Upscale_Deblur_DoG_x2.glsl"
+    ],
+    "duplicates": [],
+    "warnings": [
+      "720P→4K 两段式放大链路，结构继承上游但负载较高"
+    ],
+    "raw": "glsl-shaders = \"~~/shaders/Anime4K/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K/Anime4K_Restore_CNN_UL.glsl;~~/shaders/Anime4K/Anime4K_Upscale_CNN_x2_UL.glsl;~~/shaders/Anime4K/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K/Anime4K_Thin_HQ.glsl;~~/shaders/Anime4K/Anime4K_Upscale_Deblur_DoG_x2.glsl\""
+  },
+  {
+    "profile": "Anime4K_720P_细线条观感好",
+    "line": 122,
+    "count": 5,
+    "refs": [
+      "Anime4K/Anime4K_Clamp_Highlights.glsl",
+      "Anime4K/Anime4K_Restore_CNN_UL.glsl",
+      "Anime4K/Anime4K_Upscale_Denoise_CNN_x2_UL.glsl",
+      "Anime4K/Anime4K_AutoDownscalePre_x4.glsl",
+      "Anime4K/Anime4K_Upscale_Denoise_CNN_x2_UL.glsl"
+    ],
+    "duplicates": [
+      "Anime4K/Anime4K_Upscale_Denoise_CNN_x2_UL.glsl"
+    ],
+    "warnings": [
+      "720P→4K 两段式放大链路，结构继承上游但负载较高"
+    ],
+    "raw": "glsl-shaders = \"~~/shaders/Anime4K/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K/Anime4K_Restore_CNN_UL.glsl;~~/shaders/Anime4K/Anime4K_Upscale_Denoise_CNN_x2_UL.glsl;~~/shaders/Anime4K/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K/Anime4K_Upscale_Denoise_CNN_x2_UL.glsl\""
+  },
+  {
+    "profile": "Anime4K_720P_深线条高锐度",
+    "line": 127,
+    "count": 5,
+    "refs": [
+      "Anime4K/Anime4K_Clamp_Highlights.glsl",
+      "Anime4K/Anime4K_Restore_CNN_UL.glsl",
+      "Anime4K/Anime4K_Upscale_CNN_x2_UL.glsl",
+      "Anime4K/Anime4K_AutoDownscalePre_x4.glsl",
+      "Anime4K/Anime4K_Upscale_DTD_x2.glsl"
+    ],
+    "duplicates": [],
+    "warnings": [
+      "720P→4K 两段式放大链路，结构继承上游但负载较高"
+    ],
+    "raw": "glsl-shaders = \"~~/shaders/Anime4K/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K/Anime4K_Restore_CNN_UL.glsl;~~/shaders/Anime4K/Anime4K_Upscale_CNN_x2_UL.glsl;~~/shaders/Anime4K/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K/Anime4K_Upscale_DTD_x2.glsl\""
+  },
+  {
+    "profile": "Anime4K_720P_轻量流畅",
+    "line": 132,
+    "count": 5,
+    "refs": [
+      "Anime4K/Anime4K_Clamp_Highlights.glsl",
+      "Anime4K/Anime4K_Restore_CNN_M.glsl",
+      "Anime4K/Anime4K_Upscale_CNN_x2_M.glsl",
+      "Anime4K/Anime4K_AutoDownscalePre_x4.glsl",
+      "Anime4K/Anime4K_Upscale_CNN_x2_M.glsl"
+    ],
+    "duplicates": [
+      "Anime4K/Anime4K_Upscale_CNN_x2_M.glsl"
+    ],
+    "warnings": [
+      "新增轻量测试项，菜单中默认注释，不影响既有快捷键"
+    ],
+    "raw": "glsl-shaders = \"~~/shaders/Anime4K/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K/Anime4K_Restore_CNN_M.glsl;~~/shaders/Anime4K/Anime4K_Upscale_CNN_x2_M.glsl;~~/shaders/Anime4K/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K/Anime4K_Upscale_CNN_x2_M.glsl\""
+  }
+]
