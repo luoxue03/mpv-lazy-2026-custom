@@ -114,8 +114,65 @@
       "Anime4K/Anime4K_Upscale_CNN_x2_M.glsl"
     ],
     "warnings": [
+      "720P→4K 两段式放大链路，结构继承上游但负载较高",
       "新增轻量测试项，菜单中默认注释，不影响既有快捷键"
     ],
     "raw": "glsl-shaders = \"~~/shaders/Anime4K/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K/Anime4K_Restore_CNN_M.glsl;~~/shaders/Anime4K/Anime4K_Upscale_CNN_x2_M.glsl;~~/shaders/Anime4K/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K/Anime4K_Upscale_CNN_x2_M.glsl\""
+  },
+  {
+    "profile": "标准_1080P_FSRCNNX_fastv2_均衡",
+    "line": 136,
+    "count": 2,
+    "refs": [
+      "FSRCNNX/FSRCNNX_x2_2_12_0_4_1_v1_fastv2.glsl",
+      "QCOM/QCOM_SGEDS_ms_RT.glsl"
+    ],
+    "duplicates": [],
+    "warnings": [
+      "新增标准测试项，菜单中默认注释，用于后续实测"
+    ],
+    "raw": "glsl-shaders = \"~~/shaders/FSRCNNX/FSRCNNX_x2_2_12_0_4_1_v1_fastv2.glsl;~~/shaders/QCOM/QCOM_SGEDS_ms_RT.glsl\""
+  },
+  {
+    "profile": "标准_1080P_FSRCNNX_fastv2_锐利",
+    "line": 141,
+    "count": 2,
+    "refs": [
+      "FSRCNNX/FSRCNNX_x2_2_12_0_4_1_v1sharp_fastv2.glsl",
+      "QCOM/QCOM_SGEDS_ms_RT.glsl"
+    ],
+    "duplicates": [],
+    "warnings": [
+      "新增标准测试项，菜单中默认注释，用于后续实测"
+    ],
+    "raw": "glsl-shaders = \"~~/shaders/FSRCNNX/FSRCNNX_x2_2_12_0_4_1_v1sharp_fastv2.glsl;~~/shaders/QCOM/QCOM_SGEDS_ms_RT.glsl\""
+  },
+  {
+    "profile": "标准_1080P_ACNet_F8B8_线条",
+    "line": 146,
+    "count": 2,
+    "refs": [
+      "ACNet/ACNet_F8B8.glsl",
+      "QCOM/QCOM_SGEDS_ms_RT.glsl"
+    ],
+    "duplicates": [],
+    "warnings": [
+      "新增标准测试项，菜单中默认注释，用于后续实测"
+    ],
+    "raw": "glsl-shaders = \"~~/shaders/ACNet/ACNet_F8B8.glsl;~~/shaders/QCOM/QCOM_SGEDS_ms_RT.glsl\""
+  },
+  {
+    "profile": "标准_1080P_ACNet_F8B8_HDN",
+    "line": 151,
+    "count": 2,
+    "refs": [
+      "ACNet/ACNet_F8B8_hdn.glsl",
+      "QCOM/QCOM_SGEDS_ms_RT.glsl"
+    ],
+    "duplicates": [],
+    "warnings": [
+      "新增标准测试项，菜单中默认注释，用于后续实测"
+    ],
+    "raw": "glsl-shaders = \"~~/shaders/ACNet/ACNet_F8B8_hdn.glsl;~~/shaders/QCOM/QCOM_SGEDS_ms_RT.glsl\""
   }
 ]

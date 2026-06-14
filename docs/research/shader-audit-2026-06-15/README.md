@@ -290,7 +290,7 @@
 
 ## 4. 引用完整性
 
-- 配置中 shader 引用总数：`102`
+- 配置中 shader 引用总数：`116`
 - 缺失引用：`0`
 
 ## 5. 已执行修改
@@ -306,3 +306,12 @@
 - `shader-references.csv`：菜单、profile、mpv.conf 中所有 shader 引用
 - `profile-combos.json`：Anime4K profile 组合结构化分析
 - `summary.json`：统计摘要
+
+
+## 7. 标准分组补充（2026-06-15）
+
+- 已将原 `MAIN 主处理` 菜单分组改名为 `标准`。
+- `k7` 与 `Anime4K` 当前都挂在 `MAIN`，区别是：`k7` 是 ESRGAN 系现代动画 2x 模型，偏强超分/纹理重建；`Anime4K` 是规则化的动画线条重建/放大套件，组合可控性更高。
+- 新增到 `标准` 的 `FSRCNNX fastv2`、`ACNet/ARNet` 实际 hook 是 `LUMA`，菜单文案保留 `(LUMA)` 标识，避免和真正 `MAIN` shader 混淆。
+- 新增 4 个注释状态的标准组合：`FSRCNNX fastv2 均衡`、`FSRCNNX fastv2 锐利`、`ACNet F8B8 线条`、`ACNet F8B8 降噪`。
+- 这些组合默认注释，不占用快捷键；用于后续实测决定是否进入常用入口。
