@@ -1,0 +1,129 @@
+{
+  "combo_count": 128,
+  "ok_count": 128,
+  "failed_count": 0,
+  "top10": [
+    {
+      "combo_id": "m46_4p6_t2_f1p0_h1440",
+      "median_fps": "170.36",
+      "mean_fps": "169.983",
+      "realtime_status": "富余"
+    },
+    {
+      "combo_id": "m46_4p6_t1_f0p25_h1440",
+      "median_fps": "163.64",
+      "mean_fps": "163.967",
+      "realtime_status": "富余"
+    },
+    {
+      "combo_id": "m46_4p6_t1_f0p5_h1440",
+      "median_fps": "150.78",
+      "mean_fps": "150.587",
+      "realtime_status": "富余"
+    },
+    {
+      "combo_id": "m46_4p6_t1_f1p0_h1440",
+      "median_fps": "149.15",
+      "mean_fps": "149.34",
+      "realtime_status": "富余"
+    },
+    {
+      "combo_id": "m47_4p7_t2_f1p0_h1440",
+      "median_fps": "146.55",
+      "mean_fps": "146.777",
+      "realtime_status": "富余"
+    },
+    {
+      "combo_id": "m48_4p8_t2_f1p0_h1440",
+      "median_fps": "145.39",
+      "mean_fps": "145.88",
+      "realtime_status": "富余"
+    },
+    {
+      "combo_id": "m49_4p9_t2_f1p0_h1440",
+      "median_fps": "145.03",
+      "mean_fps": "145.16",
+      "realtime_status": "富余"
+    },
+    {
+      "combo_id": "m4151_4p15_lite_t2_f1p0_h1440",
+      "median_fps": "139.6",
+      "mean_fps": "140.333",
+      "realtime_status": "富余"
+    },
+    {
+      "combo_id": "m46_4p6_t2_f1p0_h1608",
+      "median_fps": "134.03",
+      "mean_fps": "132.687",
+      "realtime_status": "富余"
+    },
+    {
+      "combo_id": "m46_4p6_t1_f0p25_h1608",
+      "median_fps": "130.22",
+      "mean_fps": "130.647",
+      "realtime_status": "富余"
+    }
+  ],
+  "full_height_top10": [
+    {
+      "combo_id": "m46_4p6_t1_f0p25_h2160",
+      "median_fps": "80.17",
+      "mean_fps": "81.81",
+      "realtime_status": "富余"
+    },
+    {
+      "combo_id": "m46_4p6_t2_f1p0_h2160",
+      "median_fps": "74.65",
+      "mean_fps": "73.997",
+      "realtime_status": "富余"
+    },
+    {
+      "combo_id": "m46_4p6_t1_f0p5_h2160",
+      "median_fps": "71.0",
+      "mean_fps": "72.267",
+      "realtime_status": "富余"
+    },
+    {
+      "combo_id": "m49_4p9_t2_f1p0_h2160",
+      "median_fps": "61.31",
+      "mean_fps": "61.42",
+      "realtime_status": "稳"
+    },
+    {
+      "combo_id": "m47_4p7_t2_f1p0_h2160",
+      "median_fps": "61.23",
+      "mean_fps": "61.177",
+      "realtime_status": "稳"
+    },
+    {
+      "combo_id": "m48_4p8_t2_f1p0_h2160",
+      "median_fps": "60.99",
+      "mean_fps": "60.893",
+      "realtime_status": "稳"
+    },
+    {
+      "combo_id": "m4151_4p15_lite_t2_f1p0_h2160",
+      "median_fps": "60.35",
+      "mean_fps": "59.497",
+      "realtime_status": "稳"
+    },
+    {
+      "combo_id": "m46_4p6_t1_f1p0_h2160",
+      "median_fps": "56.6",
+      "mean_fps": "56.767",
+      "realtime_status": "稳"
+    },
+    {
+      "combo_id": "m48_4p8_t1_f1p0_h2160",
+      "median_fps": "54.16",
+      "mean_fps": "54.09",
+      "realtime_status": "临界可用"
+    },
+    {
+      "combo_id": "m48_4p8_t0_f1p0_h2160",
+      "median_fps": "54.1",
+      "mean_fps": "54.057",
+      "realtime_status": "临界可用"
+    }
+  ]
+}
