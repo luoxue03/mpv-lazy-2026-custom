@@ -1,0 +1,1 @@
+Output 100 frames in 0.71 seconds (141.65 fps)

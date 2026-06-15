@@ -1,0 +1,22 @@
+import vapoursynth as vs
+from vapoursynth import core
+import k7sfunc as k7f
+
+core.num_threads = k7f.vs_t_dft
+clip = core.std.BlankClip(width=1920, height=1080, format=vs.YUV420P16, length=105, fpsnum=25, fpsden=1, color=[4096, 32768, 32768])
+clip = k7f.FMT_CTRL(clip, h_max=1920, fmt_pix=0)
+clip = k7f.RIFE_NV(
+    clip,
+    model=46,
+    int8_qnt=False,
+    turbo=1,
+    fps_in=25.0,
+    fps_num=2,
+    fps_den=1,
+    sc_mode=1,
+    gpu=0,
+    gpu_t=2,
+    ws_size=0,
+    flow_scale=0.25,
+)
+clip.set_output()

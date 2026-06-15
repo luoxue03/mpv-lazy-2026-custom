@@ -1,0 +1,217 @@
+&&&& RUNNING TensorRT.trtexec [TensorRT v101300] [b35] # F:/mpv_2026/mpv-lazy/vs-plugins\vsmlrt-cuda\trtexec --onnx=F:/mpv_2026/mpv-lazy/vs-plugins\models\rife_v2\rife_v4.25_lite.onnx --timingCacheFile=F:/mpv_2026/mpv-lazy/vs-plugins\models\rife_v2\83974b5a.engine.cache --device=0 --saveEngine=F:/mpv_2026/mpv-lazy/vs-plugins\models\rife_v2\83974b5a.engine --shapes=input:1x7x1440x3438 --fp16 --tacticSources=-CUBLAS,-CUBLAS_LT,-CUDNN,+EDGE_MASK_CONVOLUTIONS,+JIT_CONVOLUTIONS --useCudaGraph --noDataTransfers --noTF32 --inputIOFormats=fp16:chw --outputIOFormats=fp16:chw --builderOptimizationLevel=3 --precisionConstraints=obey --layerPrecisions=/Cast_2:fp32,/Cast_3:fp32,/Cast_5:fp32,/Cast_7:fp32,/Reciprocal:fp32,/Reciprocal_1:fp32,/Mul:fp32,/Mul_1:fp32,/Mul_8:fp32,/Mul_10:fp32,/Sub_5:fp32,/Sub_6:fp32,ONNXTRT_Broadcast_236:fp32,ONNXTRT_Broadcast_238:fp32,ONNXTRT_Broadcast_273:fp32,ONNXTRT_Broadcast_275:fp32,ONNXTRT_Broadcast_*:fp32
+[06/15/2026-23:31:02] [I] === Model Options ===
+[06/15/2026-23:31:02] [I] Format: ONNX
+[06/15/2026-23:31:02] [I] Model: F:/mpv_2026/mpv-lazy/vs-plugins\models\rife_v2\rife_v4.25_lite.onnx
+[06/15/2026-23:31:02] [I] Output:
+[06/15/2026-23:31:02] [I] === Build Options ===
+[06/15/2026-23:31:02] [I] Memory Pools: workspace: default, dlaSRAM: default, dlaLocalDRAM: default, dlaGlobalDRAM: default, tacticSharedMem: default
+[06/15/2026-23:31:02] [I] avgTiming: 8
+[06/15/2026-23:31:02] [I] Precision: FP32+FP16 (obey precision constraints)
+[06/15/2026-23:31:02] [I] LayerPrecisions: /Mul_1:fp32,/Sub_5:fp32,/Mul_10:fp32,/Cast_2:fp32,/Cast_3:fp32,/Cast_5:fp32,/Cast_7:fp32,/Reciprocal_1:fp32,/Reciprocal:fp32,ONNXTRT_Broadcast_236:fp32,/Mul:fp32,/Mul_8:fp32,/Sub_6:fp32,ONNXTRT_Broadcast_238:fp32,ONNXTRT_Broadcast_273:fp32,ONNXTRT_Broadcast_275:fp32,ONNXTRT_Broadcast_*:fp32
+[06/15/2026-23:31:02] [I] Layer Device Types: 
+[06/15/2026-23:31:02] [I] Calibration: 
+[06/15/2026-23:31:02] [I] Refit: Disabled
+[06/15/2026-23:31:02] [I] Strip weights: Disabled
+[06/15/2026-23:31:02] [I] Version Compatible: Disabled
+[06/15/2026-23:31:02] [I] ONNX Plugin InstanceNorm: Disabled
+[06/15/2026-23:31:02] [I] ONNX kENABLE_UINT8_AND_ASYMMETRIC_QUANTIZATION_DLA flag: Disabled
+[06/15/2026-23:31:02] [I] TensorRT runtime: full
+[06/15/2026-23:31:02] [I] Lean DLL Path: 
+[06/15/2026-23:31:02] [I] Tempfile Controls: { in_memory: allow, temporary: allow }
+[06/15/2026-23:31:02] [I] Exclude Lean Runtime: Disabled
+[06/15/2026-23:31:02] [I] Sparsity: Disabled
+[06/15/2026-23:31:02] [I] Safe mode: Disabled
+[06/15/2026-23:31:02] [I] Build DLA standalone loadable: Disabled
+[06/15/2026-23:31:02] [I] Allow GPU fallback for DLA: Disabled
+[06/15/2026-23:31:02] [I] DirectIO mode: Disabled
+[06/15/2026-23:31:02] [I] Restricted mode: Disabled
+[06/15/2026-23:31:02] [I] Skip inference: Disabled
+[06/15/2026-23:31:02] [I] Save engine: F:/mpv_2026/mpv-lazy/vs-plugins\models\rife_v2\83974b5a.engine
+[06/15/2026-23:31:02] [I] Load engine: 
+[06/15/2026-23:31:02] [I] Profiling verbosity: 0
+[06/15/2026-23:31:02] [I] Tactic sources: cublas [OFF], cublasLt [OFF], cudnn [OFF], edge mask convolutions [ON], JIT convolutions [ON], 
+[06/15/2026-23:31:02] [I] timingCacheMode: global
+[06/15/2026-23:31:02] [I] timingCacheFile: F:/mpv_2026/mpv-lazy/vs-plugins\models\rife_v2\83974b5a.engine.cache
+[06/15/2026-23:31:02] [I] Enable Compilation Cache: Enabled
+[06/15/2026-23:31:02] [I] Enable Monitor Memory: Disabled
+[06/15/2026-23:31:02] [I] errorOnTimingCacheMiss: Disabled
+[06/15/2026-23:31:02] [I] Preview Features: Use default preview flags.
+[06/15/2026-23:31:02] [I] MaxAuxStreams: -1
+[06/15/2026-23:31:02] [I] BuilderOptimizationLevel: 3
+[06/15/2026-23:31:02] [I] MaxTactics: -1
+[06/15/2026-23:31:02] [I] Calibration Profile Index: 0
+[06/15/2026-23:31:02] [I] Weight Streaming: Disabled
+[06/15/2026-23:31:02] [I] Runtime Platform: Same As Build
+[06/15/2026-23:31:02] [I] Debug Tensors: 
+[06/15/2026-23:31:02] [I] Distributive Independence: Disabled
+[06/15/2026-23:31:02] [I] Mark Unfused Tensors As Debug Tensors: Disabled
+[06/15/2026-23:31:02] [I] Input(s): fp16:chw
+[06/15/2026-23:31:02] [I] Output(s): fp16:chw
+[06/15/2026-23:31:02] [I] Input build shape (profile 0): input=1x7x1440x3438+1x7x1440x3438+1x7x1440x3438
+[06/15/2026-23:31:02] [I] Input calibration shapes: model
+[06/15/2026-23:31:02] [I] === System Options ===
+[06/15/2026-23:31:02] [I] Device: 0
+[06/15/2026-23:31:02] [I] DLACore: 
+[06/15/2026-23:31:02] [I] Plugins:
+[06/15/2026-23:31:02] [I] setPluginsToSerialize:
+[06/15/2026-23:31:02] [I] dynamicPlugins:
+[06/15/2026-23:31:02] [I] ignoreParsedPluginLibs: 0
+[06/15/2026-23:31:02] [I] 
+[06/15/2026-23:31:02] [I] === Inference Options ===
+[06/15/2026-23:31:02] [I] Batch: Explicit
+[06/15/2026-23:31:02] [I] Input inference shape : input=1x7x1440x3438
+[06/15/2026-23:31:02] [I] Iterations: 10
+[06/15/2026-23:31:02] [I] Duration: 3s (+ 200ms warm up)
+[06/15/2026-23:31:02] [I] Sleep time: 0ms
+[06/15/2026-23:31:02] [I] Idle time: 0ms
+[06/15/2026-23:31:02] [I] Inference Streams: 1
+[06/15/2026-23:31:02] [I] ExposeDMA: Disabled
+[06/15/2026-23:31:02] [I] Data transfers: Disabled
+[06/15/2026-23:31:02] [I] Spin-wait: Disabled
+[06/15/2026-23:31:02] [I] Multithreading: Disabled
+[06/15/2026-23:31:02] [I] CUDA Graph: Enabled
+[06/15/2026-23:31:02] [I] Separate profiling: Disabled
+[06/15/2026-23:31:02] [I] Time Deserialize: Disabled
+[06/15/2026-23:31:02] [I] Time Refit: Disabled
+[06/15/2026-23:31:02] [I] NVTX verbosity: 0
+[06/15/2026-23:31:02] [I] Persistent Cache Ratio: 0
+[06/15/2026-23:31:02] [I] Optimization Profile Index: 0
+[06/15/2026-23:31:02] [I] Weight Streaming Budget: 100.000000%
+[06/15/2026-23:31:02] [I] Inputs:
+[06/15/2026-23:31:02] [I] Debug Tensor Save Destinations:
+[06/15/2026-23:31:02] [I] Dump All Debug Tensor in Formats: 
+[06/15/2026-23:31:02] [I] === Reporting Options ===
+[06/15/2026-23:31:02] [I] Verbose: Disabled
+[06/15/2026-23:31:02] [I] Averages: 10 inferences
+[06/15/2026-23:31:02] [I] Percentiles: 90,95,99
+[06/15/2026-23:31:02] [I] Dump refittable layers:Disabled
+[06/15/2026-23:31:02] [I] Dump output: Disabled
+[06/15/2026-23:31:02] [I] Profile: Disabled
+[06/15/2026-23:31:02] [I] Export timing to JSON file: 
+[06/15/2026-23:31:02] [I] Export output to JSON file: 
+[06/15/2026-23:31:02] [I] Export profile to JSON file: 
+[06/15/2026-23:31:02] [I] 
+[06/15/2026-23:31:02] [I] === Device Information ===
+[06/15/2026-23:31:02] [I] Available Devices: 
+[06/15/2026-23:31:02] [I]   Device 0: "NVIDIA GeForce RTX 4080 SUPER" UUID: GPU-e3c536c4-d321-4dc8-2f7d-3bc4a2e78e7a
+[06/15/2026-23:31:02] [I] Selected Device: NVIDIA GeForce RTX 4080 SUPER
+[06/15/2026-23:31:02] [I] Selected Device ID: 0
+[06/15/2026-23:31:02] [I] Selected Device UUID: GPU-e3c536c4-d321-4dc8-2f7d-3bc4a2e78e7a
+[06/15/2026-23:31:02] [I] Compute Capability: 8.9
+[06/15/2026-23:31:02] [I] SMs: 80
+[06/15/2026-23:31:02] [I] Device Global Memory: 16375 MiB
+[06/15/2026-23:31:02] [I] Shared Memory per SM: 100 KiB
+[06/15/2026-23:31:02] [I] Memory Bus Width: 256 bits (ECC disabled)
+[06/15/2026-23:31:02] [I] Application Compute Clock Rate: 2.64 GHz
+[06/15/2026-23:31:02] [I] Application Memory Clock Rate: 11.501 GHz
+[06/15/2026-23:31:02] [I] 
+[06/15/2026-23:31:02] [I] Note: The application clock rates do not reflect the actual clock rates that the GPU is currently running at.
+[06/15/2026-23:31:02] [I] 
+[06/15/2026-23:31:02] [I] TensorRT version: 10.13.0
+[06/15/2026-23:31:02] [I] Loading standard plugins
+[06/15/2026-23:31:02] [I] [TRT] [MemUsageChange] Init CUDA: CPU +1, GPU +0, now: CPU 18023, GPU 1314 (MiB)
+[06/15/2026-23:31:04] [I] [TRT] [MemUsageChange] Init builder kernel library: CPU +2677, GPU +8, now: CPU 21033, GPU 1322 (MiB)
+[06/15/2026-23:31:04] [I] Start parsing network model.
+[06/15/2026-23:31:04] [I] [TRT] ----------------------------------------------------------------
+[06/15/2026-23:31:04] [I] [TRT] Input filename:   F:/mpv_2026/mpv-lazy/vs-plugins\models\rife_v2\rife_v4.25_lite.onnx
+[06/15/2026-23:31:04] [I] [TRT] ONNX IR version:  0.0.8
+[06/15/2026-23:31:04] [I] [TRT] Opset version:    16
+[06/15/2026-23:31:04] [I] [TRT] Producer name:    pytorch
+[06/15/2026-23:31:04] [I] [TRT] Producer version: 2.2.0
+[06/15/2026-23:31:04] [I] [TRT] Domain:           
+[06/15/2026-23:31:04] [I] [TRT] Model version:    0
+[06/15/2026-23:31:04] [I] [TRT] Doc string:       
+[06/15/2026-23:31:04] [I] [TRT] ----------------------------------------------------------------
+[06/15/2026-23:31:04] [I] Finished parsing network model. Parse time: 0.0433473
+[06/15/2026-23:31:04] [I] Set shape of input tensor input for optimization profile 0 to: MIN=1x7x1440x3438 OPT=1x7x1440x3438 MAX=1x7x1440x3438
+[06/15/2026-23:31:04] [I] Set layer /Cast_2 to precision fp32
+[06/15/2026-23:31:04] [I] Set layer /Reciprocal to precision fp32
+[06/15/2026-23:31:04] [I] Set layer /Mul to precision fp32
+[06/15/2026-23:31:04] [I] Set layer /Cast_3 to precision fp32
+[06/15/2026-23:31:04] [I] Set layer /Reciprocal_1 to precision fp32
+[06/15/2026-23:31:04] [I] Set layer /Mul_1 to precision fp32
+[06/15/2026-23:31:04] [I] Set layer /Cast_5 to precision fp32
+[06/15/2026-23:31:04] [I] Set layer ONNXTRT_Broadcast_237 to precision fp32
+[06/15/2026-23:31:04] [I] Set layer /Mul_8 to precision fp32
+[06/15/2026-23:31:04] [I] Set layer ONNXTRT_Broadcast_239 to precision fp32
+[06/15/2026-23:31:04] [I] Set layer /Sub_5 to precision fp32
+[06/15/2026-23:31:04] [I] Set layer /Cast_7 to precision fp32
+[06/15/2026-23:31:04] [I] Set layer ONNXTRT_Broadcast_276 to precision fp32
+[06/15/2026-23:31:04] [I] Set layer /Mul_10 to precision fp32
+[06/15/2026-23:31:04] [I] Set layer ONNXTRT_Broadcast_278 to precision fp32
+[06/15/2026-23:31:04] [I] Set layer /Sub_6 to precision fp32
+[06/15/2026-23:31:04] [I] Set layer ONNXTRT_Broadcast_361 to precision fp32
+[06/15/2026-23:31:04] [I] Set layer ONNXTRT_Broadcast_365 to precision fp32
+[06/15/2026-23:31:04] [I] Set layer ONNXTRT_Broadcast_409 to precision fp32
+[06/15/2026-23:31:04] [I] Set layer ONNXTRT_Broadcast_413 to precision fp32
+[06/15/2026-23:31:04] [I] Set layer ONNXTRT_Broadcast_457 to precision fp32
+[06/15/2026-23:31:04] [I] Set layer ONNXTRT_Broadcast_461 to precision fp32
+[06/15/2026-23:31:04] [I] Set layer ONNXTRT_Broadcast_505 to precision fp32
+[06/15/2026-23:31:04] [I] Set layer ONNXTRT_Broadcast_574 to precision fp32
+[06/15/2026-23:31:04] [I] Skipped setting precisions for some layers. Check verbose logs for more details.
+[06/15/2026-23:31:04] [W] [TRT] Could not read cache from: F:/mpv_2026/mpv-lazy/vs-plugins\models\rife_v2\83974b5a.engine.cache. A new cache will be generated and written.
+[06/15/2026-23:31:07] [I] [TRT] Global timing cache in use. Profiling results in this builder pass will be stored.
+[06/15/2026-23:31:28] [I] [TRT] Compiler backend is used during engine build.
+[06/15/2026-23:32:26] [I] [TRT] Detected 1 inputs and 1 output network tensors.
+[06/15/2026-23:32:29] [I] [TRT] Total Host Persistent Memory: 333744 bytes
+[06/15/2026-23:32:29] [I] [TRT] Total Device Persistent Memory: 27020800 bytes
+[06/15/2026-23:32:29] [I] [TRT] Max Scratch Memory: 180486144 bytes
+[06/15/2026-23:32:29] [I] [TRT] [BlockAssignment] Started assigning block shifts. This will take 107 steps to complete.
+[06/15/2026-23:32:29] [I] [TRT] [BlockAssignment] Algorithm ShiftNTopDown took 6.3472ms to assign 11 blocks to 107 nodes requiring 1136002560 bytes.
+[06/15/2026-23:32:29] [I] [TRT] Total Activation Memory: 1136002048 bytes
+[06/15/2026-23:32:29] [I] [TRT] Total Weights Memory: 11351810 bytes
+[06/15/2026-23:32:29] [I] [TRT] Compiler backend is used during engine execution.
+[06/15/2026-23:32:29] [I] [TRT] Engine generation completed in 82.4584 seconds.
+[06/15/2026-23:32:29] [I] [TRT] [MemUsageStats] Peak memory usage of TRT CPU/GPU memory allocators: CPU 0 MiB, GPU 2106 MiB
+[06/15/2026-23:32:29] [I] Created engine with size: 12.6428 MiB
+[06/15/2026-23:32:29] [I] Engine built in 85.2158 sec.
+[06/15/2026-23:32:29] [W] [TRT] Could not read cache from: F:/mpv_2026/mpv-lazy/vs-plugins\models\rife_v2\83974b5a.engine.cache. A new cache will be generated and written.
+[06/15/2026-23:32:29] [I] [TRT] Serialized 27 bytes of code generator cache.
+[06/15/2026-23:32:29] [I] [TRT] Serialized 300582 bytes of compilation cache.
+[06/15/2026-23:32:29] [I] [TRT] Serialized 3052 timing cache entries
+[06/15/2026-23:32:29] [I] [TRT] Saved 618185 bytes of timing cache to F:/mpv_2026/mpv-lazy/vs-plugins\models\rife_v2\83974b5a.engine.cache
+[06/15/2026-23:32:31] [I] [TRT] Loaded engine size: 12 MiB
+[06/15/2026-23:32:31] [I] Engine deserialized in 0.0361091 sec.
+[06/15/2026-23:32:31] [I] [TRT] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +1109, now: CPU 0, GPU 1145 (MiB)
+[06/15/2026-23:32:31] [I] Setting persistentCacheLimit to 0 bytes.
+[06/15/2026-23:32:31] [I] Created execution context with device memory size: 1083.38 MiB
+[06/15/2026-23:32:31] [I] Using random values for input input
+[06/15/2026-23:32:32] [I] Input binding for input with dimensions 1x7x1440x3438 is created.
+[06/15/2026-23:32:32] [I] Output binding for output with dimensions 1x3x1440x3438 is created.
+[06/15/2026-23:32:32] [I] Starting inference
+[06/15/2026-23:32:32] [I] Capturing CUDA graph for the current execution context
+[06/15/2026-23:32:32] [I] Successfully captured CUDA graph for the current execution context
+[06/15/2026-23:32:35] [I] Warmup completed 5 queries over 200 ms
+[06/15/2026-23:32:35] [I] Timing trace has 138 queries over 3.05209 s
+[06/15/2026-23:32:35] [I] 
+[06/15/2026-23:32:35] [I] === Trace details ===
+[06/15/2026-23:32:35] [I] Trace averages of 10 runs:
+[06/15/2026-23:32:35] [I] Average on 10 runs - GPU latency: 22.7347 ms - Host latency: 22.7347 ms (enqueue 0.0522171 ms)
+[06/15/2026-23:32:35] [I] Average on 10 runs - GPU latency: 21.8185 ms - Host latency: 21.8185 ms (enqueue 0.04263 ms)
+[06/15/2026-23:32:35] [I] Average on 10 runs - GPU latency: 21.9473 ms - Host latency: 21.9473 ms (enqueue 0.0388672 ms)
+[06/15/2026-23:32:35] [I] Average on 10 runs - GPU latency: 22.0069 ms - Host latency: 22.0069 ms (enqueue 0.0452881 ms)
+[06/15/2026-23:32:35] [I] Average on 10 runs - GPU latency: 21.8519 ms - Host latency: 21.8519 ms (enqueue 0.0479126 ms)
+[06/15/2026-23:32:35] [I] Average on 10 runs - GPU latency: 22.0392 ms - Host latency: 22.0392 ms (enqueue 0.0455078 ms)
+[06/15/2026-23:32:35] [I] Average on 10 runs - GPU latency: 21.6486 ms - Host latency: 21.6486 ms (enqueue 0.0414795 ms)
+[06/15/2026-23:32:35] [I] Average on 10 runs - GPU latency: 22.1546 ms - Host latency: 22.1546 ms (enqueue 0.0480469 ms)
+[06/15/2026-23:32:35] [I] Average on 10 runs - GPU latency: 22.2897 ms - Host latency: 22.2897 ms (enqueue 0.0584839 ms)
+[06/15/2026-23:32:35] [I] Average on 10 runs - GPU latency: 21.976 ms - Host latency: 21.976 ms (enqueue 0.0442139 ms)
+[06/15/2026-23:32:35] [I] Average on 10 runs - GPU latency: 21.5219 ms - Host latency: 21.5219 ms (enqueue 0.038916 ms)
+[06/15/2026-23:32:35] [I] Average on 10 runs - GPU latency: 22.691 ms - Host latency: 22.691 ms (enqueue 0.0466797 ms)
+[06/15/2026-23:32:35] [I] Average on 10 runs - GPU latency: 22.4657 ms - Host latency: 22.4657 ms (enqueue 0.0441162 ms)
+[06/15/2026-23:32:35] [I] 
+[06/15/2026-23:32:35] [I] === Performance summary ===
+[06/15/2026-23:32:35] [I] Throughput: 45.2149 qps
+[06/15/2026-23:32:35] [I] Latency: min = 19.551 ms, max = 24.709 ms, mean = 22.1154 ms, median = 22.2214 ms, percentile(90%) = 23.7599 ms, percentile(95%) = 23.9922 ms, percentile(99%) = 24.5317 ms
+[06/15/2026-23:32:35] [I] Enqueue Time: min = 0.0307617 ms, max = 0.101929 ms, mean = 0.0456259 ms, median = 0.0432129 ms, percentile(90%) = 0.057373 ms, percentile(95%) = 0.0605469 ms, percentile(99%) = 0.0863037 ms
+[06/15/2026-23:32:35] [I] H2D Latency: min = 0 ms, max = 0 ms, mean = 0 ms, median = 0 ms, percentile(90%) = 0 ms, percentile(95%) = 0 ms, percentile(99%) = 0 ms
+[06/15/2026-23:32:35] [I] GPU Compute Time: min = 19.551 ms, max = 24.709 ms, mean = 22.1154 ms, median = 22.2214 ms, percentile(90%) = 23.7599 ms, percentile(95%) = 23.9922 ms, percentile(99%) = 24.5317 ms
+[06/15/2026-23:32:35] [I] D2H Latency: min = 0 ms, max = 0 ms, mean = 0 ms, median = 0 ms, percentile(90%) = 0 ms, percentile(95%) = 0 ms, percentile(99%) = 0 ms
+[06/15/2026-23:32:35] [I] Total Host Walltime: 3.05209 s
+[06/15/2026-23:32:35] [I] Total GPU Compute Time: 3.05192 s
+[06/15/2026-23:32:35] [W] * GPU compute time is unstable, with coefficient of variance = 5.37858%.
+[06/15/2026-23:32:35] [W]   If not already in use, locking GPU clock frequency or adding --useSpinWait may improve the stability.
+[06/15/2026-23:32:35] [I] Explanations of the performance metrics are printed in the verbose logs.
+[06/15/2026-23:32:35] [I] 
+&&&& PASSED TensorRT.trtexec [TensorRT v101300] [b35] # F:/mpv_2026/mpv-lazy/vs-plugins\vsmlrt-cuda\trtexec --onnx=F:/mpv_2026/mpv-lazy/vs-plugins\models\rife_v2\rife_v4.25_lite.onnx --timingCacheFile=F:/mpv_2026/mpv-lazy/vs-plugins\models\rife_v2\83974b5a.engine.cache --device=0 --saveEngine=F:/mpv_2026/mpv-lazy/vs-plugins\models\rife_v2\83974b5a.engine --shapes=input:1x7x1440x3438 --fp16 --tacticSources=-CUBLAS,-CUBLAS_LT,-CUDNN,+EDGE_MASK_CONVOLUTIONS,+JIT_CONVOLUTIONS --useCudaGraph --noDataTransfers --noTF32 --inputIOFormats=fp16:chw --outputIOFormats=fp16:chw --builderOptimizationLevel=3 --precisionConstraints=obey --layerPrecisions=/Cast_2:fp32,/Cast_3:fp32,/Cast_5:fp32,/Cast_7:fp32,/Reciprocal:fp32,/Reciprocal_1:fp32,/Mul:fp32,/Mul_1:fp32,/Mul_8:fp32,/Mul_10:fp32,/Sub_5:fp32,/Sub_6:fp32,ONNXTRT_Broadcast_236:fp32,ONNXTRT_Broadcast_238:fp32,ONNXTRT_Broadcast_273:fp32,ONNXTRT_Broadcast_275:fp32,ONNXTRT_Broadcast_*:fp32
+Output 100 frames in 1.38 seconds (72.45 fps)

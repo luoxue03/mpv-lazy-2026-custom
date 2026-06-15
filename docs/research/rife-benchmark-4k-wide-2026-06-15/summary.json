@@ -1,0 +1,67 @@
+{
+  "combo_count": 128,
+  "ok_count": 128,
+  "failed_count": 0,
+  "top10": [
+    {
+      "combo_id": "m46_4p6_t1_f0p5_h1440",
+      "median_fps": "126.42",
+      "mean_fps": "126.657",
+      "realtime_status": "富余"
+    },
+    {
+      "combo_id": "m46_4p6_t2_f1p0_h1440",
+      "median_fps": "126.23",
+      "mean_fps": "126.063",
+      "realtime_status": "富余"
+    },
+    {
+      "combo_id": "m46_4p6_t1_f0p25_h1440",
+      "median_fps": "123.96",
+      "mean_fps": "124.303",
+      "realtime_status": "富余"
+    },
+    {
+      "combo_id": "m46_4p6_t1_f0p25_h1608",
+      "median_fps": "115.7",
+      "mean_fps": "115.127",
+      "realtime_status": "富余"
+    },
+    {
+      "combo_id": "m46_4p6_t1_f0p25_h2160",
+      "median_fps": "115.11",
+      "mean_fps": "114.56",
+      "realtime_status": "富余"
+    },
+    {
+      "combo_id": "m46_4p6_t1_f0p25_h1920",
+      "median_fps": "113.89",
+      "mean_fps": "112.003",
+      "realtime_status": "富余"
+    },
+    {
+      "combo_id": "m46_4p6_t1_f0p5_h1608",
+      "median_fps": "110.21",
+      "mean_fps": "110.05",
+      "realtime_status": "富余"
+    },
+    {
+      "combo_id": "m46_4p6_t1_f0p5_h2160",
+      "median_fps": "109.92",
+      "mean_fps": "110.303",
+      "realtime_status": "富余"
+    },
+    {
+      "combo_id": "m46_4p6_t1_f0p5_h1920",
+      "median_fps": "109.31",
+      "mean_fps": "109.537",
+      "realtime_status": "富余"
+    },
+    {
+      "combo_id": "m46_4p6_t1_f1p0_h1440",
+      "median_fps": "107.91",
+      "mean_fps": "106.237",
+      "realtime_status": "富余"
+    }
+  ]
+}
