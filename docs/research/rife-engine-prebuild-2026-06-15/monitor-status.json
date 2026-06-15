@@ -1,0 +1,16 @@
+{
+  "time": "2026-06-15T22:40:24",
+  "done": 136,
+  "total": 136,
+  "percent": 100.0,
+  "status_counts": {
+    "ok": 128,
+    "failed": 8
+  },
+  "last_combo": "m49_4p9_t2_f1p0_h1440",
+  "last_status": "ok",
+  "last_elapsed_seconds": "67.633",
+  "zero_engine_count": 0,
+  "zero_engines": [],
+  "console_tail": "[133/136] m49_4p9_t2_f1p0_h2160\n[134/136] m49_4p9_t2_f1p0_h1920\n[135/136] m49_4p9_t2_f1p0_h1608\n[136/136] m49_4p9_t2_f1p0_h1440\nwrote F:\\mpv_2026\\mpv-lazy\\docs\\research\\rife-engine-prebuild-2026-06-15\\rife-engine-combos.csv"
+}

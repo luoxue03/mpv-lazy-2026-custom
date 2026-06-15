@@ -1,0 +1,30 @@
+Script evaluation failed:
+Python exception: vsmlrt.RIFEMerge: tile size must be divisible by 64 (3840, 2160)
+
+Traceback (most recent call last):
+  File "src/cython/vapoursynth.pyx", line 3393, in vapoursynth._vpy_evaluate
+  File "src/cython/vapoursynth.pyx", line 3394, in vapoursynth._vpy_evaluate
+  File "F:\mpv_2026\mpv-lazy\docs\research\rife-engine-prebuild-2026-06-15\logs\m46_4p6_t2_f0p5_h2160.vpy", line 8, in <module>
+    clip = k7f.RIFE_NV(
+        clip,
+    ...<10 lines>...
+        flow_scale=0.5,
+    )
+  File "F:\mpv_2026\mpv-lazy\Lib\site-packages\k7sfunc\mod_memc.py", line 749, in RIFE_NV
+    fin = vsmlrt.RIFE(clip=cut1, multi=fractions.Fraction(fps_num, fps_den), scale=scale_model, model=model, ensemble=s_tta, _implementation=2, video_player=True, backend=vsmlrt.BackendV2.TRT(
+    	num_streams=gpu_t, int8=int8_qnt, fp16=True, output_format=1,
+    ...<3 lines>...
+    	opt_shapes=None, max_shapes=None,
+    	device_id=gpu, short_path=True))
+  File "F:\mpv_2026\mpv-lazy\Lib\site-packages\k7sfunc\_external\vsmlrt.py", line 1172, in RIFE
+    output0 = RIFEMerge(
+        clipa=initial, clipb=terminal, mask=timepoint,
+    ...<2 lines>...
+        _implementation=_implementation
+    )
+  File "F:\mpv_2026\mpv-lazy\Lib\site-packages\k7sfunc\_external\vsmlrt.py", line 841, in RIFEMerge
+    raise ValueError(
+        f'{func_name}: tile size must be divisible by {multiple} ({tile_w}, {tile_h})'
+    )
+ValueError: vsmlrt.RIFEMerge: tile size must be divisible by 64 (3840, 2160)
+

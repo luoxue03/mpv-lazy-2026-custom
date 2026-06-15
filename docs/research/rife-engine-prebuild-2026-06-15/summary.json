@@ -1,0 +1,54 @@
+{
+  "combo_count": 136,
+  "status_counts": {
+    "ok": 128,
+    "failed": 8
+  },
+  "by_model": {
+    "4.6": {
+      "ok": 20,
+      "failed": 8
+    },
+    "4.15 lite": {
+      "ok": 12
+    },
+    "4.22": {
+      "ok": 12
+    },
+    "4.22 lite": {
+      "ok": 12
+    },
+    "4.25 lite": {
+      "ok": 12
+    },
+    "4.26": {
+      "ok": 12
+    },
+    "4.26 heavy": {
+      "ok": 12
+    },
+    "4.7": {
+      "ok": 12
+    },
+    "4.8": {
+      "ok": 12
+    },
+    "4.9": {
+      "ok": 12
+    }
+  },
+  "new_engine_total": 50,
+  "engine_count_nonzero": 55,
+  "zero_engine_count": 0,
+  "elapsed_seconds_sum": 4892.91,
+  "failed_combo_ids": [
+    "m46_4p6_t2_f0p5_h2160",
+    "m46_4p6_t2_f0p5_h1920",
+    "m46_4p6_t2_f0p5_h1608",
+    "m46_4p6_t2_f0p5_h1440",
+    "m46_4p6_t2_f0p25_h2160",
+    "m46_4p6_t2_f0p25_h1920",
+    "m46_4p6_t2_f0p25_h1608",
+    "m46_4p6_t2_f0p25_h1440"
+  ]
+}

@@ -1,0 +1,28 @@
+Script evaluation failed:
+Python exception: vsmlrt.RIFEMerge: currently not supported
+
+Traceback (most recent call last):
+  File "src/cython/vapoursynth.pyx", line 3393, in vapoursynth._vpy_evaluate
+  File "src/cython/vapoursynth.pyx", line 3394, in vapoursynth._vpy_evaluate
+  File "F:\mpv_2026\mpv-lazy\docs\research\rife-engine-prebuild-2026-06-15\logs\m46_4p6_t0_f0p25_h2160.vpy", line 8, in <module>
+    clip = k7f.RIFE_NV(
+        clip,
+    ...<10 lines>...
+        flow_scale=0.25,
+    )
+  File "F:\mpv_2026\mpv-lazy\Lib\site-packages\k7sfunc\mod_memc.py", line 738, in RIFE_NV
+    fin = vsmlrt.RIFE(clip=cut1, multi=fractions.Fraction(fps_num, fps_den), scale=scale_model, model=model, ensemble=s_tta, _implementation=1, video_player=True, backend=vsmlrt.BackendV2.TRT(
+    	num_streams=gpu_t, int8=int8_qnt, fp16=True, output_format=1,
+    ...<4 lines>...
+    	max_shapes=None if st_eng else (max_shapes1 if (size_in > 2048 * 1088) else max_shapes2),
+    	device_id=gpu, short_path=True))
+  File "F:\mpv_2026\mpv-lazy\Lib\site-packages\k7sfunc\_external\vsmlrt.py", line 1172, in RIFE
+    output0 = RIFEMerge(
+        clipa=initial, clipb=terminal, mask=timepoint,
+    ...<2 lines>...
+        _implementation=_implementation
+    )
+  File "F:\mpv_2026\mpv-lazy\Lib\site-packages\k7sfunc\_external\vsmlrt.py", line 880, in RIFEMerge
+    raise ValueError(f'{func_name}: currently not supported')
+ValueError: vsmlrt.RIFEMerge: currently not supported
+
