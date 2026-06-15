@@ -245,7 +245,8 @@ end
 
 local function turbo_item(model, turbo, current)
     local hint = turbo_hint(model, turbo)
-    if not model.flow_scale then
+    local allow_flow_scale = model.flow_scale and turbo.value == 1
+    if not allow_flow_scale then
         local h_pre_items = {}
         local flow = { value = 1.0 }
         for _, option in ipairs(h_pre_options) do
