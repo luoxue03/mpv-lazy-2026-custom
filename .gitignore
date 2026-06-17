@@ -22,6 +22,8 @@ installer/
 # 其他
 *.log
 *.db
+*.lnk
+cookies.backup*.txt
 node_modules/
 .qoder/repowiki/zh/meta/repowiki-metadata.json
 
