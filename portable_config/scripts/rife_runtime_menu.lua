@@ -226,7 +226,7 @@ local function flow_item(model, turbo, flow, current)
     end
     return {
         title = 'flow_scale=' .. flow.label,
-        hint = flow.hint .. ';' .. h_pre_explain(current.h_pre),
+        hint = flow.hint,
         active = current.model == model.id and current.turbo == turbo.value and current.flow_scale == flow.value,
         items = h_pre_items,
     }
@@ -266,7 +266,7 @@ local function turbo_item(model, turbo, current)
     end
     return {
         title = 'Turbo ' .. turbo.label,
-        hint = hint .. ';' .. h_pre_explain(current.h_pre),
+        hint = hint,
         items = items,
     }
 end
