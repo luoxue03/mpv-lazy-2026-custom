@@ -129,7 +129,7 @@ opt.read_options(opts, 'quality-menu')
 
 ---@alias Format { properties: {[string]: string}, id: string, label?: string, title?: string, hint?: string }
 -- *_active_id == nil means unknown, *_active_id == '' means disabled
----@alias Data { video_formats: Format[], audio_formats: Format[], video_active_id?: string, audio_active_id?: string }
+---@alias Data { video_formats: Format[], audio_formats: Format[], video_active_id?: string, audio_active_id?: string, hls?: boolean, hls_mode?: string }
 ---@alias UIState { type: string, type_capitalized: string, name: string , to_other_type: UIState, to_fetching: UIState, to_menu: UIState, is_video: boolean }
 
 do
@@ -505,6 +505,270 @@ end
 local uosc_available = false
 ---@type { [string]: Data }
 local url_data = {}
+
+local function is_direct_hls_url(url)
+    if not url then return false end
+    return url:match('^https?://[^/]+/.+%.m3u8') ~= nil or url:match('^https?://[^/]+/.+%.m3u') ~= nil
+end
+
+local function should_skip_fetch_formats(url)
+    return is_direct_hls_url(url)
+end
+
+---@param bitrate integer | number | nil
+---@return string
+local function hls_bitrate_id(bitrate)
+    return bitrate and tostring(math.floor(bitrate + 0.5)) or ''
+end
+
+---@param bitrate integer | number | nil
+---@return string
+local function hls_bitrate_label(bitrate)
+    if not bitrate then return '' end
+    local mbps = bitrate / 1024 / 1024
+    if mbps >= 1 then return string.format('%.2fMbps', mbps) end
+    return string.format('%.0fKbps', bitrate / 1024)
+end
+
+---@param title string | nil
+---@return number | nil
+local function hls_title_bitrate(title)
+    if not title then return nil end
+
+    local mbps = title:match('([%d%.]+)%s*Mbps')
+    if mbps then return tonumber(mbps) and tonumber(mbps) * 1024 * 1024 or nil end
+
+    local kbps = title:match('([%d%.]+)%s*kbps') or title:match('([%d%.]+)%s*Kbps')
+    if kbps then return tonumber(kbps) and tonumber(kbps) * 1024 or nil end
+
+    return nil
+end
+
+---@param title string | nil
+---@return string
+local function hls_title_resolution_label(title)
+    if not title then return '' end
+
+    local width, height = title:match('(%d+)%s*x%s*(%d+)')
+    if height then return height .. 'p' end
+
+    local label = title:match('(%d+p)')
+    return label or ''
+end
+
+---@param title string | nil
+---@return string
+local function hls_title_resolution_hint(title)
+    if not title then return '' end
+
+    local width, height = title:match('(%d+)%s*x%s*(%d+)')
+    if width and height then return width .. 'x' .. height end
+    return ''
+end
+
+---@param track table
+---@return string
+local function hls_resolution_label(track)
+    local width = track['demux-w']
+    local height = track['demux-h']
+    if height then return tostring(height) .. 'p' end
+    if width then return tostring(width) .. 'w' end
+    return ''
+end
+
+---@param track table
+---@return string
+local function hls_resolution_hint(track)
+    local width = track['demux-w']
+    local height = track['demux-h']
+    if width and height then return tostring(width) .. 'x' .. tostring(height) end
+    return ''
+end
+
+---@param properties { [string]: string }
+---@return { [string]: string }
+local function hls_properties(properties)
+    return setmetatable(properties, { __index = function() return '' end })
+end
+
+---@return Data | nil
+local function create_hls_data_from_track_list()
+    local tracks = mp.get_property_native('track-list') or {}
+    local seen = {}
+    local video_formats = {}
+    local active_id = nil
+
+    for _, track in ipairs(tracks) do
+        local bitrate = track['hls-bitrate']
+        local id = hls_bitrate_id(bitrate)
+        if track.type == 'video' and id ~= '' and not seen[id] then
+            seen[id] = true
+            local resolution = hls_resolution_label(track)
+            local resolution_hint = hls_resolution_hint(track)
+            local bitrate_label = hls_bitrate_label(bitrate)
+            local height = track['demux-h'] or 0
+            local label = resolution ~= '' and resolution or bitrate_label
+            local hint_parts = { 'HLS' }
+            if resolution_hint ~= '' and resolution_hint ~= label then hint_parts[#hint_parts + 1] = resolution_hint end
+            if bitrate_label ~= '' and bitrate_label ~= label then hint_parts[#hint_parts + 1] = bitrate_label end
+            video_formats[#video_formats + 1] = {
+                id = id,
+                label = label,
+                title = label,
+                hint = table.concat(hint_parts, ', '),
+                properties = hls_properties({
+                    resolution = label,
+                    width = tostring(track['demux-w'] or ''),
+                    height = height > 0 and tostring(height) or '',
+                    fps = track['demux-fps'] and tostring(track['demux-fps']) or '',
+                    dynamic_range = '',
+                    tbr = bitrate_label,
+                    vbr = bitrate_label,
+                    abr = '',
+                    asr = '',
+                    filesize = '',
+                    filesize_approx = '',
+                    vcodec = track.codec or '',
+                    acodec = '',
+                    ext = 'm3u8',
+                    video_ext = 'm3u8',
+                    audio_ext = '',
+                    language = track.lang or '',
+                    format = 'HLS',
+                    format_note = '',
+                    quality = label,
+                    size = '',
+                    frame_rate = track['demux-fps'] and tostring(track['demux-fps']) .. 'fps' or '',
+                    bitrate_total = bitrate_label,
+                    bitrate_video = bitrate_label,
+                    bitrate_audio = '',
+                    codec_video = track.codec or '',
+                    codec_audio = '',
+                    audio_sample_rate = '',
+                }),
+            }
+            if track.selected then active_id = id end
+        end
+    end
+
+    if #video_formats == 0 then return nil end
+
+    table.sort(video_formats, function(a, b)
+        return tonumber(a.id) > tonumber(b.id)
+    end)
+
+    return {
+        hls = true,
+        hls_mode = 'bitrate',
+        video_formats = video_formats,
+        audio_formats = {},
+        video_active_id = active_id,
+        audio_active_id = '',
+    }
+end
+
+---@return Data | nil
+local function create_hls_data_from_edition_list()
+    local editions = mp.get_property_native('edition-list') or {}
+    local current_edition = mp.get_property_native('current-edition')
+    if #editions <= 1 then return nil end
+
+    local video_formats = {}
+    for _, edition in ipairs(editions) do
+        local id = tostring(edition.id)
+        local title = edition.title or ''
+        local resolution = hls_title_resolution_label(title)
+        local resolution_hint = hls_title_resolution_hint(title)
+        local bitrate = hls_title_bitrate(title)
+        local bitrate_label = hls_bitrate_label(bitrate)
+        local label = resolution ~= '' and resolution or ('Edition ' .. id)
+        local hint_parts = { 'HLS' }
+        if resolution_hint ~= '' and resolution_hint ~= label then hint_parts[#hint_parts + 1] = resolution_hint end
+        if bitrate_label ~= '' then hint_parts[#hint_parts + 1] = bitrate_label end
+        if #hint_parts == 1 and title ~= '' then hint_parts[#hint_parts + 1] = title end
+
+        video_formats[#video_formats + 1] = {
+            id = id,
+            label = label,
+            title = label,
+            hint = table.concat(hint_parts, ', '),
+            properties = hls_properties({
+                resolution = label,
+                width = resolution_hint:match('^(%d+)x') or '',
+                height = resolution_hint:match('x(%d+)$') or '',
+                fps = title:match('(%d+)%s*fps') or '',
+                dynamic_range = '',
+                tbr = bitrate_label,
+                vbr = bitrate_label,
+                abr = '',
+                asr = '',
+                filesize = '',
+                filesize_approx = '',
+                vcodec = title:match('%(([%w%d]+)%s*%[') or '',
+                acodec = '',
+                ext = 'm3u8',
+                video_ext = 'm3u8',
+                audio_ext = '',
+                language = '',
+                format = 'HLS',
+                format_note = '',
+                quality = label,
+                size = '',
+                frame_rate = title:match('(%d+)%s*fps') and title:match('(%d+)%s*fps') .. 'fps' or '',
+                bitrate_total = bitrate_label,
+                bitrate_video = bitrate_label,
+                bitrate_audio = '',
+                codec_video = title:match('%(([%w%d]+)%s*%[') or '',
+                codec_audio = '',
+                audio_sample_rate = '',
+            }),
+        }
+    end
+
+    table.sort(video_formats, function(a, b)
+        local ah = tonumber(a.properties.height) or 0
+        local bh = tonumber(b.properties.height) or 0
+        if ah ~= bh then return ah > bh end
+        return tonumber(a.id) > tonumber(b.id)
+    end)
+
+    return {
+        hls = true,
+        hls_mode = 'edition',
+        video_formats = video_formats,
+        audio_formats = {},
+        video_active_id = current_edition ~= nil and tostring(current_edition) or nil,
+        audio_active_id = '',
+    }
+end
+
+---@param url string | nil
+---@return Data | nil
+local function refresh_hls_data(url)
+    if not is_direct_hls_url(url) then return nil end
+
+    local previous = url_data[url]
+    local data = create_hls_data_from_edition_list() or create_hls_data_from_track_list()
+    if data then
+        if previous and previous.hls and previous.video_active_id and not data.video_active_id then
+            data.video_active_id = previous.video_active_id
+        end
+    elseif previous and previous.hls then
+        data = previous
+    else
+        data = {
+            hls = true,
+            hls_mode = 'edition',
+            video_formats = {},
+            audio_formats = {},
+            video_active_id = nil,
+            audio_active_id = '',
+        }
+    end
+
+    url_data[url] = data
+    return data
+end
 
 local function uosc_set_format_counts()
     if not uosc_available then return end
@@ -993,8 +1257,10 @@ function menu_open(menu_type)
     menu_type = menu_type.to_menu
 
     local data = url_data[current_url]
-    if not data then
-        if opts.fetch_formats then
+    if is_direct_hls_url(current_url) then
+        data = refresh_hls_data(current_url)
+    elseif not data then
+        if opts.fetch_formats and not should_skip_fetch_formats(current_url) then
             loading_message(menu_type)
             return
         end
@@ -1076,10 +1342,40 @@ end)
 mp.add_hook('on_load', 9, function()
     local path = mp.get_property('path')
     local data = url_data[path]
+
+    if data and data.hls then
+        if data.hls_mode == 'edition' then
+            if data.video_active_id and data.video_active_id ~= '' then
+                msg.verbose('setting edition: ' .. data.video_active_id)
+                mp.set_property('file-local-options/edition', data.video_active_id)
+            elseif data.video_active_id == '' then
+                msg.verbose('setting edition: auto')
+                mp.set_property('file-local-options/edition', 'auto')
+            end
+        else
+            if data.video_active_id and data.video_active_id ~= '' then
+                msg.verbose('setting hls-bitrate: ' .. data.video_active_id)
+                mp.set_property('file-local-options/hls-bitrate', data.video_active_id)
+            elseif data.video_active_id == '' then
+                msg.verbose('setting hls-bitrate: no')
+                mp.set_property('file-local-options/hls-bitrate', 'no')
+            end
+        end
+        return
+    end
+
     if not (data and data.video_active_id and data.audio_active_id) then return end
     local format = format_string(data.video_active_id, data.audio_active_id)
     msg.verbose('setting ytdl-format: ' .. format)
     mp.set_property('file-local-options/ytdl-format', format)
+end)
+
+mp.register_event('file-loaded', function()
+    local data = refresh_hls_data(current_url)
+    if not data then return end
+
+    uosc_set_format_counts()
+    if open_menu_state then menu_open(open_menu_state) end
 end)
 
 ---@param url string
@@ -1087,6 +1383,7 @@ end)
 mp.register_script_message('video-format-set', function(url, format_id)
     menu_close()
     local data = url_data[url]
+    if not data then return end
     set_format(url, format_id, sanitize_format_id(data.audio_active_id, data.audio_formats))
 end)
 
@@ -1095,6 +1392,7 @@ end)
 mp.register_script_message('audio-format-set', function(url, format_id)
     menu_close()
     local data = url_data[url]
+    if not data then return end
     set_format(url, sanitize_format_id(data.video_active_id, data.video_formats), format_id)
 end)
 
