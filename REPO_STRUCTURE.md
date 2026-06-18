@@ -144,3 +144,15 @@ VapourSynth 滤镜脚本，全部 .vpy 文件已上传：
 - 需要同步到远端时，将改动复制到 F:\mpv_2026\mpv-lazy-26_github 对应文件，再 git add && commit && push。
 - 涉及敏感信息（cookie、token、api key）的文件永远不要 git add。
 - 新增模型或二进制时，确认 .gitignore 规则覆盖，避免误提交。
+## v2026.06 发布后 hotfix
+
+### hotfix 001
+
+Release 附件：`mpv-lazy-2026-custom-v2026.06-hotfix-001.zip`
+
+修复内容：
+
+- 恢复完整包根目录 `portable.vs`。该文件是 VapourSynth 便携模式标记文件，缺失会导致 `Failed to initialize VapourSynth VSScript library`，从而使全部 RIFE 补帧、AI 超分、超分补帧组合失败。
+- 修复 `portable_config/scripts/rife_runtime_menu.lua` 错误读取 `script-opts/uosc_danmaku.conf` 的问题，避免控制台刷屏 `unknown key ... ignoring`。
+
+使用方式：将 hotfix zip 解压到完整包根目录并覆盖同名文件。
