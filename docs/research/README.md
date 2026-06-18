@@ -22,8 +22,12 @@
    - 记录 RealESRGAN + RIFE 组合的实测取舍：保留 `4.6 T1 F0.25`，删除丢帧的 `4.15 lite` 与 `4.6 T1 F0.5`。
 
 5. [External Player 与 HLS 清晰度菜单接入记录（2026-06-16）](external-player-hls-quality-menu-2026-06-16.md)
-   - 记录 MissAV 直连 HLS 拉起 MPV、403 避免方式、`quality-menu.lua` 通用 HLS editions 清晰度菜单实现。
+   - 记录 MissAV 直连 HLS 拉起 MPV、Pornhub cookies、SpankBang 概率性 403 自动重试、`quality-menu.lua` 通用 HLS editions 清晰度菜单实现。
    - 后续升级 `external_player.js` 或 `quality-menu.lua` 时需要先看这份，避免丢失本地补丁。
+
+6. [Telegram Web MPV Bridge 接入记录（2026-06-18）](telegram-web-mpv-bridge-2026-06-18.md)
+   - 记录不申请 Telegram API ID/Hash 时，如何复用 Telegram Web K 登录态，把当前视频通过本地 HTTP Range bridge 交给 MPV。
+   - 后续维护 `tools/telegram-web-mpv-bridge`、排查 `blob:` / `hls_stream` / 快进问题时先看这份。
 
 ## 当前已落地结论
 
@@ -33,6 +37,7 @@
 - `H_Pre=1920` 是“轻降处理高度”的实用档位：降低约 21% RIFE 处理像素量，保留较多细节，并给 4K 播放更多实时余量。
 - `RealESRGAN General x4v3 540P→4K + RIFE` 组合目前只保留 `4.6 T1 F0.25` 作为真实播放可用档；`4.7/4.9 T2 F1` 保留为需超高性能的新版对比项。
 - 直接 HLS `.m3u8/.m3u` 流的清晰度菜单优先使用 MPV `edition-list` / `edition`；没有 editions 时再回退到 `track-list` / `hls-bitrate`。这条逻辑不绑定 MissAV 域名，不影响 B 站等 yt-dlp 路径。
+- Telegram Web K 登录态视频不走 yt-dlp；当前通过浏览器 userscript + 本地 bridge，把 Telegram Web 的 `hls_stream` Range 数据中继给 MPV。
 
 ## 后续建议
 

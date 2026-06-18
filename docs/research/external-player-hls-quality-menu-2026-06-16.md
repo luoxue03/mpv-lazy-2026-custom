@@ -68,13 +68,21 @@ MissAV 直连播放时传给 MPV 的关键选项：
 
 暂不默认匹配搜索页、频道页、标签页和 playlist 页，避免误触发整页播放列表。`matchParser()` 也提供 SpankBang 视频页兜底，避免浏览器旧配置没有同步默认正则时按钮不显示。
 
-当前不注入 `cookies.txt`。实测 SpankBang 对导出的浏览器 cookies 反而可能返回 `HTTP Error 403/429`。网络调研也显示 yt-dlp 官方围绕 SpankBang 的修复重点是浏览器 impersonation，而不是 cookies：issue `yt-dlp/yt-dlp#11595` 指向缺少/错误 impersonation target 会导致 403，PR `#11542` 和 `#14130` 都是 SpankBang impersonation 相关修复。
+2026-06-18 追加：SpankBang 的 `HTTP Error 403: Forbidden` 实测是概率性反爬拦截，不是固定 header 或固定 cookie 问题。样例 `https://spankbang.com/9hzql/video/lin+yu+5v1` 多次测试表现为：同一命令有时失败、有时成功；手动多次点击会打开多个 MPV，其中某个窗口可能成功播放。
 
-2026-06-17 追加：SpankBang 匹配已放宽为任意 `.../video/...` 或 `embed/...` 页面，并传入 `--force-window=immediate`、浏览器 UA、`impersonate=Chrome-124`，使 MPV 在 yt-dlp 探测期间也能先显示前台窗口。SpankBang 不传 cookies。`Chrome-124` 来自本机 `yt-dlp.exe --list-impersonate-targets`，并已用 `yt-dlp --impersonate Chrome-124` 对 SpankBang 样例 URL 验证可解析出 HLS URL。
+当前 `external_player.js` 对 SpankBang 的处理：
 
-不要为 SpankBang 新增 `portable_config/script-opts/ytdl_hook.conf` 的 `try_ytdl_first=yes`，也不要把 `cookies.txt` 全局加到 `mpv.conf` 的 `ytdl-raw-options-append`。实测强制 yt-dlp 优先或给 SpankBang 注入导出的 cookies，可能让 yt-dlp 的页面抓取阶段直接 403/429。
+- 匹配明确视频页 / embed 页，把页面 URL 交给 MPV 的 yt-dlp 流程处理，不写浏览器侧 HLS parser。
+- 传入 `--force-window=immediate`，让 MPV 在 yt-dlp 探测期间尽快显示前台窗口。
+- `impersonate` 从 `Chrome-124` 改为 `Safari-18.0`。本机实测 `Chrome-124/chrome` 更容易 403，`Safari-18.0` 成功率更高。
+- `format` 保持 `best[protocol^=m3u8]/best`，优先选择 HLS，失败时回退 best。
+- 默认不为 SpankBang 注入 `cookies.txt`。现有 `cookies.txt` 中虽有 `.spankbang.com` 的 `cf_clearance`、`__cf_bm`、`age_pass` 等条目，但实测 `--cookies cookies.txt` 仍会频繁 403；Cloudflare clearance 往往绑定浏览器 TLS/指纹，和 yt-dlp 的请求指纹不一致时不会稳定生效。
 
-第一版能播放的现象说明：SpankBang 启动时出现的 `[ffmpeg] https: HTTP error 403 Forbidden` 可以只是 MPV 先直开页面 URL 的前置噪音；等待 ytdl_hook 后续接管后仍可能解析出真实 HLS 并开始播放。当前选择保留这个可播放路径，而不是为消除前置 403 引入更高风险的强制优先配置。Pornhub 需要本地 cookies，仍只在 external_player 的 Pornhub 分支单独追加。
+已更新本机 `D:\mpv-lazy-25_install\yt-dlp.exe` 到 `2026.06.09`。该版本晚于 yt-dlp 上游 PR `#14130`（SpankBang impersonation 修复），但对当前站点仍无法完全消除概率性 403。`F:\mpv_2026\mpv-lazy\yt-dlp.exe` 当前为 `2026.05.05.233942`，尝试 `-U` 时遇到 GitHub rate limit，后续可在不限速时再更新。
+
+最终兜底方案是新增 MPV 脚本 `portable_config/scripts/ytdl-retry.lua`，已同步到 D 盘运行目录和 F 盘 2026 目录。逻辑：当 MPV 通过 yt-dlp 打开 `http(s)` 页面 URL 且 `end-file` 原因为 `error` 时，自动等待 2 秒后重新 `loadfile` 同一 URL，最多 8 次，并在 OSD 显示 `Retrying (N/8)...`。这等价于把“手动多点几次直到成功”变成“一次点击后自动重试”。
+
+不要为 SpankBang 新增 `portable_config/script-opts/ytdl_hook.conf` 的 `try_ytdl_first=yes`，也不要把 `cookies.txt` 全局加到 `mpv.conf` 的 `ytdl-raw-options-append`。Pornhub 需要本地 cookies，仍只在 external_player 的 Pornhub 分支单独追加。
 
 ### 通用 HLS 清晰度菜单
 

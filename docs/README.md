@@ -9,6 +9,7 @@
 | [RIFE/TensorRT 性能调查与修复](research/RIFE-performance-investigation-2026-06-14.md) | 记录 RIFE 4.15 lite 丢帧、TensorRT 10.16 回退到 10.13 的测试和结论 | 排查补帧丢帧、回滚/升级 vs-mlrt、解释为什么选 TensorRT 10.13 |
 | [TensorRT 深度调研参考](research/deep-research-report.md) | 外部/深度调研汇总，作为假设和后续验证参考 | 需要继续拆 TensorRT 性能根因时 |
 | [External Player 与 HLS 清晰度菜单](research/external-player-hls-quality-menu-2026-06-16.md) | 记录 MissAV 直连 HLS、Pornhub/SpankBang 走 yt-dlp、403/410 处理、通用 HLS editions 清晰度菜单 | 维护 `external_player.js`、`quality-menu.lua` 或排查网页拉起 MPV 时 |
+| [Telegram Web MPV Bridge](research/telegram-web-mpv-bridge-2026-06-18.md) | 记录 Telegram Web K 登录态视频通过浏览器中继转 MPV 的方案、使用方式和约束 | 不申请 Telegram API ID/Hash，直接把 Web K 当前视频在线播放到 MPV 时 |
 | [真人/通用超分与补帧组合](research/live-action-upscale-and-rife-combo-2026-06-17.md) | 记录 RealESRGAN、LiveAction、StarSample 接入，以及 RealESRGAN + RIFE 组合实测取舍 | 选择真人视频超分、解释菜单项、排查组合丢帧时 |
 | [可视化报告索引](reports/README.md) | RIFE Benchmark 等 HTML 可视化报告入口 | 需要查看性能仪表盘或公网展示版本时 |
 | [调研报告索引](research/README.md) | 本仓库内手工研究报告的目录和阅读顺序 | 想按主题追溯决策过程时 |
@@ -24,7 +25,8 @@
 - 真人/通用超分已归类到 `VF 滤镜 > 超分 > 2026 > 真人/通用`；RealESRGAN + RIFE 组合当前以 `4.6 T1 F0.25` 为真实播放可用档。
 - `quality-menu.lua` 已加入直接 HLS `.m3u8/.m3u` 的通用清晰度菜单分支：优先使用 MPV `edition-list` / `edition`，回退到 `hls-bitrate`，不影响 B 站等 yt-dlp 路径。
 - `external_player.js` 中 Pornhub 只走 yt-dlp 视频页路径，不做浏览器侧抓流 parser；仅 Pornhub 分支追加本地 `cookies.txt` 和 `impersonate=chrome`，并用 `ytdl-raw-options-append` 避免覆盖全局 yt-dlp 配置。
-- `external_player.js` 中 SpankBang 也只走 yt-dlp 视频页路径；本地 yt-dlp 已支持 `SpankBang` / `SpankBangPlaylist`，并保持无 cookies，使用 `impersonate=Chrome-124`。
+- `external_player.js` 中 SpankBang 也只走 yt-dlp 视频页路径；当前使用 `impersonate=Safari-18.0`，并通过 `portable_config/scripts/ytdl-retry.lua` 对概率性 403 自动重试。
+- Telegram Web K 登录态视频当前使用独立 `tools/telegram-web-mpv-bridge`：浏览器 userscript 捕获 `hls_stream`，本地 bridge 提供 MPV 可用 HTTP Range，并可自动拉起 MPV；不依赖 Telegram API ID/Hash。
 - 运行时状态文件不应作为迁移文档或配置结论提交，例如 `portable_config/recent.json`、`portable_config/saved-props.json`。
 
 ## 文档分区
