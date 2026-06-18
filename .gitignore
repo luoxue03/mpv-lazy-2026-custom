@@ -1,34 +1,70 @@
-﻿# 二进制 / 预编译
+# 二进制 / 预编译
 *.exe
 *.dll
 *.pyd
 *.asi
 *.pyc
 
+# Python 运行时
+Lib/
+Scripts/
+vsgenstubs4/
+python*.exe
+python*.dll
+python*.zip
+python*.cat
+python*._pth
+get-pip.py
+
 # AI 模型 (不提交)
 faster-whisper-win/
+vs-plugins/
+vs-coreplugins/
+vs-scripts/
 
 # 缓存
 _cache/
 
-
-# VapourSynth 插件
-vs-plugins/
-vs-coreplugins/
-
 # 安装器
 installer/
 
-# 其他
+# 日志
 *.log
-*.db
-*.lnk
-cookies.backup*.txt
-node_modules/
-.qoder/repowiki/zh/meta/repowiki-metadata.json
 
+# 数据库
+*.db
+
+# 快捷方式
+*.lnk
+
+# 敏感文件 (切勿提交)
+cookies.txt
+cookies.backup*.txt
+config.json
+settings.json
+viewed.json
+.qoder/
+
+# 运行态 (不提交)
 portable_config/recent.json
 portable_config/saved-props.json
 portable_config/trakt_config.json
 portable_config/trakt_history.json
-config.json
+portable_config/script-opts/rife_runtime.json
+portable_config/script-opts/trakt_scrobble.conf
+portable_config/_cache/
+
+# obsolete 临时文件
+k7sfunc_*_obsolete.py
+truehdrtweaks.log
+portable.vs
+mpv_lazy_*.lnk
+mpv_2026.lnk
+
+# Node
+node_modules/
+
+# 工具运行态
+tools/telegram-web-mpv-bridge/.venv/
+tools/telegram-web-mpv-bridge/__pycache__/
+tools/telegram-web-mpv-bridge/*.log
