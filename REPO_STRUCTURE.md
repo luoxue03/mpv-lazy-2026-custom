@@ -5,7 +5,7 @@
 ## 远端信息
 
 - 仓库地址：https://github.com/luoxue03/mpv-lazy-2026-custom
-- 可见性：private
+- 可见性：public
 - 本地路径：F:\mpv_2026\mpv-lazy-26_github
 - 工作目录（日常使用）：F:\mpv_2026\mpv-lazy
 - 历史保留：60 个 commit，涵盖 2025→2026 迁移、RIFE 性能调查、真人超分接入、Telegram Bridge 等
@@ -17,6 +17,7 @@
 | portable_config/ | MPV 便携配置核心：conf、脚本、着色器、VS 滤镜脚本、字体 | 是 | 依赖 mpv.exe、VapourSynth 运行时、模型文件（不在仓库） |
 | docs/ | 文档：研究记录、迁移归档、文章、可视化报告 | 是 | 无 |
 | tools/ | 工具源码：RIFE benchmark、RealESRGAN 导出、Telegram Bridge | 是 | Telegram Bridge 需本机 Python venv |
+| tools/release/ | GitHub Release 分类打包脚本与说明 | 是 | 依赖完整发布源目录与 7z.exe |
 | external_player.js | 油猴脚本，网页拉起 MPV 播放 | 是 | 依赖 url-scheme-handler 或 MPV 可执行路径 |
 | .gitignore | 忽略规则 | 是 | 无 |
 | LICENSE.txt / LICENSE.MD / README.MD | 许可证和上游说明 | 是 | 无 |
@@ -100,6 +101,7 @@ VapourSynth 滤镜脚本，全部 .vpy 文件已上传：
 - rife_engine_builder.py / rife_engine_monitor.py：TensorRT engine 预构建和监控。
 - export_realesr_general_x4v3_dynamic.py：RealESRGAN 模型动态 ONNX 导出工具。
 - telegram-web-mpv-bridge/：Telegram Web MPV Bridge（bridge.py、userscript、README）。运行需本机 Python venv + websockets 包。
+- release/package_release.py：从已验证完整包生成 base / ai / config / docs 分类压缩包，并可选择上传到 GitHub Release。
 
 ## 未上传的内容（本地依赖）
 
@@ -144,15 +146,13 @@ VapourSynth 滤镜脚本，全部 .vpy 文件已上传：
 - 需要同步到远端时，将改动复制到 F:\mpv_2026\mpv-lazy-26_github 对应文件，再 git add && commit && push。
 - 涉及敏感信息（cookie、token、api key）的文件永远不要 git add。
 - 新增模型或二进制时，确认 .gitignore 规则覆盖，避免误提交。
-## v2026.06 发布后 hotfix
+## v2026.06 分类发布
 
-### hotfix 001
+Release 附件已从“全量分卷 + hotfix”调整为分类包：
 
-Release 附件：`mpv-lazy-2026-custom-v2026.06-hotfix-001.zip`
+- `mpv-lazy-2026-custom-base-v2026.06.zip`：基础可播放包。
+- `mpv-lazy-2026-custom-ai-v2026.06.zip.001` 起始的 AI/VS 分卷：VapourSynth、TensorRT/CUDA、RIFE、UAI、RealESRGAN、AnimeJaNai、faster-whisper 等大型依赖。
+- `mpv-lazy-2026-custom-config-v2026.06.zip`：菜单、脚本、快捷键、滤镜 vpy、配置文件更新包。
+- `mpv-lazy-2026-custom-docs-v2026.06.zip`：迁移记录、测试报告和使用文档。
 
-修复内容：
-
-- 恢复完整包根目录 `portable.vs`。该文件是 VapourSynth 便携模式标记文件，缺失会导致 `Failed to initialize VapourSynth VSScript library`，从而使全部 RIFE 补帧、AI 超分、超分补帧组合失败。
-- 修复 `portable_config/scripts/rife_runtime_menu.lua` 错误读取 `script-opts/uosc_danmaku.conf` 的问题，避免控制台刷屏 `unknown key ... ignoring`。
-
-使用方式：将 hotfix zip 解压到完整包根目录并覆盖同名文件。
+后续只更新菜单、脚本或 `.vpy` 滤镜时，通常只需要重新发布 `config` 小包。

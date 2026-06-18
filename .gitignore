@@ -6,9 +6,9 @@
 *.pyc
 
 # Python 运行时
-Lib/
-Scripts/
-vsgenstubs4/
+/Lib/
+/Scripts/
+/vsgenstubs4/
 python*.exe
 python*.dll
 python*.zip
@@ -18,9 +18,9 @@ get-pip.py
 
 # AI 模型 (不提交)
 faster-whisper-win/
-vs-plugins/
-vs-coreplugins/
-vs-scripts/
+/vs-plugins/
+/vs-coreplugins/
+/vs-scripts/
 
 # 缓存
 _cache/
@@ -68,3 +68,4 @@ node_modules/
 tools/telegram-web-mpv-bridge/.venv/
 tools/telegram-web-mpv-bridge/__pycache__/
 tools/telegram-web-mpv-bridge/*.log
+tools/release/*.local.txt

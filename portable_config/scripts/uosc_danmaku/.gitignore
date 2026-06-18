@@ -1,0 +1,4 @@
+danmaku/*
+*.toml
+.*
+!.gitignore
