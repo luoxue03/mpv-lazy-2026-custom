@@ -1,4 +1,4 @@
-// ==UserScript==
+﻿// ==UserScript==
 // @name                    External Player
 // @name:zh-CN              外部播放器
 // @namespace               https://github.com/LuckyPuppy514/external-player
@@ -492,7 +492,7 @@ const PARSER = {
                 currentMedia.mpvOptions.push('--ytdl-raw-options-append="cookies=F:\\mpv_2026\\mpv-lazy\\cookies.txt"');
             }
             currentMedia.ytdlp.quality = undefined;
-            currentMedia.ytdlp.impersonate = isSpankbangUrl() ? 'Chrome-124' : 'chrome';
+            currentMedia.ytdlp.impersonate = isSpankbangUrl() ? 'Safari-18.0' : 'chrome';
             currentMedia.ytdlp.format = 'best[protocol^=m3u8]/best';
         }
         async check() {
