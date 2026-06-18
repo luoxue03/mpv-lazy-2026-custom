@@ -6,6 +6,12 @@
 
 | 文档 | 内容 | 适合什么时候看 |
 |---|---|---|
+| [工具脚本安装、配置与使用说明](工具脚本安装配置使用说明.md) | 汇总 installer、external_player、MPV scripts、script-opts、tools、Release 脚本的安装、配置、使用和排错 | 想知道整合包里每个脚本工具怎么用、是否需要安装或授权时 |
+| [external_player](scripts/external-player.md) | 浏览器用户脚本、url-scheme-handler、网页拉起 mpv 的安装配置和排错 | 配置 B 站/网页视频从浏览器拉起 mpv 时 |
+| [uosc_danmaku](scripts/uosc-danmaku.md) | 弹幕插件文件结构、样式配置、菜单入口和常见错误 | 配置弹幕显示、搜索弹幕、排查补帧后弹幕异常时 |
+| [sub-fastwhisper](scripts/sub-fastwhisper.md) | AI 字幕脚本、faster-whisper、翻译 API 配置与使用 | 生成/翻译字幕或配置 API key 时 |
+| [trakt-scrobble](scripts/trakt-scrobble.md) | Trakt 授权、同步、手动匹配和错误处理 | 同步观看记录、修正识别错误或重新授权时 |
+| [Telegram Web MPV Bridge](scripts/telegram-web-mpv-bridge.md) | Telegram Web K 用户脚本、本地 bridge、mpv 菜单控制与排错 | 从 Telegram Web 播放当前视频到 mpv 时 |
 | [RIFE/TensorRT 性能调查与修复](research/RIFE-performance-investigation-2026-06-14.md) | 记录 RIFE 4.15 lite 丢帧、TensorRT 10.16 回退到 10.13 的测试和结论 | 排查补帧丢帧、回滚/升级 vs-mlrt、解释为什么选 TensorRT 10.13 |
 | [TensorRT 深度调研参考](research/deep-research-report.md) | 外部/深度调研汇总，作为假设和后续验证参考 | 需要继续拆 TensorRT 性能根因时 |
 | [External Player 与 HLS 清晰度菜单](research/external-player-hls-quality-menu-2026-06-16.md) | 记录 MissAV 直连 HLS、Pornhub/SpankBang 走 yt-dlp、403/410 处理、通用 HLS editions 清晰度菜单 | 维护 `external_player.js`、`quality-menu.lua` 或排查网页拉起 MPV 时 |
@@ -45,6 +51,16 @@
 
 - `portable_config/scripts/uosc_danmaku/README.md`
 - `portable_config/scripts/trakt-scrobble/README.md`
+
+### 脚本工具独立说明
+
+面向用户的脚本工具说明放在 `docs/scripts/`：
+
+- [external_player](scripts/external-player.md)
+- [uosc_danmaku](scripts/uosc-danmaku.md)
+- [sub-fastwhisper](scripts/sub-fastwhisper.md)
+- [trakt-scrobble](scripts/trakt-scrobble.md)
+- [Telegram Web MPV Bridge](scripts/telegram-web-mpv-bridge.md)
 
 ### 2025 迁移文档精选
 

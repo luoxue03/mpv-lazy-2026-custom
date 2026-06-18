@@ -25,9 +25,6 @@ faster-whisper-win/
 # 缓存
 _cache/
 
-# 安装器
-installer/
-
 # 日志
 *.log
 

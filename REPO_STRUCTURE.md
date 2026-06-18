@@ -16,6 +16,7 @@
 |---|---|---|---|
 | portable_config/ | MPV 便携配置核心：conf、脚本、着色器、VS 滤镜脚本、字体 | 是 | 依赖 mpv.exe、VapourSynth 运行时、模型文件（不在仓库） |
 | docs/ | 文档：研究记录、迁移归档、文章、可视化报告 | 是 | 无 |
+| installer/ | Windows 注册/取消注册、umpv 安装、测试/纯净/跑分模式脚本 | 是 | 依赖完整包根目录中的 mpv.com、mpv.exe、umpv.exe |
 | tools/ | 工具源码：RIFE benchmark、RealESRGAN 导出、Telegram Bridge | 是 | Telegram Bridge 需本机 Python venv |
 | tools/release/ | GitHub Release 分类打包脚本与说明 | 是 | 依赖完整发布源目录与 7z.exe |
 | external_player.js | 油猴脚本，网页拉起 MPV 播放 | 是 | 依赖 url-scheme-handler 或 MPV 可执行路径 |
@@ -24,6 +25,17 @@
 | MANIFEST.in | Python 打包清单（上游遗留） | 是 | 无 |
 
 ## portable_config/ 详细
+
+## installer/ 详细
+
+- mpv-register.bat：调用 `mpv.com --register` 注册 mpv。
+- mpv-unregister.bat：调用 `mpv.com --unregister` 取消注册。
+- umpv-install.bat：将 `umpv.exe` 写入系统“打开方式”和默认程序候选，需管理员权限。
+- umpv-uninstall.bat：撤销 `umpv.exe` 注册表项，需管理员权限。
+- mpv-测试模式.bat / mpv-纯净模式.bat / mpv-跑分模式.bat：用于诊断配置、脚本和性能问题。
+- mpv-BenchMark.conf / mpv-test.conf / mpv-icon.ico：上述脚本使用的配置与图标。
+
+这些文件会随 `base` 包发布。详细使用说明见 `docs/工具脚本安装配置使用说明.md`。
 
 ### 配置文件（已上传）
 

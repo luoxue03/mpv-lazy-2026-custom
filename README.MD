@@ -30,6 +30,17 @@
 
 如果只需要基础播放，可以只下载 `base`；如果已经完整安装，后续菜单、脚本、滤镜配置的小更新通常只需要下载 `config` 覆盖。
 
+## 安装配置教程
+
+- 总入口：[工具脚本安装、配置与使用说明](./docs/%E5%B7%A5%E5%85%B7%E8%84%9A%E6%9C%AC%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.md)
+- 浏览器拉起播放：[external_player](./docs/scripts/external-player.md)
+- 弹幕插件：[uosc_danmaku](./docs/scripts/uosc-danmaku.md)
+- AI 字幕：[sub-fastwhisper](./docs/scripts/sub-fastwhisper.md)
+- Trakt 同步：[trakt-scrobble](./docs/scripts/trakt-scrobble.md)
+- Telegram Web 播放桥接：[Telegram Web MPV Bridge](./docs/scripts/telegram-web-mpv-bridge.md)
+
+如果是第一次使用，建议先按 Release 说明完成 `base + ai + config` 解压，再阅读总入口文档；只有需要网页拉起、弹幕、AI 字幕、Trakt 或 Telegram Web 时，再进入对应专题文档配置。
+
 ## 主要特性
 
 - **RIFE 补帧**：整理了 4.6、4.7、4.8、4.9、4.15 lite、4.25 lite 等模型与菜单入口。
@@ -48,11 +59,14 @@
 
 - `portable_config/`：mpv 配置、脚本、菜单、VapourSynth `.vpy` 滤镜、着色器、字体。
 - `docs/`：迁移记录、调研报告、RIFE benchmark HTML、文章草稿。
+- `installer/`：mpv / umpv 注册、取消注册、测试模式、纯净模式、跑分模式等 Windows 辅助脚本。
 - `tools/`：RIFE benchmark、engine 预构建、RealESRGAN 导出、Telegram Bridge、Release 打包工具。
 - `external_player.js`：网页端拉起 mpv 的脚本。
 - `REPO_STRUCTURE.md`：更详细的目录结构与本地依赖说明。
 
 完整目录解释见 [REPO_STRUCTURE.md](./REPO_STRUCTURE.md)。
+
+工具脚本的安装、配置、使用和排错说明见 [docs/工具脚本安装配置使用说明.md](./docs/%E5%B7%A5%E5%85%B7%E8%84%9A%E6%9C%AC%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.md)。
 
 ## 不在仓库中的内容
 
@@ -101,4 +115,3 @@ Release 打包脚本位于：
 ## 免责声明
 
 这是个人自用配置整理后的公开留存版本，默认按我的使用场景和硬件偏好优化。不同显卡、驱动、视频源和网络环境下，补帧、超分、在线拉起播放等功能可能表现不同。
-

@@ -592,6 +592,10 @@ def verify_extracted(paths: Paths, version: str, forbidden_texts: list[str]) -> 
 
     root = paths.verify / PACKAGE_ROOT_NAME
     required = {
+        "installer",
+        "installer/mpv-register.bat",
+        "installer/mpv-unregister.bat",
+        "installer/umpv-install.bat",
         "Lib",
         "Scripts",
         "VSPipe.exe",
