@@ -7,7 +7,7 @@ local current_config_path = mp.command_native({ 'expand-path', '~~/script-opts/r
 local default_config_path = mp.command_native({ 'expand-path', '~~/script-opts/rife_runtime_default.json' })
 local runtime_vpy = '~~/vs/MEMC_RIFE_NV_runtime.vpy'
 local opts = { danmaku_fps = '60/1.001' }
-options.read_options(opts, 'uosc_danmaku', function() end)
+options.read_options(opts, script_name, function() end)
 
 local models = {
     { id = 46, label = '4.6', hint = '稳定通用', flow_scale = true, ensemble = true, v2 = true },
