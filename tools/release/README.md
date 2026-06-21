@@ -53,6 +53,33 @@ python tools\release\package_release.py
 - 是否存在 cookies、Trakt token、播放历史、缓存等禁止发布文件。
 - 是否出现本地敏感文本扫描列表中的内容。
 
+### 增量打包并替换指定 Release 资产
+
+只修改配置、脚本、菜单或 `.vpy` 时，通常不需要重新压缩 AI 分卷。可以只构建并替换 `base + config + SHA256SUMS`：
+
+```bat
+python tools\release\package_release.py --version v2026.06 --packages base config --reuse-existing-assets --verify selected --upload --replace-selected-assets
+```
+
+这条命令会：
+
+1. 跳过完整 staging，直接从完整源目录和 Git 仓库构建选中的包。
+2. 只重新压缩 `base` 和 `config`。
+3. 从现有 GitHub Release 下载旧 `SHA256SUMS`，保留未重传资产的哈希。
+4. 只删除并上传 `base`、`config`、`SHA256SUMS` 三个资产。
+
+如果只要本地生成包、不上传：
+
+```bat
+python tools\release\package_release.py --version v2026.06 --packages base config --reuse-existing-assets --verify selected
+```
+
+查看一段 Git diff 会影响哪些包：
+
+```bat
+python tools\release\package_release.py --suggest-packages HEAD~1..HEAD
+```
+
 ### 发布到 GitHub Release
 
 新发版：
@@ -100,10 +127,16 @@ set MPV_RELEASE_FORBIDDEN_TEXT=YOUR_SECRET_VALUE
 - `--work <path>`：指定临时工作目录。
 - `--version <tag>`：指定发版 tag，例如 `v2026.06.1`。
 - `--volume 2000m`：指定 AI 包分卷大小。
-- `--skip-verify`：只打包，不解压验证。
+- `--packages base config`：只构建指定包；可选 `base`、`ai`、`config`、`docs`、`all`。
+- `--reuse-existing-assets`：增量构建时复用现有 Release 中未重传资产的 SHA256。
+- `--verify full|selected|none`：选择完整验证、只验证构建的包、或跳过验证。
+- `--skip-verify`：旧参数，等同于 `--verify none`。
 - `--no-clean`：不清理旧工作目录和旧输出目录。
 - `--upload`：创建 GitHub Release 并上传资产。
+- `--replace-selected-assets`：只替换本次构建的资产和 `SHA256SUMS`。
 - `--replace-existing-assets`：允许替换已有 Release 的资产。
+- `--suggest-packages <range>`：根据 `git diff --name-only <range>` 建议需要构建的包。
+- `--no-fast-selected`：选包构建时禁用快速路径，改走完整 staging。
 - `--forbidden-text <text>`：临时添加一个禁止出现的敏感文本。
 - `--forbidden-text-file <path>`：从指定文件读取敏感文本列表。
 
@@ -192,4 +225,3 @@ python tools\release\smoke_test_mpv.py --no-window
 3. 用 `smoke_test_mpv.py` 对解压后的完整包做基础播放验证。
 4. 如果改过 VF、模型或 `vs-plugins`，再用 `--vf` 验证一个补帧/超分组合。
 5. 确认无 fatal 后，用新的 `--version` 执行 `--upload` 发版。
-

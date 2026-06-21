@@ -22,6 +22,7 @@ from pathlib import Path
 VERSION = "v2026.06"
 PACKAGE_ROOT_NAME = "mpv-lazy-2026-custom"
 REPO_SLUG = "luoxue03/mpv-lazy-2026-custom"
+PACKAGE_ORDER = ("base", "ai", "config", "docs")
 
 
 AI_TOP_DIRS = {
@@ -333,6 +334,82 @@ def is_docs(rel: str) -> bool:
     return rel in DOCS_EXACT_FILES or has_prefix(rel, DOCS_PREFIXES)
 
 
+def normalize_packages(packages: list[str]) -> list[str]:
+    selected: list[str] = []
+    for package in packages:
+        name = package.lower()
+        if name == "all":
+            name = "all"
+        if name == "all":
+            for item in PACKAGE_ORDER:
+                if item not in selected:
+                    selected.append(item)
+            continue
+        if name not in PACKAGE_ORDER:
+            raise ValueError(f"Unknown package {package!r}; expected one of: {', '.join(PACKAGE_ORDER)}")
+        if name not in selected:
+            selected.append(name)
+    return selected or list(PACKAGE_ORDER)
+
+
+def selected_set(packages: list[str]) -> set[str]:
+    return set(packages)
+
+
+def package_asset_names(version: str, package: str) -> list[str]:
+    if package == "base":
+        return [f"mpv-lazy-2026-custom-base-{version}.zip"]
+    if package == "ai":
+        return [f"mpv-lazy-2026-custom-ai-{version}.zip.*"]
+    if package == "config":
+        return [f"mpv-lazy-2026-custom-config-{version}.zip"]
+    if package == "docs":
+        return [f"mpv-lazy-2026-custom-docs-{version}.zip"]
+    raise ValueError(package)
+
+
+def concrete_package_asset_files(paths: Paths, version: str, package: str) -> list[Path]:
+    if package == "base":
+        return [paths.artifacts / f"mpv-lazy-2026-custom-base-{version}.zip"]
+    if package == "ai":
+        return sorted(paths.artifacts.glob(f"mpv-lazy-2026-custom-ai-{version}.zip.*"))
+    if package == "config":
+        return [paths.artifacts / f"mpv-lazy-2026-custom-config-{version}.zip"]
+    if package == "docs":
+        return [paths.artifacts / f"mpv-lazy-2026-custom-docs-{version}.zip"]
+    raise ValueError(package)
+
+
+def package_for_rel(rel: str) -> set[str]:
+    packages: set[str] = set()
+    if is_ai(rel):
+        packages.add("ai")
+        if rel in BASE_DUPLICATE_FILES:
+            packages.add("base")
+    else:
+        packages.add("base")
+    if is_config(rel):
+        packages.add("config")
+    if is_docs(rel):
+        packages.add("docs")
+    return packages
+
+
+def suggest_packages(paths: Paths, diff_range: str) -> list[str]:
+    completed = run(
+        ["git", "diff", "--name-only", diff_range],
+        cwd=paths.repo,
+        timeout=120,
+    )
+    packages: set[str] = set()
+    for rel in completed.stdout.splitlines():
+        rel = rel.strip().replace("\\", "/")
+        if not rel:
+            continue
+        packages.update(package_for_rel(rel))
+    return [package for package in PACKAGE_ORDER if package in packages]
+
+
 def should_overlay(rel: str, filename: str) -> bool:
     top = rel.split("/")[0]
     if top in OVERLAY_SKIP_TOP:
@@ -370,11 +447,24 @@ def build_paths(args: argparse.Namespace) -> Paths:
     )
 
 
-def clean_work(paths: Paths) -> None:
-    for path in [paths.work, paths.artifacts]:
-        if path.exists():
-            safe_rmtree(path, path.parent)
+def clean_work(paths: Paths, packages: list[str]) -> None:
+    if paths.work.exists():
+        safe_rmtree(paths.work, paths.work.parent)
     paths.work.mkdir(parents=True, exist_ok=True)
+    paths.artifacts.mkdir(parents=True, exist_ok=True)
+    if packages == list(PACKAGE_ORDER):
+        safe_rmtree(paths.artifacts, paths.artifacts.parent)
+        paths.artifacts.mkdir(parents=True, exist_ok=True)
+        return
+    for package in packages:
+        for pattern in package_asset_names("*", package):
+            for path in paths.artifacts.glob(pattern):
+                if path.is_file():
+                    path.unlink()
+    for pattern in ["SHA256SUMS-*.txt", "RELEASE_NOTES-*.md"]:
+        for path in paths.artifacts.glob(pattern):
+            if path.is_file():
+                path.unlink()
     paths.artifacts.mkdir(parents=True, exist_ok=True)
 
 
@@ -439,39 +529,96 @@ def copy_to_package(paths: Paths, package: str, source: Path, rel: str) -> None:
     shutil.copy2(source, target)
 
 
-def build_package_inputs(paths: Paths) -> None:
+def should_keep_staged(rel: str) -> bool:
+    if has_prefix(rel, STAGING_REMOVE_RELS):
+        return False
+    if rel.endswith(".log"):
+        return False
+    if "__pycache__" in rel.split("/"):
+        return False
+    return True
+
+
+def iter_staging_files(paths: Paths):
+    for source in paths.staging.rglob("*"):
+        if source.is_file():
+            yield source, source.relative_to(paths.staging).as_posix()
+
+
+def iter_direct_effective_files(paths: Paths, packages: list[str]):
+    wanted = selected_set(packages)
+    files: dict[str, Path] = {}
+    for dirpath, dirnames, filenames in os.walk(paths.source):
+        current = Path(dirpath)
+        rel_dir = current.relative_to(paths.source).as_posix() if current != paths.source else ""
+        if "ai" not in wanted:
+            dirnames[:] = [dirname for dirname in dirnames if dirname not in AI_TOP_DIRS]
+        for filename in filenames:
+            source = current / filename
+            rel = source.relative_to(paths.source).as_posix()
+            impacted = package_for_rel(rel)
+            if not (impacted & wanted):
+                continue
+            if should_keep_staged(rel):
+                files[rel] = source
+
+    copied = 0
+    for dirpath, dirnames, filenames in os.walk(paths.repo):
+        current = Path(dirpath)
+        rel_dir = current.relative_to(paths.repo).as_posix() if current != paths.repo else ""
+        kept_dirs = []
+        for dirname in dirnames:
+            rel = f"{rel_dir}/{dirname}".strip("/")
+            if dirname in OVERLAY_EXCLUDE_DIRS or dirname in OVERLAY_SKIP_TOP or rel in OVERLAY_EXCLUDE_REL_DIRS:
+                continue
+            kept_dirs.append(dirname)
+        dirnames[:] = kept_dirs
+        for filename in filenames:
+            source = current / filename
+            rel = source.relative_to(paths.repo).as_posix()
+            if should_overlay(rel, filename) and should_keep_staged(rel):
+                files[rel] = source
+                copied += 1
+    print(f"Overlay files: {copied}")
+    for rel, source in sorted(files.items()):
+        yield source, rel
+
+
+def build_package_inputs(paths: Paths, packages: list[str], *, direct: bool = False) -> None:
     safe_rmtree(paths.package_inputs, paths.work)
     paths.package_inputs.mkdir(parents=True, exist_ok=True)
+    wanted = selected_set(packages)
     counts = {"base": 0, "ai": 0, "config": 0, "docs": 0}
     sizes = {"base": 0, "ai": 0, "config": 0, "docs": 0}
-    for source in paths.staging.rglob("*"):
-        if not source.is_file():
-            continue
-        rel = source.relative_to(paths.staging).as_posix()
+    entries = iter_direct_effective_files(paths, packages) if direct else iter_staging_files(paths)
+    for source, rel in entries:
         size = source.stat().st_size
         if is_ai(rel):
-            copy_to_package(paths, "ai", source, rel)
-            counts["ai"] += 1
-            sizes["ai"] += size
-            if rel in BASE_DUPLICATE_FILES:
+            if "ai" in wanted:
+                copy_to_package(paths, "ai", source, rel)
+                counts["ai"] += 1
+                sizes["ai"] += size
+            if rel in BASE_DUPLICATE_FILES and "base" in wanted:
                 copy_to_package(paths, "base", source, rel)
                 counts["base"] += 1
                 sizes["base"] += size
         else:
-            copy_to_package(paths, "base", source, rel)
-            counts["base"] += 1
-            sizes["base"] += size
-        if is_config(rel):
+            if "base" in wanted:
+                copy_to_package(paths, "base", source, rel)
+                counts["base"] += 1
+                sizes["base"] += size
+        if "config" in wanted and is_config(rel):
             copy_to_package(paths, "config", source, rel)
             counts["config"] += 1
             sizes["config"] += size
-        if is_docs(rel):
+        if "docs" in wanted and is_docs(rel):
             copy_to_package(paths, "docs", source, rel)
             counts["docs"] += 1
             sizes["docs"] += size
 
     for package in ["base", "config"]:
-        (paths.package_inputs / package / PACKAGE_ROOT_NAME / "portable.vs").touch(exist_ok=True)
+        if package in wanted:
+            (paths.package_inputs / package / PACKAGE_ROOT_NAME / "portable.vs").touch(exist_ok=True)
 
     readmes = {
         "base": "基础可播放包。可直接运行 mpv.exe 播放普通视频；AI 补帧/超分需继续解压 AI 包和 Config 包。\n",
@@ -480,17 +627,22 @@ def build_package_inputs(paths: Paths) -> None:
         "docs": "文档包。包含迁移记录、测试报告、RIFE benchmark HTML 和使用说明。\n",
     }
     for package, text in readmes.items():
+        if package not in wanted:
+            continue
         readme = paths.package_inputs / package / PACKAGE_ROOT_NAME / f"包说明-{package}.txt"
         readme.parent.mkdir(parents=True, exist_ok=True)
         readme.write_text(text, encoding="utf-8", newline="\n")
         counts[package] += 1
         sizes[package] += readme.stat().st_size
 
-    for package in ["base", "ai", "config", "docs"]:
+    for package in PACKAGE_ORDER:
+        if package not in wanted:
+            continue
         print(f"{package}: files={counts[package]}, size={sizes[package] / 1024 ** 2:.2f}MB")
 
 
-def archive_packages(paths: Paths, version: str, volume: str, compression: int) -> None:
+def archive_packages(paths: Paths, version: str, volume: str, compression: int, packages: list[str]) -> None:
+    wanted = selected_set(packages)
     package_specs = [
         ("base", f"mpv-lazy-2026-custom-base-{version}.zip", []),
         ("ai", f"mpv-lazy-2026-custom-ai-{version}.zip", [f"-v{volume}"]),
@@ -498,6 +650,8 @@ def archive_packages(paths: Paths, version: str, volume: str, compression: int) 
         ("docs", f"mpv-lazy-2026-custom-docs-{version}.zip", []),
     ]
     for package, filename, extra_args in package_specs:
+        if package not in wanted:
+            continue
         source = paths.package_inputs / package / PACKAGE_ROOT_NAME
         target = paths.artifacts / filename
         run(
@@ -507,17 +661,81 @@ def archive_packages(paths: Paths, version: str, volume: str, compression: int) 
         )
 
 
-def write_sha256(paths: Paths, version: str) -> None:
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def read_sha256_file(path: Path) -> dict[str, str]:
+    entries: dict[str, str] = {}
+    if not path.exists():
+        return entries
+    for line in path.read_text(encoding="utf-8", errors="ignore").splitlines():
+        parts = line.split(maxsplit=1)
+        if len(parts) == 2 and len(parts[0]) == 64:
+            entries[parts[1].strip()] = parts[0]
+    return entries
+
+
+def download_release_sha256(paths: Paths, version: str, repo_slug: str) -> dict[str, str]:
+    paths.work.mkdir(parents=True, exist_ok=True)
+    target = paths.work / f"existing-SHA256SUMS-{version}.txt"
+    if target.exists():
+        target.unlink()
+    completed = subprocess.run(
+        [
+            "gh",
+            "release",
+            "download",
+            version,
+            "--repo",
+            repo_slug,
+            "--pattern",
+            f"SHA256SUMS-{version}.txt",
+            "--dir",
+            str(paths.work),
+        ],
+        text=True,
+        capture_output=True,
+        errors="replace",
+        timeout=300,
+    )
+    downloaded = paths.work / f"SHA256SUMS-{version}.txt"
+    if completed.returncode != 0 or not downloaded.exists():
+        print("Existing release SHA256SUMS not available; using local artifacts only.")
+        if completed.stderr:
+            print(completed.stderr[-1000:], file=sys.stderr)
+        return {}
+    downloaded.replace(target)
+    return read_sha256_file(target)
+
+
+def artifact_names_for_sha(paths: Paths, version: str, packages: list[str], existing: dict[str, str]) -> list[str]:
+    names = set(existing)
+    for package in packages:
+        for file in concrete_package_asset_files(paths, version, package):
+            names.add(file.name)
+    return sorted(name for name in names if not name.startswith("RELEASE_NOTES-"))
+
+
+def write_sha256(paths: Paths, version: str, packages: list[str], existing: dict[str, str] | None = None) -> None:
+    existing = existing or {}
     sha_path = paths.artifacts / f"SHA256SUMS-{version}.txt"
     with sha_path.open("w", encoding="utf-8", newline="\n") as handle:
-        for path in sorted(paths.artifacts.iterdir()):
-            if not path.is_file() or path.name == sha_path.name or path.name.startswith("RELEASE_NOTES-"):
+        for name in artifact_names_for_sha(paths, version, packages, existing):
+            if name == sha_path.name:
                 continue
-            digest = hashlib.sha256()
-            with path.open("rb") as stream:
-                for chunk in iter(lambda: stream.read(1024 * 1024), b""):
-                    digest.update(chunk)
-            handle.write(f"{digest.hexdigest()}  {path.name}\n")
+            path = paths.artifacts / name
+            if path.exists():
+                digest = sha256_file(path)
+            else:
+                digest = existing.get(name)
+            if not digest:
+                raise FileNotFoundError(f"No SHA256 source for {name}; build the package or use --reuse-existing-assets")
+            handle.write(f"{digest}  {name}\n")
 
 
 def write_release_notes(paths: Paths, version: str) -> Path:
@@ -580,20 +798,25 @@ def load_forbidden_texts(paths: Paths, args: argparse.Namespace) -> list[str]:
     return texts
 
 
-def verify_extracted(paths: Paths, version: str, forbidden_texts: list[str]) -> None:
+def verify_extracted(paths: Paths, version: str, forbidden_texts: list[str], packages: list[str], mode: str) -> None:
+    if mode == "none":
+        print("Verification skipped by --verify none.")
+        return
     safe_rmtree(paths.verify, paths.work)
     paths.verify.mkdir(parents=True, exist_ok=True)
-    archives = [
-        paths.artifacts / f"mpv-lazy-2026-custom-base-{version}.zip",
-        paths.artifacts / f"mpv-lazy-2026-custom-ai-{version}.zip.001",
-        paths.artifacts / f"mpv-lazy-2026-custom-config-{version}.zip",
-        paths.artifacts / f"mpv-lazy-2026-custom-docs-{version}.zip",
-    ]
+    verify_packages = list(PACKAGE_ORDER) if mode == "full" else packages
+    archives: list[Path] = []
+    for package in verify_packages:
+        archives.extend(concrete_package_asset_files(paths, version, package))
+    archives = [archive for archive in archives if archive.exists() and (archive.suffix != ".zip" or not archive.name.endswith(".zip.002"))]
+    archives = [archive for archive in archives if not ("-ai-" in archive.name and not archive.name.endswith(".zip.001"))]
+    if not archives:
+        raise FileNotFoundError("No archives available for verification")
     for archive in archives:
         run([str(paths.seven_zip), "x", "-y", str(archive), f"-o{paths.verify}"], timeout=7200)
 
     root = paths.verify / PACKAGE_ROOT_NAME
-    required = {
+    required_full = {
         "installer",
         "installer/mpv-register.bat",
         "installer/mpv-unregister.bat",
@@ -610,6 +833,14 @@ def verify_extracted(paths: Paths, version: str, forbidden_texts: list[str]) -> 
         "vs-coreplugins",
         "vs-plugins",
     }
+    required_selected = set()
+    if "base" in verify_packages:
+        required_selected.update({"mpv.exe", "portable.vs", "portable_config/mpv.conf"})
+    if "config" in verify_packages:
+        required_selected.update({"portable.vs", "portable_config/mpv.conf", "portable_config/scripts/rife_runtime_menu.lua"})
+    if "docs" in verify_packages:
+        required_selected.update({"docs"})
+    required = required_full if mode == "full" else required_selected
     missing = [rel for rel in sorted(required) if not (root / rel).exists()]
     if missing:
         raise RuntimeError(f"Missing required files after extraction: {missing}")
@@ -630,26 +861,26 @@ def verify_extracted(paths: Paths, version: str, forbidden_texts: list[str]) -> 
     if key_hits:
         raise RuntimeError(f"Forbidden text found after extraction: {key_hits}")
 
-    run([str(root / "VSPipe.exe"), "--version"], cwd=root, timeout=60)
-    run(
-        [str(root / "python.exe"), "-c", "import vapoursynth as vs; print(vs.__api_version__)"],
-        cwd=root,
-        timeout=60,
-    )
+    if mode == "full":
+        run([str(root / "VSPipe.exe"), "--version"], cwd=root, timeout=60)
+        run(
+            [str(root / "python.exe"), "-c", "import vapoursynth as vs; print(vs.__api_version__)"],
+            cwd=root,
+            timeout=60,
+        )
     size, files = tree_size(root)
     print(f"Verified extraction: {size / 1024 ** 3:.2f}GB, files={files}")
 
 
-def release_asset_files(paths: Paths, version: str) -> list[Path]:
-    files = [paths.artifacts / f"mpv-lazy-2026-custom-base-{version}.zip"]
-    files.extend(sorted(paths.artifacts.glob(f"mpv-lazy-2026-custom-ai-{version}.zip.*")))
-    files.extend(
-        [
-            paths.artifacts / f"mpv-lazy-2026-custom-config-{version}.zip",
-            paths.artifacts / f"mpv-lazy-2026-custom-docs-{version}.zip",
-            paths.artifacts / f"SHA256SUMS-{version}.txt",
-        ]
-    )
+def release_asset_files(paths: Paths, version: str, packages: list[str], include_sha256: bool = True) -> list[Path]:
+    files: list[Path] = []
+    for package in packages:
+        package_files = concrete_package_asset_files(paths, version, package)
+        if not package_files:
+            raise FileNotFoundError(f"Missing release assets for package {package}")
+        files.extend(package_files)
+    if include_sha256:
+        files.append(paths.artifacts / f"SHA256SUMS-{version}.txt")
     missing = [str(file) for file in files if not file.exists()]
     if missing:
         raise FileNotFoundError(f"Missing release assets: {missing}")
@@ -671,10 +902,27 @@ def release_exists(version: str, repo_slug: str) -> bool:
     raise RuntimeError((completed.stderr or completed.stdout).strip())
 
 
-def publish_release(paths: Paths, version: str, repo_slug: str, title: str, replace_existing_assets: bool) -> None:
+def existing_release_asset_names(version: str, repo_slug: str) -> list[str]:
+    return run(
+        ["gh", "release", "view", version, "--repo", repo_slug, "--json", "assets", "--jq", ".assets[].name"],
+        timeout=120,
+    ).stdout.splitlines()
+
+
+def publish_release(
+    paths: Paths,
+    version: str,
+    repo_slug: str,
+    title: str,
+    packages: list[str],
+    replace_existing_assets: bool,
+    replace_selected_assets: bool,
+) -> None:
     notes = paths.artifacts / f"RELEASE_NOTES-{version}.md"
-    files = release_asset_files(paths, version)
+    files = release_asset_files(paths, version, packages)
     if not release_exists(version, repo_slug):
+        if packages != list(PACKAGE_ORDER):
+            raise RuntimeError("Creating a new release requires --packages all; selected packages can only update an existing release.")
         run(
             [
                 "gh",
@@ -693,17 +941,19 @@ def publish_release(paths: Paths, version: str, repo_slug: str, title: str, repl
         )
         return
 
-    if not replace_existing_assets:
+    if not replace_existing_assets and not replace_selected_assets:
         raise RuntimeError(
             f"Release {version} already exists. Use a new --version for normal publishing, "
-            "or pass --replace-existing-assets to intentionally replace assets on the existing release."
+            "or pass --replace-existing-assets / --replace-selected-assets to intentionally replace assets."
         )
+    if replace_existing_assets and packages != list(PACKAGE_ORDER):
+        raise RuntimeError("--replace-existing-assets deletes every release asset and therefore requires --packages all. Use --replace-selected-assets for incremental updates.")
 
     run(["gh", "release", "edit", version, "--repo", repo_slug, "--notes-file", str(notes), "--title", title], timeout=300)
-    assets = run(
-        ["gh", "release", "view", version, "--repo", repo_slug, "--json", "assets", "--jq", ".assets[].name"],
-        timeout=120,
-    ).stdout.splitlines()
+    assets = existing_release_asset_names(version, repo_slug)
+    if replace_selected_assets:
+        target_assets = {file.name for file in files}
+        assets = [asset for asset in assets if asset in target_assets]
     for asset in assets:
         run(["gh", "release", "delete-asset", version, asset, "--repo", repo_slug, "--yes"], timeout=300)
     for file in files:
@@ -729,9 +979,42 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--release-title", default=None, help="GitHub Release title; defaults to the version tag")
     parser.add_argument("--volume", default="2000m", help="AI split volume size for 7-Zip, e.g. 2000m")
     parser.add_argument("--compression", type=int, default=5, choices=range(0, 10), help="zip compression level")
+    parser.add_argument(
+        "--packages",
+        nargs="+",
+        default=["all"],
+        metavar="PACKAGE",
+        help="packages to build: all, base, ai, config, docs; default all",
+    )
+    parser.add_argument(
+        "--reuse-existing-assets",
+        action="store_true",
+        help="when building only selected packages, merge SHA256SUMS with existing release asset hashes",
+    )
+    parser.add_argument(
+        "--suggest-packages",
+        metavar="RANGE",
+        help="print package impact inferred from git diff --name-only RANGE and exit",
+    )
+    parser.add_argument(
+        "--verify",
+        choices=["full", "selected", "none"],
+        default=None,
+        help="verification mode; default full for all packages, selected otherwise",
+    )
+    parser.add_argument(
+        "--no-fast-selected",
+        action="store_true",
+        help="for selected package builds, use full staging instead of direct source/repo package input construction",
+    )
     parser.add_argument("--no-clean", action="store_true", help="do not delete work/artifacts before building")
-    parser.add_argument("--skip-verify", action="store_true", help="skip extraction and VapourSynth verification")
+    parser.add_argument("--skip-verify", action="store_true", help="deprecated alias for --verify none")
     parser.add_argument("--upload", action="store_true", help="create a GitHub Release and upload assets")
+    parser.add_argument(
+        "--replace-selected-assets",
+        action="store_true",
+        help="if the target release exists, replace only the built package assets plus SHA256SUMS",
+    )
     parser.add_argument(
         "--replace-existing-assets",
         action="store_true",
@@ -756,28 +1039,55 @@ def main() -> int:
     configure_stdout()
     args = parse_args()
     paths = build_paths(args)
+    packages = normalize_packages(args.packages)
+    if args.suggest_packages:
+        suggested = suggest_packages(paths, args.suggest_packages)
+        print(" ".join(suggested) if suggested else "none")
+        return 0
+    if args.replace_selected_assets and packages == list(PACKAGE_ORDER):
+        print("--replace-selected-assets with all packages is equivalent to replacing every package asset plus SHA256SUMS.")
+    if args.upload and args.replace_selected_assets and packages != list(PACKAGE_ORDER) and not args.reuse_existing_assets:
+        raise RuntimeError("Incremental release upload requires --reuse-existing-assets so SHA256SUMS keeps unchanged asset hashes.")
     print(f"Repo: {paths.repo}")
     print(f"Source: {paths.source}")
     print(f"Work: {paths.work}")
     print(f"Artifacts: {paths.artifacts}")
     print(f"7z: {paths.seven_zip}")
+    print(f"Packages: {', '.join(packages)}")
     if not paths.repo.exists():
         raise FileNotFoundError(paths.repo)
     if not paths.source.exists():
         raise FileNotFoundError(paths.source)
+    verify_mode = "none" if args.skip_verify else (args.verify or ("full" if packages == list(PACKAGE_ORDER) else "selected"))
+    existing_hashes = {}
+    if args.reuse_existing_assets:
+        existing_hashes = download_release_sha256(paths, args.version, args.repo_slug)
     if not args.no_clean:
-        clean_work(paths)
-    make_staging(paths)
-    build_package_inputs(paths)
-    archive_packages(paths, args.version, args.volume, args.compression)
+        clean_work(paths, packages)
+    fast_selected = packages != list(PACKAGE_ORDER) and not args.no_fast_selected
+    if fast_selected:
+        print("Fast selected-package build: direct source/repo package inputs; full staging skipped.")
+    else:
+        make_staging(paths)
+    build_package_inputs(paths, packages, direct=fast_selected)
+    archive_packages(paths, args.version, args.volume, args.compression, packages)
     write_release_notes(paths, args.version)
-    write_sha256(paths, args.version)
-    if not args.skip_verify:
-        verify_extracted(paths, args.version, load_forbidden_texts(paths, args))
+    if args.reuse_existing_assets and not existing_hashes:
+        existing_hashes = download_release_sha256(paths, args.version, args.repo_slug)
+    write_sha256(paths, args.version, packages, existing_hashes)
+    verify_extracted(paths, args.version, load_forbidden_texts(paths, args), packages, verify_mode)
     print_summary(paths)
     if args.upload:
         title = args.release_title or f"mpv-lazy 2026 custom {args.version}"
-        publish_release(paths, args.version, args.repo_slug, title, args.replace_existing_assets)
+        publish_release(
+            paths,
+            args.version,
+            args.repo_slug,
+            title,
+            packages,
+            args.replace_existing_assets,
+            args.replace_selected_assets,
+        )
     else:
         print("Upload skipped. Pass --upload to create a new GitHub Release.")
     return 0
