@@ -177,6 +177,7 @@ OVERLAY_EXCLUDE_GLOBS = {
     "portable_config/trakt_config.json",
     "portable_config/trakt_history.json",
     "settings.json",
+    "tools/release/forbidden_texts.local.txt",
     "viewed.json",
 }
 
@@ -202,6 +203,7 @@ STAGING_REMOVE_RELS = {
     "portable_config/trakt_history.json",
     "quality-menu-syntax-check.log",
     "settings.json",
+    "tools/release/forbidden_texts.local.txt",
     "tools/telegram-web-mpv-bridge/.venv",
     "tools/telegram-web-mpv-bridge/__pycache__",
     "truehdrtweaks.log",
