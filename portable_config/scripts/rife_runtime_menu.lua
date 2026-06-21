@@ -7,6 +7,7 @@ local current_config_path = mp.command_native({ 'expand-path', '~~/script-opts/r
 local default_config_path = mp.command_native({ 'expand-path', '~~/script-opts/rife_runtime_default.json' })
 local runtime_vpy = '~~/vs/MEMC_RIFE_NV_runtime.vpy'
 local opts = { danmaku_fps = '60/1.001' }
+local SMOOTH_FPS_SUSPEND = 'user-data/uosc_danmaku/suspend-smooth-fps'
 options.read_options(opts, script_name, function() end)
 
 local models = {
@@ -160,19 +161,18 @@ local function apply_config(config)
     config = normalize_config(config)
     if not write_config(current_config_path, config) then return end
 
-    local had_danmaku_fps = filter_state('danmaku', 'fps')
+    mp.set_property_bool(SMOOTH_FPS_SUSPEND, true)
     mp.commandv('vf', 'remove', '@rife_runtime')
-    if had_danmaku_fps then
-        mp.commandv('vf', 'remove', '@danmaku')
-    end
+    mp.commandv('vf', 'remove', '@danmaku_smooth')
+    mp.commandv('vf', 'remove', '@danmaku')
 
     mp.add_timeout(0.05, function()
+        mp.commandv('vf', 'remove', '@danmaku_smooth')
+        mp.commandv('vf', 'remove', '@danmaku')
         mp.commandv('vf', 'append', '@rife_runtime:vapoursynth=' .. runtime_vpy)
-        if had_danmaku_fps then
-            mp.add_timeout(0.05, function()
-                mp.commandv('vf', 'append', '@danmaku:fps=fps=' .. opts.danmaku_fps)
-            end)
-        end
+        mp.add_timeout(0.2, function()
+            mp.set_property_bool(SMOOTH_FPS_SUSPEND, false)
+        end)
     end)
     mp.osd_message('已应用：' .. describe(config), 4)
 end
