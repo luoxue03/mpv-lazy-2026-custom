@@ -11,6 +11,9 @@ local ass_sub_id = nil
 local ass_sub_path = nil
 local saved_secondary_state = nil
 local syncing_smooth_fps = false
+local ass_loaded_path = nil
+local ass_loaded_signature = nil
+local ass_reload_pending = false
 local SMOOTH_FPS_SUSPEND = "user-data/uosc_danmaku/suspend-smooth-fps"
 
 local function is_ass_render_mode()
@@ -39,6 +42,9 @@ local function remove_ass_subtitle(restore_secondary)
         mp.commandv("sub-remove", id)
         ass_sub_id = nil
     end
+    ass_loaded_path = nil
+    ass_loaded_signature = nil
+    ass_reload_pending = false
     if restore_secondary ~= false and saved_secondary_state then
         mp.set_property_native("secondary-sub-ass-override", saved_secondary_state.ass_override)
         mp.set_property_native("secondary-sub-visibility", saved_secondary_state.visibility)
@@ -124,6 +130,29 @@ local function ass_event_line(event)
     return string.format("Dialogue: %d,%s,%s,%s,,0,0,0,,%s", layer, ass_time(event.start_time), ass_time(event.end_time), style, text)
 end
 
+local function ass_render_signature()
+    local count = COMMENTS and #COMMENTS or 0
+    local first = count > 0 and COMMENTS[1] or {}
+    local last = count > 0 and COMMENTS[count] or {}
+    return table.concat({
+        tostring(count),
+        tostring(first.start_time or ""),
+        tostring(first.end_time or ""),
+        tostring(last.start_time or ""),
+        tostring(last.end_time or ""),
+        tostring(DELAY or 0),
+        tostring(options.fontname),
+        tostring(options.fontsize),
+        tostring(options.opacity),
+        tostring(options.outline),
+        tostring(options.shadow),
+        tostring(options.bold),
+        tostring(options.displayarea),
+        tostring(options.scrolltime),
+        tostring(options.fixtime),
+    }, "|")
+end
+
 local function write_ass_file(path)
     if COMMENTS == nil then return false end
     local file = io.open(path, "w")
@@ -161,8 +190,13 @@ local function write_ass_file(path)
     return true
 end
 
-local function load_ass_subtitle(path)
-    remove_ass_subtitle(false)
+local function load_ass_subtitle(path, signature)
+    ass_reload_pending = true
+    local old_id = ass_sub_id or (ass_sub_path and find_sub_track_id_by_path(ass_sub_path))
+    if old_id then
+        mp.commandv("sub-remove", old_id)
+        ass_sub_id = nil
+    end
     if not saved_secondary_state then
         saved_secondary_state = {
             sid = mp.get_property_native("secondary-sid"),
@@ -177,13 +211,22 @@ local function load_ass_subtitle(path)
         mp.set_property_native("secondary-sid", ass_sub_id)
         mp.set_property_native("secondary-sub-visibility", true)
     end
+    ass_loaded_path = path
+    ass_loaded_signature = signature
+    ass_reload_pending = false
 end
 
 local function render_ass_danmaku()
     if COMMENTS == nil then return end
     local path = get_ass_sub_path()
+    local signature = ass_render_signature()
+    ass_sub_id = ass_sub_id or find_sub_track_id_by_path(path)
+    if ass_loaded_path == path and ass_loaded_signature == signature and ass_sub_id and not ass_reload_pending then
+        sync_smooth_fps_filter()
+        return
+    end
     if write_ass_file(path) then
-        load_ass_subtitle(path)
+        load_ass_subtitle(path, signature)
         sync_smooth_fps_filter()
     end
 end
@@ -442,7 +485,7 @@ mp.register_event('playback-restart', function(event)
     if event.error then
         return msg.error(event.error)
     end
-    if ENABLED and COMMENTS ~= nil then
+    if ENABLED and COMMENTS ~= nil and not ass_reload_pending then
         render()
     end
 end)
