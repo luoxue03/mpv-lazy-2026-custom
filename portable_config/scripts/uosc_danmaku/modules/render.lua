@@ -244,19 +244,9 @@ end
 
 local function load_ass_subtitle(path, signature)
     local old_id = ass_sub_id or (ass_sub_path and find_sub_track_id_by_path(ass_sub_path))
-    if old_id and ass_loaded_path == path then
-        local ok = pcall(mp.commandv, "sub-reload", old_id)
-        if ok then
-            ass_sub_id = old_id
-            ass_loaded_signature = signature
-            return
-        end
-    end
+    local primary_sid = mp.get_property_native("sid", false)
+    if primary_sid == old_id then primary_sid = false end
     ass_reload_pending = true
-    if old_id then
-        mp.commandv("sub-remove", old_id)
-        ass_sub_id = nil
-    end
     if not saved_secondary_state then
         saved_secondary_state = {
             sid = mp.get_property_native("secondary-sid"),
@@ -264,8 +254,13 @@ local function load_ass_subtitle(path, signature)
             ass_override = mp.get_property_native("secondary-sub-ass-override"),
         }
     end
-    mp.commandv("sub-add", path, "auto", "uosc_danmaku")
+    if old_id then mp.commandv("sub-remove", old_id) end
+    -- Wait for mpv to register the new track before restoring the selections.
+    mp.commandv("sync", "sub-add", path, "auto", "uosc_danmaku")
     ass_sub_id = find_sub_track_id_by_path(path)
+    if mp.get_property_native("sid", false) ~= primary_sid then
+        mp.set_property_native("sid", primary_sid)
+    end
     if ass_sub_id then
         mp.set_property_native("secondary-sub-ass-override", "yes")
         mp.set_property_native("secondary-sid", ass_sub_id)
